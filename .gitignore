@@ -17,6 +17,7 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+/.idea
 
 client/node_modules
 client/dist
