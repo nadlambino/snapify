@@ -42,7 +42,6 @@ export default function Form(props: FormProps) {
 
   return (
     <Dialog
-      className="dark-bg"
       fullScreen
       open={open}
       onClose={handleClose}
