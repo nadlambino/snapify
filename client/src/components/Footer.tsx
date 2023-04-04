@@ -2,6 +2,7 @@ import { useState } from 'react'
 import {Grid, Fab} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Form from './Form';
+import CreateTodo from './Todo/Create';
 
 export default function Footer() {
   
@@ -21,7 +22,7 @@ export default function Footer() {
         title="Create your task"
         show={open} 
         closeCallback={handleClose}>
-
+        <CreateTodo />
       </Form>
       <Grid container justifyContent="center" position="absolute" bottom={20}>
         <Grid item xs={12} lg={8} container justifyContent="end" alignItems="end" position="relative" right={20}>
