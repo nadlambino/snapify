@@ -1,16 +1,18 @@
 import { useState } from 'react'
 import './css/App.css'
+import { Grid, Typography } from '@mui/material'
+import Header from './components/Header'
+import Footer from './components/Footer'
+import Feed from './components/Feed'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div className="App">
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-      </div>
+      <Header />
+      <Feed />
+      <Footer />
     </div>
   )
 }
