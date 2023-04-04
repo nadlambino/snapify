@@ -1,14 +1,35 @@
+import { useState } from 'react'
 import {Grid, Fab} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
+import Form from './Form';
 
 export default function Footer() {
+  
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
   return (
-    <Grid container justifyContent="center" position="absolute" bottom={20}>
-      <Grid item xs={12} lg={8} container justifyContent="end" alignItems="end" position="relative" right={20}>
-        <Fab color="primary" aria-label="add">
-          <AddIcon />
-        </Fab>
+    <>
+      <Form 
+        title="Create your task"
+        show={open} 
+        closeCallback={handleClose}>
+
+      </Form>
+      <Grid container justifyContent="center" position="absolute" bottom={20}>
+        <Grid item xs={12} lg={8} container justifyContent="end" alignItems="end" position="relative" right={20}>
+          <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
+            <AddIcon />
+          </Fab>
+        </Grid>
       </Grid>
-    </Grid>
+    </>
   )
 }

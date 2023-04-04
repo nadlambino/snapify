@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './css/App.css'
-import { Grid, Typography } from '@mui/material'
 import Header from './components/Header'
 import Footer from './components/Footer'
 import Feed from './components/Feed'
