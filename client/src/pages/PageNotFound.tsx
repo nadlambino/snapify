@@ -7,7 +7,7 @@ export default function PageNotFound() {
     <div className="App">
       <Header />
       <Grid container justifyContent="center" alignItems="center" position="fixed" height="calc(100vh - 56px)">
-        <Grid item xs={12} lg={8} margin={3} textAlign="center">
+        <Grid item xs={12} textAlign="center">
           <Typography variant="h5">The page you are trying to visit might be broken or not existing</Typography>
         </Grid>
       </Grid>
