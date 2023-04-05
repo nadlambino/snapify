@@ -1,5 +1,5 @@
 import { useState, useEffect, Ref, forwardRef, ReactElement, ReactNode } from 'react'
-import { Button, Dialog, AppBar, Toolbar, Slide, Typography, IconButton } from '@mui/material'
+import { Button, Dialog, AppBar, Toolbar, Slide, Typography, IconButton, Grid } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { TransitionProps } from '@mui/material/transitions'
 
@@ -48,23 +48,31 @@ export default function Form(props: FormProps) {
       TransitionComponent={Transition}
     >
       <AppBar sx={{ position: 'relative' }}>
-        <Toolbar>
-          <IconButton
-            edge="start"
-            color="inherit"
-            onClick={handleClose}
-            aria-label="close">
-            <CloseIcon />
-          </IconButton>
-          <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
-            {title && title}
-          </Typography>
-          <Button autoFocus color="inherit" onClick={handleClose}>
-            SAVE
-          </Button>
-        </Toolbar>
+        <Grid container justifyContent="center">
+          <Grid item xs={8}>
+            <Toolbar>
+              <IconButton
+                edge="start"
+                color="inherit"
+                onClick={handleClose}
+                aria-label="close">
+                <CloseIcon />
+              </IconButton>
+              <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+                {title && title}
+              </Typography>
+              <Button autoFocus color="inherit" onClick={handleClose}>
+                SAVE
+              </Button>
+            </Toolbar>
+          </Grid>
+        </Grid>
       </AppBar>
-      {children && children}
+      <Grid container justifyContent="center">
+        <Grid item xs={8}>
+          {children && children}
+        </Grid>
+      </Grid>
     </Dialog>
   );
 }
