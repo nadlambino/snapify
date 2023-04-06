@@ -22,7 +22,7 @@ const userSchema = new Schema({
       type: String,
       required: true
     },
-    deleteAt: {
+    deletedAt: {
       type: Date,
       default: null
     }
