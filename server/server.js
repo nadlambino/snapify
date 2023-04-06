@@ -2,11 +2,14 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
-const router = require('./routes');
+const router = require('./routes')
 const cors = require('cors')
+const parser = require('body-parser')
 
 app.use(cors())
 app.use(express.json())
+app.use(parser.urlencoded({extended: false}))
+app.use(parser.json())
 app.use(router)
 
 mongoose.connect(process.env.MONGO_URI)
