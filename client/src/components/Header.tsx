@@ -1,6 +1,4 @@
 import { Grid, AppBar, Box, Toolbar, Typography, Button } from '@mui/material'
-import IconButton from '@mui/material/IconButton'
-import MenuIcon from '@mui/icons-material/Menu'
 import { Link } from 'react-router-dom';
 
 export default function Header() {
@@ -10,25 +8,24 @@ export default function Header() {
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static">
             <Grid container justifyContent="center">
-              <Grid item xs={8}>
+              <Grid item xs={12} md={8}>
                 <Toolbar>
-                  <IconButton
-                    size="large"
-                    edge="start"
-                    color="inherit"
-                    aria-label="menu"
-                    sx={{ mr: 2 }}
-                  >
-                    <MenuIcon />
-                  </IconButton>
-                  <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                    News
-                  </Typography>
-                  <Link to="/auth" className='btn-link'>
-                    <Button color="inherit">
-                    Sign In
-                    </Button>
-                  </Link>
+                  <Grid container justifyContent="space-between">
+                    <Grid item>
+                      <Link to="/" className='btn-link'>
+                        <Typography variant='h6' component='div'>
+                          Feed
+                        </Typography>
+                      </Link>
+                    </Grid>
+                    <Grid item>
+                      <Link to="/auth" className='btn-link'>
+                        <Button color="inherit">
+                        Sign In
+                        </Button>
+                      </Link>
+                    </Grid>
+                  </Grid>
                 </Toolbar>
               </Grid>
             </Grid>

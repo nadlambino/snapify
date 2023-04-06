@@ -49,7 +49,7 @@ export default function Form(props: FormProps) {
     >
       <AppBar sx={{ position: 'relative' }}>
         <Grid container justifyContent="center">
-          <Grid item xs={8}>
+          <Grid item xs={12} md={8}>
             <Toolbar>
               <IconButton
                 edge="start"
@@ -69,7 +69,7 @@ export default function Form(props: FormProps) {
         </Grid>
       </AppBar>
       <Grid container justifyContent="center">
-        <Grid item xs={8}>
+        <Grid item xs={12} md={8}>
           {children && children}
         </Grid>
       </Grid>

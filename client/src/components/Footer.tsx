@@ -25,7 +25,7 @@ export default function Footer() {
         <CreateTodo />
       </Form>
       <Grid container justifyContent="center" position="absolute" bottom={20}>
-        <Grid item xs={12} lg={8} container justifyContent="end" alignItems="end" position="relative" right={20}>
+        <Grid item xs={12} md={8} container justifyContent="end" alignItems="end" position="relative" right={20}>
           <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
             <AddIcon />
           </Fab>
