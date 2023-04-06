@@ -2,15 +2,18 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const app = express()
-const router = require('./routes')
 const cors = require('cors')
 const parser = require('body-parser')
+
+const router = require('./routes/user.js')
 
 app.use(cors())
 app.use(express.json())
 app.use(parser.urlencoded({extended: false}))
 app.use(parser.json())
-app.use(router)
+
+app.get('/', (req, res) => res.json('Welcome to Feed API'))
+app.use('/users', router)
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
