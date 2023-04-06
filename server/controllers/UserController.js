@@ -19,7 +19,7 @@ const getUsers = async (req, res) => {
     const retrievables = ['_id', 'firstName', 'lastName', 'gender', 'email', 'createdAt', 'updatedAt', 'deletedAt']
     const filters = global._.pick(req.query, retrievables)
     const page = req.query?.page || 1
-    const limit = 1
+    const limit = 10
     const skip = (page * limit) - 1
     const users = await User.find({...filters}, retrievables.join(' '), {limit, skip}).exec()
 
