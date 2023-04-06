@@ -16,12 +16,12 @@ function Auth() {
     <div className="App">
       <Header />
       <Grid container justifyContent="center">
-        <Grid item container direction="column" justifyContent="center" xs={4}>
+        <Grid item container direction="column" justifyContent="center" xs={12} md={6} lg={4}>
           <>
           {
             isSignIn ? 
               <SignIn>
-                <Typography top={-10} position="relative">
+                <Typography position="relative">
                   No account yet? &nbsp;
                   <Link component="button" underline="none" onClick={handleFormToggle}>Sign Up</Link>
                 </Typography>
