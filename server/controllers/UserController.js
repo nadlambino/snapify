@@ -1,16 +1,10 @@
 const User = require('../models/UserModel')
-const bcrypt = require('bcrypt')
+const { hash } = require('../services/EncryptionService')
 
 const createUser = async (req, res) => {
     try {
         const userData = req.body
-        
-        await bcrypt.genSalt(10)
-          .then(salt => bcrypt.hash(userData.password, salt))
-          .then(hash => {
-            userData.password = hash
-          })
-
+        userData.password = await hash(userData.password)
         const user = await User.create(userData)
 
         res.status(200).json(user)
