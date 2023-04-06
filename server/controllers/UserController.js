@@ -1,3 +1,4 @@
+const { retrievables } = require('../constants/userConstants')
 const User = require('../models/UserModel')
 const { hash } = require('../services/EncryptionService')
 
@@ -16,7 +17,6 @@ const createUser = async (req, res) => {
 
 const getUsers = async (req, res) => {
   try {
-    const retrievables = ['_id', 'firstName', 'lastName', 'gender', 'email', 'createdAt', 'updatedAt', 'deletedAt']
     const filters = global._.pick(req.query, retrievables)
     const page = req.query?.page || 1
     const limit = 10
