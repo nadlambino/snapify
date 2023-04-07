@@ -16,7 +16,19 @@ const authorize = async (data) => {
   return await jwt.sign({...data}, secret, {expiresIn: expiration})
 }
 
+const getExpiry = async (token) => {
+  const decoded = await jwt.decode(token, { complete: true })
+  
+  if (decoded.payload.exp) {
+    const expTimestamp = decoded.payload.exp
+    return new Date(expTimestamp * 1000)
+  } else {
+    return null
+  }
+}
+
 module.exports = {
   verify,
-  authorize
+  authorize,
+  getExpiry
 }

@@ -10,13 +10,13 @@ const signIn = async (req, res) => {
     const user = await User.findOne({email}).exec()
     
     if (!user) {
-      return res.status(404).json({error: 'Incorrect credentials'})
+      return res.status(400).json({error: 'Incorrect credentials'})
     }
   
     const isValid = await EncryptionService.verify(password, user.password)
   
     if (!isValid) {
-      return res.status(404).json({error: 'Incorrect credentials'})
+      return res.status(400).json({error: 'Incorrect credentials'})
     }
 
     const token = await AuthService.authorize({email: user.email})
@@ -25,7 +25,9 @@ const signIn = async (req, res) => {
       throw new Error('Authentication failed')
     }
 
-    return res.status(200).json({user: global._.pick(user, retrievables), token})
+    const expiration = await AuthService.getExpiry(token)
+
+    return res.status(200).json({user: global._.pick(user, retrievables), access: {token, expiration}})
   } catch (error) {
     res.status(400).json({error: 'Authentication failed'})
   }
@@ -42,7 +44,9 @@ const signUp = async (req, res) => {
       throw new Error('Authentication failed')
     }
 
-    return res.status(200).json({user: global._.pick(user, retrievables), token})
+    const expiration = await AuthService.getExpiry(token)
+
+    return res.status(200).json({user: global._.pick(user, retrievables), access: {token, expiration}})
   } catch (error) {
     res.status(400).json({error: 'Sign up failed'})
   }
