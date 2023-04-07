@@ -1,6 +1,6 @@
 const AuthService = require('./../services/AuthService')
 
-const unauthorizedRoutes = ['/auth']
+const unauthorizedRoutes = ['/signin', '/signup', '/users']
 
 const authMiddleware = async (req, res, next) => {
   try {

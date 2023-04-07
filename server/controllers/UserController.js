@@ -1,16 +1,14 @@
 const { retrievables } = require('../constants/userConstants')
 const User = require('../models/UserModel')
-const { hash } = require('../services/EncryptionService')
+const UserService = require('./../services/UserService')
 
 const createUser = async (req, res) => {
     try {
-        const userData = req.body
-        userData.password = await hash(userData.password)
-        const user = await User.create(userData)
+        const user = await UserService.createUser(req.body)
 
         res.status(201).json(user)
     } catch (error) {
-        res.status(400).json({error: `Failed to create an account.`})
+        res.status(400).json({error: `Failed to create a user`})
         console.log(error)
     }
 }
@@ -25,7 +23,7 @@ const getUsers = async (req, res) => {
 
     res.status(200).json(users)
   } catch (error) {
-    res.status(400).json({error: `Failed to get users.`})
+    res.status(400).json({error: `Failed to get users`})
     console.log(error)
   }
 }
