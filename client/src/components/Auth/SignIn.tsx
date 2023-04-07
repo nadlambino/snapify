@@ -1,14 +1,16 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { setAuth } from './../../store/modules/auth'
 import { Grid, TextField, Button } from '@mui/material'
 import UnstrictReactPropType from '../../types/UnstrictReactPropType'
 import { signIn } from '../../api/auth'
+import { useNavigate } from 'react-router-dom'
 
 export default function SignIn(props: UnstrictReactPropType) {
-  const auth = useSelector((state: any) => state.auth)
-  const [cookies, setCookie] = useCookies(['token'])
+  const auth = useSelector((state: any) => (state.auth))
+  const navigate = useNavigate()
+  const [cookies, setCookie] = useCookies()
 
   const [form, setForm] = useState<{email: string | null, password: string | null}>({
     email: null,
@@ -27,6 +29,7 @@ export default function SignIn(props: UnstrictReactPropType) {
     if (user) {
       dispatch(setAuth(user))
       setCookie('token', user.access.token, {expires: new Date(user.access.expiration)})
+      navigate('/')
     }
   }
 
