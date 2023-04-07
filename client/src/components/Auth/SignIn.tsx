@@ -1,13 +1,21 @@
 import { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useCookies } from 'react-cookie'
+import { setAuth } from './../../store/modules/auth'
 import { Grid, TextField, Button } from '@mui/material'
 import UnstrictReactPropType from '../../types/UnstrictReactPropType'
 import { signIn } from '../../api/auth'
 
 export default function SignIn(props: UnstrictReactPropType) {
+  const auth = useSelector((state: any) => state.auth)
+  const [cookies, setCookie] = useCookies(['token'])
+
   const [form, setForm] = useState<{email: string | null, password: string | null}>({
     email: null,
     password: null
   })
+
+  const dispatch = useDispatch()
 
   const handleFormChange = (key: string, value: string | null) => {
     setForm((prevState) => ({...prevState, [key]: value}))
@@ -15,7 +23,11 @@ export default function SignIn(props: UnstrictReactPropType) {
 
   const handleSignUp = async () => {
     const user = await signIn(form)
-    console.log(user)
+
+    if (user) {
+      dispatch(setAuth(user))
+      setCookie('token', user.access.token, {expires: new Date(user.access.expiration)})
+    }
   }
 
   return (
