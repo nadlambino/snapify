@@ -1,18 +1,34 @@
+import { useState } from 'react'
 import { Grid, TextField, Button } from '@mui/material'
 import UnstrictReactPropType from '../../types/UnstrictReactPropType'
+import { signIn } from '../../api/auth'
 
 export default function SignIn(props: UnstrictReactPropType) {
+  const [form, setForm] = useState<{email: string | null, password: string | null}>({
+    email: null,
+    password: null
+  })
+
+  const handleFormChange = (key: string, value: string | null) => {
+    setForm((prevState) => ({...prevState, [key]: value}))
+  }
+
+  const handleSignUp = async () => {
+    const user = await signIn(form)
+    console.log(user)
+  }
+
   return (
     <Grid item xs={3}>
       <Grid container justifyContent="center" direction="column" padding={5} gap={2}>
         <Grid item xs={12}>
-          <TextField variant="outlined" label="Email" type="email" fullWidth />
+          <TextField variant="outlined" label="Email" type="email" fullWidth onChange={(e) => handleFormChange('email', e.target.value)} />
         </Grid>
         <Grid item xs={12}>
-          <TextField variant="outlined" label="Password" type="password" fullWidth />
+          <TextField variant="outlined" label="Password" type="password" fullWidth onChange={(e) => handleFormChange('password', e.target.value)} />
         </Grid>
         <Grid item xs={12}>
-          <Button variant="contained" fullWidth className="btn">Sign In</Button>
+          <Button variant="contained" fullWidth className="btn" onClick={handleSignUp}>Sign In</Button>
         </Grid>
         <Grid item xs={12}>
           {props.children && props.children}

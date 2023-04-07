@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Footer from "../components/Footer"
 import Header from "../components/Header"
-import { Grid, Button, Typography, Link } from '@mui/material'
+import { Grid, Typography, Link } from '@mui/material'
 import SignIn from "../components/Auth/SignIn"
 import SignUp from "../components/Auth/SignUp"
 

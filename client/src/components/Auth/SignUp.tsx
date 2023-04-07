@@ -1,7 +1,7 @@
 import { Grid, TextField, Button, RadioGroup, Radio, FormControl, FormLabel, FormControlLabel } from '@mui/material'
 import UnstrictReactPropType from '../../types/UnstrictReactPropType'
 import { useState } from 'react'
-import { createUser } from '../../api/user'
+import { signUp } from '../../api/auth'
 
 interface IUserForm {
   firstName: string | null,
@@ -26,8 +26,9 @@ export default function SignUp(props: UnstrictReactPropType) {
     setForm((prevState) => ({...prevState, [key]: value}))
   }
 
-  const handleSignUp = () => {
-    createUser(form)
+  const handleSignUp = async () => {
+    const user = await signUp(form)
+    console.log(user)
   }
 
   return (
