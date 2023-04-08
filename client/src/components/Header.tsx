@@ -1,7 +1,18 @@
 import { Grid, AppBar, Box, Toolbar, Typography, Button } from '@mui/material'
 import { Link } from 'react-router-dom';
+import { isAuthenticated } from './../utils/auth'
+import { useCookies } from 'react-cookie'
+import { useNavigate } from 'react-router-dom'
 
 export default function Header() {
+  const [cookies, setCookies, removeCookie] = useCookies()
+  const navigate = useNavigate()
+  
+  const handleSignOut = () => {
+    removeCookie('token')
+    navigate('/auth')
+  }
+
   return (
     <Grid container justifyContent="center">
       <Grid item xs={12}>
@@ -18,13 +29,22 @@ export default function Header() {
                         </Typography>
                       </Link>
                     </Grid>
-                    <Grid item>
-                      <Link to="/auth" className='btn-link'>
-                        <Button color="inherit">
-                        Sign In
+                    { 
+                      isAuthenticated() ?
+                      <Grid item>
+                        <Button color="inherit" onClick={handleSignOut}>
+                          Sign Out
                         </Button>
-                      </Link>
-                    </Grid>
+                      </Grid>
+                      : 
+                      <Grid item>
+                        <Link to="/auth" className='btn-link'>
+                          <Button color="inherit">
+                            Sign In
+                          </Button>
+                        </Link>
+                      </Grid>
+                    }
                   </Grid>
                 </Toolbar>
               </Grid>
