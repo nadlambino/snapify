@@ -3,10 +3,11 @@ import {Grid, Fab} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Form from './Form';
 import CreateTodo from './Todo/Create';
+import { isAuthenticated } from '../utils/auth';
 
 export default function Footer() {
-  
   const [open, setOpen] = useState(false);
+  const isAuth = isAuthenticated()
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -17,6 +18,7 @@ export default function Footer() {
   }
 
   return (
+    isAuth &&
     <>
       <Form 
         title="Create your task"

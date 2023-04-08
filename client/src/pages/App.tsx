@@ -5,8 +5,6 @@ import Footer from './../components/Footer'
 import Feed from './../components/Feed'
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <div className="App">
       <Header />

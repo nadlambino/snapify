@@ -2,6 +2,9 @@ import { useState, useEffect, Ref, forwardRef, ReactElement, ReactNode } from 'r
 import { Button, Dialog, AppBar, Toolbar, Slide, Typography, IconButton, Grid } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { TransitionProps } from '@mui/material/transitions'
+import { isAuthenticated } from '../utils/auth'
+import { useNavigate } from 'react-router-dom'
+import { useCookies } from 'react-cookie'
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -21,13 +24,20 @@ interface FormProps {
 
 export default function Form(props: FormProps) {
   const { title, show, closeCallback, children } = props
-  const [open, setOpen] = useState(show);
+  const [open, setOpen] = useState(show)
+  const navigate = useNavigate()
+  const [cookies] = useCookies()
+  const isAuth = isAuthenticated()
 
   useEffect(() => {
+    if (!isAuth) {
+      return navigate('/auth')
+    }
+
     if (show) {    
       handleClickOpen()
     }
-  }, [show])
+  }, [show, cookies])
 
   const handleClickOpen = () => {
     setOpen(true)

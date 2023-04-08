@@ -1,6 +1,6 @@
 import { ReactNode } from 'react'
 
 export default interface UnstrictReactPropType {
-  children?: ReactNode,
-  [key: string]: String | Number | ReactNode,
+  children?: String | ReactNode,
+  [key: string]: String | Number | ReactNode | Function | void ,
 }
