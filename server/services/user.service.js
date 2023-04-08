@@ -1,5 +1,5 @@
-const User = require('./../models/UserModel')
-const EncryptionService = require('./EncryptionService')
+const User = require('../models/user.model')
+const EncryptionService = require('./encryption.service')
 
 const createUser = async (data) => {
   try {

@@ -1,6 +1,6 @@
-const { retrievables } = require('../constants/userConstants')
-const User = require('../models/UserModel')
-const UserService = require('./../services/UserService')
+const { retrievables } = require('../constants/user.constant')
+const User = require('../models/user.model')
+const UserService = require('../services/user.service')
 
 const createUser = async (req, res) => {
     try {

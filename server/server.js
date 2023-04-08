@@ -5,10 +5,10 @@ const mongoose = require('mongoose')
 const app = express()
 const cors = require('cors')
 const parser = require('body-parser')
-const authMiddleware = require('./middlewares/authMiddleware.js')
+const authMiddleware = require('./middlewares/auth.middleware')
 
-const userRoutes = require('./routes/user.js')
-const authRoutes = require('./routes/auth.js')
+const userRoutes = require('./routes/user.route')
+const authRoutes = require('./routes/auth.route')
 
 app.use(cors())
 app.use(express.json())

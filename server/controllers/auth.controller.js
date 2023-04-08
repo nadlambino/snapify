@@ -1,8 +1,8 @@
-const User = require('../models/UserModel')
-const EncryptionService =  require('../services/EncryptionService')
-const AuthService = require('./../services/AuthService')
-const UserService = require('./../services/UserService')
-const { retrievables } = require('../constants/userConstants')
+const User = require('../models/user.model')
+const EncryptionService =  require('../services/encryption.service')
+const AuthService = require('../services/auth.service')
+const UserService = require('../services/user.service')
+const { retrievables } = require('../constants/user.constant')
 
 const signIn = async (req, res) => {
   try {
