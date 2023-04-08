@@ -1,4 +1,3 @@
-import React from 'react';
 import { Navigate } from 'react-router-dom';
 import { useCookies } from 'react-cookie'
 import UnstrictReactPropType from '../types/UnstrictReactPropType';
