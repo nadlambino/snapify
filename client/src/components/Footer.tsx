@@ -2,7 +2,7 @@ import { useState } from 'react'
 import {Grid, Fab} from '@mui/material';
 import AddIcon from '@mui/icons-material/Add';
 import Form from './Form';
-import CreateTodo from './Todo/Create';
+import CreateTodo from './Post/Create';
 import { isAuthenticated } from '../utils/auth';
 
 export default function Footer() {
@@ -21,7 +21,7 @@ export default function Footer() {
     isAuth &&
     <>
       <Form 
-        title="Create your task"
+        title="What's Up!"
         show={open} 
         closeCallback={handleClose}>
         <CreateTodo />

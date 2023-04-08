@@ -3,21 +3,21 @@ import { Grid, TextField, Radio, RadioGroup, FormControl, FormControlLabel, Form
 export default function Create() {
 
   return (
-    <Grid container gap={2} padding={3}>
-      <Grid item xs={12}>
-        <TextField id="standard-basic" label="Title" variant="standard" fullWidth />
+    <Grid container gap={2} padding={3} justifyContent="center">
+      <Grid item xs={12} md={8}>
+        <TextField label="Emoji" variant="outlined" fullWidth type="emoji"/>
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} md={8}>
         <TextField
           id="outlined-multiline-flexible"
           label="Description"
-          variant="standard"
+          variant="outlined"
           multiline
           rows={4}
           fullWidth
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} md={8}>
         <FormControl>
           <FormLabel id="status">Status</FormLabel>
           <RadioGroup row  aria-labelledby="status" name="row-radio-buttons-group">
