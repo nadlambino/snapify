@@ -1,5 +1,4 @@
 const Post = require('./../models/post.model')
-const CircularJSON = require('circular-json')
 
 const createPost = async (req, res) => {
   try {
@@ -41,7 +40,7 @@ const commentPost = async (req, res) => {
   try {
     const { _id: user } = req.auth
     const post = await Post.findById(req.params.id)
-    
+
     post.comments.push({...req.body, user})
     await post.save();
 
