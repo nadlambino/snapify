@@ -2,7 +2,8 @@ const Post = require('./../models/post.model')
 
 const createPost = async (req, res) => {
   try {
-    const post = await Post.create(req.body)
+    const { _id: user } = req.auth
+    const post = await Post.create({...req.body, user})
 
     res.status(201).json(post)
   } catch (error) {

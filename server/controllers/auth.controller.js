@@ -19,7 +19,7 @@ const signIn = async (req, res) => {
       return res.status(400).json({error: 'Incorrect credentials'})
     }
 
-    const token = await AuthService.authorize({email: user.email})
+    const token = await AuthService.authorize({_id: user._id, email: user.email})
 
     if (!token) {
       throw new Error('Authentication failed')
@@ -37,7 +37,7 @@ const signUp = async (req, res) => {
   try {
     const user = await UserService.createUser(req.body, true)
 
-    let token = await AuthService.authorize({email: user.email})
+    let token = await AuthService.authorize({_id: user._id, email: user.email})
 
     if (!token) {
       await User.deleteOne({_id: user._id})
