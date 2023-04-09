@@ -15,7 +15,6 @@ app.use(cors())
 app.use(express.json())
 app.use(parser.urlencoded({extended: false}))
 app.use(parser.json())
-app.use(authMiddleware)
 
 app.get('/', (req, res) => res.json('Welcome to Feed API'))
 app.use('/', authRouter)
