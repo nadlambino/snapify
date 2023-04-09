@@ -1,6 +1,6 @@
 export default interface PostType {
   _id: string,
-  user: string;
+  user: UserType;
   content: string,
   comments: CommentType[],
   commentsCount: number,
@@ -9,6 +9,13 @@ export default interface PostType {
   deletedAt: string | null,
   updateAt: string,
   createdAt: string
+}
+
+interface UserType {
+  _id: String,
+  firstName: String,
+  lastName: String,
+  email: String
 }
 
 interface ReactType {

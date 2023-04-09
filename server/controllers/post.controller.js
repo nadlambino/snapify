@@ -40,7 +40,10 @@ const getPosts = async (req, res) => {
               }
             }, 0] },
             commentsCount: {$size: '$comments'},
-            reactsCount: {$size: '$reacts'}
+            reactsCount: {$size: '$reacts'},
+            createdAt: 1,
+            updatedAt: 1,
+            deletedAt: 1
           }
         },
         {
