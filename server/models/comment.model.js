@@ -17,9 +17,11 @@ const commentSchema = new Schema({
       default: null
     }
   }, {
-    timestamps: true
+    timestamps: true,
+    collection: 'posts'
 });
 
-export default commentSchema
-
-module.exports = mongoose.model('Comment', commentSchema)
+module.exports = {
+  Comment: mongoose.model('Comment', commentSchema),
+  commentSchema
+}

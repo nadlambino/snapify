@@ -17,9 +17,11 @@ const reactSchema = new Schema({
       default: null
     }
   }, {
-    timestamps: true
+    timestamps: true,
+    collection: 'posts'
 });
 
-export default reactSchema
-
-module.exports = mongoose.model('Comment', reactSchema)
+module.exports = {
+  React: mongoose.model('React', reactSchema),
+  reactSchema
+}

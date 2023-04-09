@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
-const { default: commentSchema } = require('./comment.model');
-const { default: reactSchema } = require('./react.model');
 const { Schema } = mongoose;
+const { reactSchema } = require('./react.model')
+const { commentSchema } = require('./comment.model')
 
 const postSchema = new Schema({
     content: {
