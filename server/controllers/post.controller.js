@@ -16,10 +16,29 @@ const getPosts = async (req, res) => {
   try {
     const posts = await Post.aggregate([
         {
+          $lookup: {
+            from: 'users',
+            localField: 'user',
+            foreignField: '_id',
+            as: 'user'
+          }
+        },
+        {
           $project: {
             content: 1,
             comments: 1,
             reacts: 1,
+            user: { $arrayElemAt: [{
+              $map: {
+                input: '$user',
+                in: {
+                  _id: '$$this._id',
+                  firstName: '$$this.firstName',
+                  lastName: '$$this.lastName',
+                  email: '$$this.email'
+                }
+              }
+            }, 0] },
             commentsCount: {$size: '$comments'},
             reactsCount: {$size: '$reacts'}
           }
