@@ -2,6 +2,7 @@ import { Grid, TextField, Paper, Button } from "@mui/material"
 import EmojiPicker, { EmojiClickData, EmojiStyle } from "emoji-picker-react"
 import { useState, useEffect } from "react"
 import FCWithProps from '../../types/FCWithProps'
+import { createPost } from "../../api/post"
 
 const Create: React.FC<FCWithProps> = (props) => {
   const [mood, setMood] = useState("")
@@ -25,7 +26,9 @@ const Create: React.FC<FCWithProps> = (props) => {
   }
 
   const handleSave = () => {
-    console.log('Saving...')
+    if (mood.length > 0) {
+      createPost({content: mood})
+    }
   }
 
   return (
