@@ -7,8 +7,9 @@ const cors = require('cors')
 const parser = require('body-parser')
 const authMiddleware = require('./middlewares/auth.middleware')
 
-const userRoutes = require('./routes/user.route')
-const authRoutes = require('./routes/auth.route')
+const userRouter = require('./routes/user.route')
+const authRouter = require('./routes/auth.route')
+const postRouter = require('./routes/post.route')
 
 app.use(cors())
 app.use(express.json())
@@ -17,8 +18,9 @@ app.use(parser.json())
 app.use(authMiddleware)
 
 app.get('/', (req, res) => res.json('Welcome to Feed API'))
-app.use('/', authRoutes)
-app.use('/users', userRoutes)
+app.use('/', authRouter)
+app.use('/post', postRouter)
+app.use('/users', userRouter)
 
 mongoose.connect(process.env.MONGO_URI)
     .then(() => {
