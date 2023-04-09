@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { setAuth } from './../../store/modules/auth'

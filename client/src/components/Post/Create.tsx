@@ -1,12 +1,15 @@
-import { Grid, TextField, Paper, Button } from "@mui/material"
+import { Grid, Button, Paper } from "@mui/material"
 import EmojiPicker, { EmojiClickData, EmojiStyle } from "emoji-picker-react"
 import { useState, useEffect } from "react"
+import { useDispatch } from "react-redux"
 import FCWithProps from '../../types/FCWithProps'
 import { createPost } from "../../api/post"
+import { setReloadFeed } from "../../store/modules/feed"
 
 const Create: React.FC<FCWithProps> = (props) => {
   const [mood, setMood] = useState("")
   const characterLimit = 50
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (props.saving) {
@@ -27,7 +30,9 @@ const Create: React.FC<FCWithProps> = (props) => {
 
   const handleSave = () => {
     if (mood.length > 0) {
-      createPost({content: mood})
+      createPost({content: mood}).then(() => {
+        dispatch(setReloadFeed(true))
+      })
     }
   }
 

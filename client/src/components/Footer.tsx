@@ -27,7 +27,7 @@ export default function Footer() {
         closeCallback={handleClose}
         component={CreateTodo}>
       </Form>
-      <Grid container justifyContent="center" position="absolute" bottom={20}>
+      <Grid container justifyContent="center" position="fixed" bottom={20}>
         <Grid item xs={12} md={6} container justifyContent="end" alignItems="end" position="relative" right={20}>
           <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
             <AddIcon />

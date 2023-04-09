@@ -9,12 +9,21 @@ dayjs.extend(relativeTime)
 declare global {
   interface Window {
     axios: any;
-    apiUrl: string
+    apiUrl: string,
+    reload: Function
   }
 }
 
 if (!window.axios) {
   window.axios = axios
+
+  axios.interceptors.response.use(
+    response => response,
+    error => {
+      console.log('An error occurred:', error.message);
+      return Promise.reject(error);
+    }
+  );
 }
 
 if (!window.apiUrl) {

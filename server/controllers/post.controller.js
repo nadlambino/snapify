@@ -47,7 +47,7 @@ const getPosts = async (req, res) => {
           }
         },
         {
-          $sort: { reactsCount: -1, commentsCount: -1 },
+          $sort: {  createdAt: -1, commentsCount: -1, reactsCount: -1 },
         }
       ])
 
