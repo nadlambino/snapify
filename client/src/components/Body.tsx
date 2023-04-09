@@ -4,7 +4,7 @@ import Feed from './Post/Feed'
 export default function Body() {
   return (
     <Grid container justifyContent="center">
-      <Grid item container xs={12} margin={3}>
+      <Grid item container xs={12} md={6} margin={3}>
         <Feed />
       </Grid>
     </Grid>
