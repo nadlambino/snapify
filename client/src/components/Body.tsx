@@ -1,10 +1,11 @@
 import { Grid, Typography } from '@mui/material'
+import Feed from './Post/Feed'
 
 export default function Body() {
   return (
     <Grid container justifyContent="center">
-      <Grid item container xs={12} md={8} margin={3}>
-        <Typography variant="h5">Hello World</Typography>
+      <Grid item container xs={12} margin={3}>
+        <Feed />
       </Grid>
     </Grid>
   )
