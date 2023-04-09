@@ -21,10 +21,11 @@ export default function Footer() {
     isAuth &&
     <>
       <Form 
-        title="What's Up!"
+        title="What's your mood?"
+        save="POST"
         show={open} 
-        closeCallback={handleClose}>
-        <CreateTodo />
+        closeCallback={handleClose}
+        component={CreateTodo}>
       </Form>
       <Grid container justifyContent="center" position="absolute" bottom={20}>
         <Grid item xs={12} md={8} container justifyContent="end" alignItems="end" position="relative" right={20}>

@@ -5,6 +5,7 @@ import { TransitionProps } from '@mui/material/transitions'
 import { isAuthenticated } from '../utils/auth'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
+import FCWithProps from '../types/FCWithProps'
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -17,14 +18,18 @@ const Transition = forwardRef(function Transition(
 
 interface FormProps {
   title?: String,
+  save?: String,
   show: boolean,
   closeCallback?: Function,
-  children?: ReactNode
+  children?: ReactNode,
+  component: React.FC<FCWithProps>
 }
 
 export default function Form(props: FormProps) {
-  const { title, show, closeCallback, children } = props
+  const { title, show, closeCallback, save } = props
+  const Component = props.component
   const [open, setOpen] = useState(show)
+  const [saving, setSaving] = useState(false)
   const navigate = useNavigate()
   const [cookies] = useCookies()
   const isAuth = isAuthenticated()
@@ -36,6 +41,10 @@ export default function Form(props: FormProps) {
 
     if (show) {    
       handleClickOpen()
+    }
+
+    return () => {
+      setSaving(false)
     }
   }, [show, cookies])
 
@@ -50,16 +59,20 @@ export default function Form(props: FormProps) {
     }
   };
 
+  const handleClickSave = () => {
+    setSaving(true)
+  }
+
   return (
     <Dialog
-      fullScreen
       open={open}
       onClose={handleClose}
       TransitionComponent={Transition}
+      maxWidth="xs"
     >
       <AppBar sx={{ position: 'relative' }}>
         <Grid container justifyContent="center">
-          <Grid item xs={12} md={8}>
+          <Grid item xs={12}>
             <Toolbar>
               <IconButton
                 edge="start"
@@ -68,19 +81,19 @@ export default function Form(props: FormProps) {
                 aria-label="close">
                 <CloseIcon />
               </IconButton>
-              <Typography sx={{ ml: 2, flex: 1 }} variant="h6" component="div">
+              <Typography sx={{ ml: 2, flex: 1, fontSize: 16 }} variant="h6" component="div">
                 {title && title}
               </Typography>
-              <Button autoFocus color="inherit" onClick={handleClose}>
-                SAVE
+              <Button autoFocus color="inherit" onClick={handleClickSave}>
+                {save || 'SAVE'}
               </Button>
             </Toolbar>
           </Grid>
         </Grid>
       </AppBar>
-      <Grid container justifyContent="center">
-        <Grid item xs={12} md={8}>
-          {children && children}
+      <Grid container justifyContent="center" top={70}>
+        <Grid item xs={12}>
+          <Component saving={saving} />
         </Grid>
       </Grid>
     </Dialog>
