@@ -2,13 +2,13 @@ import { useState } from 'react'
 import './../css/App.css'
 import Header from './../components/Header'
 import Footer from './../components/Footer'
-import Feed from './../components/Feed'
+import Body from '../components/Body'
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <Feed />
+      <Body />
       <Footer />
     </div>
   )

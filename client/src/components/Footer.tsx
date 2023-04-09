@@ -18,7 +18,7 @@ export default function Footer() {
   }
 
   return (
-    isAuth &&
+    !isAuth ? <></> :
     <>
       <Form 
         title="What's your mood?"
