@@ -12,7 +12,7 @@ export default function Post(props: {post: PostType}) {
 
   return (
     <Grid item xs={12}>
-      <p className="flex items-center text-gray-700 text-[18px]">
+      <p className="text-gray-700 text-[18px]">
         {`${post.user.firstName} ${post.user.lastName}`}
         <small className="text-gray-500">{moodLabel}</small>
         <span className="text-[26px]">{post.content}</span>
