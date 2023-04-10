@@ -29,6 +29,7 @@ export default function SignIn(props: UnstrictReactPropType) {
     if (user) {
       dispatch(setAuth(user))
       setCookie('token', user.access.token, {expires: new Date(user.access.expiration)})
+      setCookie('user', user.user, {expires: new Date(user.access.expiration)})
       navigate('/')
     }
   }
