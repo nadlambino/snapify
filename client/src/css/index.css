@@ -10,6 +10,7 @@ body {
 
 ::-webkit-scrollbar {
   width: 7px;
+  height: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -18,6 +19,7 @@ body {
  
 ::-webkit-scrollbar-thumb {
   background: #888;
+  border-radius: 10px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -31,4 +33,12 @@ body {
 
 .btn {
   min-height: 50px;
+}
+
+.App {
+  height: 100vh;
+}
+
+.ellipsis {
+  @apply overflow-hidden text-ellipsis whitespace-nowrap block;
 }

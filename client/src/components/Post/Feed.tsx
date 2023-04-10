@@ -16,7 +16,7 @@ export default function Feed() {
   }, [reloadFeed])
 
   return (
-    <Grid container>
+    <Grid item xs={12} container>
     {
       posts && posts.map(post => (
         <Post post={post} key={post._id} />
