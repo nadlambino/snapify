@@ -1,9 +1,9 @@
 import { useState } from 'react'
 import {Grid, Fab} from '@mui/material';
-import AddIcon from '@mui/icons-material/Add';
 import Form from './Form';
-import CreateTodo from './Post/Create';
+import CreateMood from './Mood/Create';
 import { isAuthenticated } from '../utils/auth';
+import AddReactionIcon from '@mui/icons-material/AddReaction';
 
 export default function Footer() {
   const [open, setOpen] = useState(false);
@@ -25,12 +25,12 @@ export default function Footer() {
         save="POST"
         show={open} 
         closeCallback={handleClose}
-        component={CreateTodo}>
+        component={CreateMood}>
       </Form>
       <Grid container justifyContent="center" position="fixed" bottom={20}>
         <Grid item xs={12} md={6} container justifyContent="end" alignItems="end" position="relative" right={20}>
           <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
-            <AddIcon />
+            <AddReactionIcon fontSize='large' style={{fontSize: '38px'}} />
           </Fab>
         </Grid>
       </Grid>
