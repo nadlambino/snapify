@@ -30,19 +30,11 @@ export default function Header() {
                       </Link>
                     </Grid>
                     { 
-                      isAuthenticated() ?
+                      isAuthenticated() &&
                       <Grid item>
                         <Button color="inherit" onClick={handleSignOut}>
                           Sign Out
                         </Button>
-                      </Grid>
-                      : 
-                      <Grid item>
-                        <Link to="/auth" className='btn-link'>
-                          <Button color="inherit">
-                            Sign In
-                          </Button>
-                        </Link>
                       </Grid>
                     }
                   </Grid>
