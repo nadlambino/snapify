@@ -64,7 +64,7 @@ export default function SignUp(props: UnstrictReactPropType) {
           <TextField variant="outlined" label="Confirm Password" type="password" fullWidth onChange={(e) => handleFormChange('confirm', e.target.value)} />
         </Grid>
         <Grid item xs={12}>
-          <Button variant="contained" fullWidth className="btn" onClick={handleSignUp} >Sign Up</Button>
+          <Button variant="contained" fullWidth className="btn bg-primary" onClick={handleSignUp} >Sign Up</Button>
         </Grid>
         <Grid item xs={12}>
           {props.children && props.children}

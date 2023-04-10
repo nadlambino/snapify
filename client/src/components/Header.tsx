@@ -18,7 +18,7 @@ export default function Header() {
       <Grid item xs={12}>
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static">
-            <Grid container justifyContent="center">
+            <Grid container justifyContent="center" className='bg-primary'>
               <Grid item xs={12} md={6}>
                 <Toolbar>
                   <Grid container justifyContent="space-between">

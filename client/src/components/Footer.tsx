@@ -29,8 +29,8 @@ export default function Footer() {
       </Form>
       <Grid container justifyContent="center" position="fixed" bottom={20}>
         <Grid item xs={12} md={6} container justifyContent="end" alignItems="end" position="relative" right={20}>
-          <Fab color="primary" aria-label="add" onClick={handleClickOpen}>
-            <AddReactionIcon fontSize='large' style={{fontSize: '38px'}} />
+          <Fab style={{backgroundColor: '#E74646'}} aria-label="add" onClick={handleClickOpen}>
+            <AddReactionIcon fontSize='large' style={{fontSize: '38px', color: 'white'}} />
           </Fab>
         </Grid>
       </Grid>

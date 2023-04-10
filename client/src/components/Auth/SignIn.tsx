@@ -44,7 +44,7 @@ export default function SignIn(props: UnstrictReactPropType) {
           <TextField variant="outlined" label="Password" type="password" fullWidth onChange={(e) => handleFormChange('password', e.target.value)} />
         </Grid>
         <Grid item xs={12}>
-          <Button variant="contained" fullWidth className="btn" onClick={handleSignUp}>Sign In</Button>
+          <Button variant="contained" fullWidth className="btn bg-primary" onClick={handleSignUp}>Sign In</Button>
         </Grid>
         <Grid item xs={12}>
           {props.children && props.children}
