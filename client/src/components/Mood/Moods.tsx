@@ -33,7 +33,7 @@ export default function Moods() {
       gap="5px" 
       direction="row" 
       flexWrap="nowrap"
-      className="moods-container"
+      className="moods-container cursor-default select-none"
       style={{scrollSnapType: "x mandatory", overflowX: 'scroll', overflowY: 'hidden'}}>
       {
         posts && posts.map(post => (
