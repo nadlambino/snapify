@@ -19,8 +19,8 @@ export default function Mood(props: {mood: PostType, owned: boolean}) {
       style={{flex: '0 0 calc((100% / 3) - 4px)', scrollSnapAlign: 'center', borderRadius: 10, minHeight: "150px"}} 
       className='bg-[#FFF3E2] p-3'>
         <div className='flex justify-between items-start'>
-          <div>
-            <p className="text-[#4F4557] text-[14px]">{fullName}</p>
+          <div className='ellipsis'>
+            <p className="text-[#4F4557] text-[12px] ellipsis">{fullName}</p>
             <small className='text-[#6D5D6E] text-[10px] ellipsis'>{timePostedFromNow}</small>
           </div>
           <div>
