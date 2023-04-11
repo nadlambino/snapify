@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { useDispatch } from "react-redux"
 import FCWithProps from '../../types/FCWithProps'
 import { createPost } from "../../api/post"
-import { setReloadFeed } from "../../store/modules/feed"
+import { setReloadMood } from "../../store/modules/mood"
 
 const Create: React.FC<FCWithProps> = (props) => {
   const [mood, setMood] = useState("")
@@ -30,14 +30,16 @@ const Create: React.FC<FCWithProps> = (props) => {
   }
 
   const handleSave = () => {
-    if (mood.length > 0) {
-      createPost({content: mood}).then(() => {
-        dispatch(setReloadFeed(true))
-        if (typeof handleClose === 'function') {
-          handleClose()
-        }
-      })
+    if (mood.length === 0) {
+      return
     }
+    
+    createPost({content: mood}).then(() => {
+      dispatch(setReloadMood(true))
+      if (typeof handleClose === 'function') {
+        handleClose()
+      }
+    })
   }
 
   return (

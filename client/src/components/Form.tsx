@@ -54,7 +54,6 @@ export default function Form(props: FormProps) {
 
   const handleClose = () => {
     setOpen(false)
-    console.log('close')
     if (typeof closeCallback === 'function') {
       closeCallback()
     }
