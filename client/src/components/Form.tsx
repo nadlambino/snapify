@@ -71,7 +71,7 @@ export default function Form(props: FormProps) {
       maxWidth="xs"
     >
       <AppBar sx={{ position: 'relative' }}>
-        <Grid container justifyContent="center">
+        <Grid container justifyContent="center" className='bg-primary'>
           <Grid item xs={12}>
             <Toolbar>
               <IconButton
