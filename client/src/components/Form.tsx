@@ -54,6 +54,7 @@ export default function Form(props: FormProps) {
 
   const handleClose = () => {
     setOpen(false)
+    console.log('close')
     if (typeof closeCallback === 'function') {
       closeCallback()
     }
@@ -93,7 +94,7 @@ export default function Form(props: FormProps) {
       </AppBar>
       <Grid container justifyContent="center" top={70}>
         <Grid item xs={12}>
-          <Component saving={saving} />
+          <Component saving={saving} handleClose={handleClose} />
         </Grid>
       </Grid>
     </Dialog>

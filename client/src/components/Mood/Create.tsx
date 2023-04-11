@@ -10,6 +10,7 @@ const Create: React.FC<FCWithProps> = (props) => {
   const [mood, setMood] = useState("")
   const characterLimit = 50
   const dispatch = useDispatch()
+  const { handleClose } = props
 
   useEffect(() => {
     if (props.saving) {
@@ -32,6 +33,9 @@ const Create: React.FC<FCWithProps> = (props) => {
     if (mood.length > 0) {
       createPost({content: mood}).then(() => {
         dispatch(setReloadFeed(true))
+        if (typeof handleClose === 'function') {
+          handleClose()
+        }
       })
     }
   }
