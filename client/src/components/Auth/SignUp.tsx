@@ -2,6 +2,10 @@ import { Grid, TextField, Button, RadioGroup, Radio, FormControl, FormLabel, For
 import UnstrictReactPropType from '../../types/UnstrictReactPropType'
 import { useState } from 'react'
 import { signUp } from '../../api/auth'
+import { useDispatch } from 'react-redux'
+import { setAuth } from './../../store/modules/auth'
+import { useCookies } from 'react-cookie'
+import { useNavigate } from 'react-router-dom'
 
 interface IUserForm {
   firstName: string | null,
@@ -22,13 +26,23 @@ export default function SignUp(props: UnstrictReactPropType) {
     confirm: null
   })
 
+  const dispatch = useDispatch()
+  const [cookies, setCookie] = useCookies()
+  const navigate = useNavigate()
+
   const handleFormChange = (key: string, value: string | null) => {
     setForm((prevState) => ({...prevState, [key]: value}))
   }
 
   const handleSignUp = async () => {
     const user = await signUp(form)
-    console.log(user)
+
+    if (user) {
+      dispatch(setAuth(user))
+      setCookie('token', user.access.token, {expires: new Date(user.access.expiration)})
+      setCookie('user', user.user, {expires: new Date(user.access.expiration)})
+      navigate('/')
+    }
   }
 
   return (
