@@ -70,7 +70,7 @@ export default function Form(props: FormProps) {
       TransitionComponent={Transition}
       maxWidth="xs"
     >
-      <AppBar sx={{ position: 'relative' }}>
+      <AppBar sx={{ position: 'relative' }} className='bg-primary'>
         <Grid container justifyContent="center" className='bg-primary'>
           <Grid item xs={12}>
             <Toolbar>
