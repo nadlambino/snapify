@@ -14,7 +14,7 @@ export default function Header() {
   }
 
   return (
-    <Grid container justifyContent="center">
+    <Grid container justifyContent="center" className='header'>
       <Grid item xs={12}>
         <Box sx={{ flexGrow: 1 }}>
           <AppBar position="static">

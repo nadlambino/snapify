@@ -1,11 +1,11 @@
-import { Grid, Typography } from '@mui/material'
-import Feed from './Post/Feed'
+import { Grid } from '@mui/material'
 import Moods from './Mood/Moods'
+import Feed from './Post/Feed'
 
 export default function Body() {
   return (
-    <Grid container justifyContent="center">
-      <Grid item container xs={12} md={6} padding={1}>
+    <Grid item margin="auto" container justifyContent="center" direction='column' xs={12} md={4} className='body'>
+      <Grid item container xs={12} md={4} padding={1} gap={2}>
         <Moods />
         <Feed />
       </Grid>
