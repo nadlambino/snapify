@@ -27,9 +27,9 @@ export default function Footer() {
         closeCallback={handleClose}
         component={CreateMood}>
       </Form>
-      <Grid container justifyContent="center" alignItems="center" position="fixed" height="10vh" className='footer'>
-        <Grid item xs={12} md={6} container justifyContent="end" alignItems="end" position="relative" right={20}>
-          <Fab style={{backgroundColor: '#E74646'}} aria-label="add" onClick={handleClickOpen}>
+      <Grid container justifyContent="center" className='footer'>
+        <Grid item xs={12} sm={7} md={5} lg={4} container justifyContent="end" alignItems="end"> 
+          <Fab className='bg-primary' aria-label="add" onClick={handleClickOpen}>
             <AddReactionIcon fontSize='large' style={{fontSize: '38px', color: 'white'}} />
           </Fab>
         </Grid>

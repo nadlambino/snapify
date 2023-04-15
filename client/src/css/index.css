@@ -45,7 +45,7 @@ p, span {
 }
 
 .footer {
-  @apply bottom-0 max-h-[10vh]
+  @apply flex m-auto justify-center items-center w-full max-h-[10vh] fixed bottom-0 p-2
 }
 
 .btn {
