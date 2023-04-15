@@ -52,6 +52,10 @@ p, span {
   @apply flex m-auto justify-center items-center w-full max-h-[10vh] fixed bottom-0 p-2
 }
 
+.active {
+  @apply text-gray-100 bg-gray-700 !important;
+}
+
 .btn {
   @apply min-h-[50px]
 }
