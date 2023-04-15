@@ -4,6 +4,7 @@ import Form from './Form';
 import CreateMood from './Mood/Create';
 import { isAuthenticated } from '../utils/auth';
 import AddReactionIcon from '@mui/icons-material/AddReaction';
+import { IoMdAdd } from 'react-icons/io'
 
 export default function Footer() {
   const [open, setOpen] = useState(false);
@@ -29,8 +30,8 @@ export default function Footer() {
       </Form>
       <Grid container justifyContent="center" className='footer'>
         <Grid item xs={12} sm={7} md={5} lg={4} container justifyContent="end" alignItems="end"> 
-          <Fab className='bg-primary' aria-label="add" onClick={handleClickOpen}>
-            <AddReactionIcon fontSize='large' style={{fontSize: '38px', color: 'white'}} />
+          <Fab size='medium' className='bg-primary' aria-label="add" onClick={handleClickOpen}>
+            <IoMdAdd size={25} className='text-white' />
           </Fab>
         </Grid>
       </Grid>
