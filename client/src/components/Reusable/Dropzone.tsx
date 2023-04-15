@@ -5,7 +5,6 @@ import { useEffect, useState } from 'react';
 
 export default function Dropzone() {
   const onDrop = (newFiles: File[]) => {
-    console.log(newFiles)
     setFiles([...files, ...newFiles])
   }
   const {acceptedFiles, getRootProps, getInputProps} = useDropzone({
