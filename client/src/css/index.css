@@ -37,11 +37,11 @@ p, span {
 }
 
 .header {
-  @apply fixed max-h-[10vh] z-10;
+  @apply fixed max-h-[10vh] z-10 bg-white;
 }
 
 .body {
-  @apply m-auto relative z-0 p-0
+  @apply m-auto relative z-0 p-0 top-[10vh] h-[80vh]
 }
 
 .footer {
