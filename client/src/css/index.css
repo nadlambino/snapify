@@ -3,12 +3,12 @@
 @import 'tailwindcss/utilities';
 
 * {
-  @apply p-0 m-0 box-border;
+  @apply box-border;
   font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif !important;
 }
 
 body {
-  @apply p-0 m-0;
+  @apply p-0 m-0 box-border;
   font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif !important;
 }
 
@@ -32,9 +32,20 @@ p, span {
   @apply bg-gray-600;
 }
 
-.btn-link, .btn-link:hover, .btn-link:visited {
-  @apply text-[white];
-  text-decoration: none;
+.app {
+  @apply h-[100vh] relative flex flex-col justify-center;
+}
+
+.header {
+  @apply fixed max-h-[10vh] z-10;
+}
+
+.body {
+  @apply m-auto relative z-0 p-0
+}
+
+.footer {
+  @apply bottom-0 max-h-[10vh]
 }
 
 .btn {
@@ -43,10 +54,6 @@ p, span {
 
 .btn-icon {
   @apply cursor-pointer box-content p-2 rounded-full hover:bg-gray-100;
-}
-
-.App {
-  @apply h-[100vh] relative;
 }
 
 .ellipsis {
@@ -61,31 +68,19 @@ p, span {
   @apply hidden;
 }
 
-.header {
-  @apply fixed max-h-[10vh] z-10
-}
-
-.body {
-  @apply m-auto relative top-[10vh] z-0
-}
-
-.footer {
-  @apply bottom-0 max-h-[10vh]
-}
-
 .container {
   @apply flex flex-col gap-[15vh] scroll-smooth;
 }
 
 .item {
-  @apply h-[80vh] w-full bg-white sticky top-[15vh] rounded-[20px];
+  @apply h-[80vh] w-full bg-white sticky top-[10vh] rounded-[20px];
   box-shadow: 0px 0px 4px 0px rgba(69,69,69,0.1);
   -webkit-box-shadow: 0px 0px 4px 0px rgba(69,69,69,0.1);
   -moz-box-shadow: 0px 0px 4px 0px rgba(69,69,69,0.1);
 }
 
 .item:last-child {
-  @apply mb-[3.9vh];
+  @apply mb-[9.9vh];
 }
 
 .post-details-container {

@@ -13,7 +13,7 @@ function Auth() {
   }
 
   return (
-    <div className="App">
+    <div className="app">
       <Grid container justifyContent="center">
         <Grid item container direction="column" justifyContent="center" xs={12} sm={7} md={5} lg={3}>
           <>
