@@ -1,9 +1,8 @@
 import { useState } from 'react'
 import {Grid, Fab} from '@mui/material';
 import Form from './Form';
-import CreateMood from './Mood/Create';
+import CreateMood from './Post/Create';
 import { isAuthenticated } from '../utils/auth';
-import AddReactionIcon from '@mui/icons-material/AddReaction';
 import { IoMdAdd } from 'react-icons/io'
 
 export default function Footer() {
@@ -22,7 +21,6 @@ export default function Footer() {
     !isAuth ? <></> :
     <>
       <Form 
-        title="What's your mood?"
         save="POST"
         show={open} 
         closeCallback={handleClose}
