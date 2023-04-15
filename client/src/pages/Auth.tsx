@@ -15,8 +15,8 @@ function Auth() {
   return (
     <div className="App">
       <Header />
-      <Grid container justifyContent="center">
-        <Grid item container direction="column" justifyContent="center" xs={12} md={6} lg={4}>
+      <Grid container justifyContent="center" className="body">
+        <Grid item container direction="column" justifyContent="center" xs={12} md={5} lg={4}>
           <>
           {
             isSignIn ? 

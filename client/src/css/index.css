@@ -45,8 +45,8 @@ body {
 }
 
 .bg-primary {
-  @apply bg-white !important;
-  /* background-color: #E74646 !important; */
+  /* @apply bg-white !important; */
+  background-color: #E74646 !important;
 }
 
 .moods-container::-webkit-scrollbar {

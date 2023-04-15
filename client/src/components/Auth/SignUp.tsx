@@ -46,7 +46,7 @@ export default function SignUp(props: UnstrictReactPropType) {
   }
 
   return (
-    <Grid item xs={3}>
+    <Grid item xs={12}>
       <Grid container justifyContent="center" direction="column" padding={5} gap={2}>
         <Grid item xs={12}>
           <TextField variant="outlined" label="First Name" fullWidth onChange={(e) => handleFormChange('firstName', e.target.value)} />
