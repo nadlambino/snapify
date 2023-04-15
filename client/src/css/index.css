@@ -4,11 +4,12 @@
 
 * {
   @apply p-0 m-0 box-border;
+  font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif !important;
 }
 
 body {
   @apply p-0 m-0;
-  font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
+  font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif !important;
 }
 
 ::-webkit-scrollbar {
