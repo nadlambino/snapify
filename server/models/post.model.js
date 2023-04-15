@@ -1,7 +1,8 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const { reactSchema } = require('./react.model')
-const { commentSchema } = require('./comment.model')
+const { commentSchema } = require('./comment.model');
+const { mediaSchema } = require('./media.model');
 
 const postSchema = new Schema({
     content: {
@@ -9,6 +10,7 @@ const postSchema = new Schema({
       required: true,
       maxlength: 50
     },
+    media: [mediaSchema],
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
