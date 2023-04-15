@@ -27,8 +27,8 @@ function Auth() {
               </SignIn>
             : 
               <SignUp>
-                <Typography>
-                  Already have an account? &nbsp;
+                <Typography position="relative" className="flex">
+                  <span>Already have an account? &nbsp;</span>
                   <Link component="button" underline="none" onClick={handleFormToggle}>Sign In</Link>
                 </Typography>
               </SignUp>

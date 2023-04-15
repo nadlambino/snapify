@@ -41,7 +41,11 @@ p, span {
 }
 
 .body {
-  @apply m-auto relative z-0 p-0 top-[10vh] h-[80vh]
+  @apply m-auto relative z-0 p-3 top-[10vh] h-[80vh]
+}
+
+.no-header {
+  @apply top-0 !important;
 }
 
 .footer {

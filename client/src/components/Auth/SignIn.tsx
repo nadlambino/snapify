@@ -40,7 +40,7 @@ export default function SignIn(props: UnstrictReactPropType) {
   }
 
   return (
-    <Grid item xs={12} sm={7} md={5} lg={4} className='body'>
+    <Grid item xs={12} sm={7} md={5} lg={4} className='body no-header'>
       <form onSubmit={handleSignUp}>
         <Grid container justifyContent="center" direction="column" gap={2}>
           <Grid item xs={12}>
