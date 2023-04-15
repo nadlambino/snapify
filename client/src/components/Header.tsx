@@ -3,6 +3,10 @@ import { Link } from 'react-router-dom';
 import { isAuthenticated } from './../utils/auth'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
+import { CgProfile, CgFeed } from 'react-icons/cg'
+import { RiLogoutCircleRLine } from 'react-icons/ri'
+import { FiSettings } from 'react-icons/fi'
+import { BsSearch } from 'react-icons/bs'
 
 export default function Header() {
   const [cookies, setCookies, removeCookie] = useCookies()
@@ -15,34 +19,15 @@ export default function Header() {
 
   return (
     <Grid container justifyContent="center" className='header'>
-      <Grid item xs={12}>
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static">
-            <Grid container justifyContent="center" className='bg-primary'>
-              <Grid item xs={12} md={5}>
-                <Toolbar>
-                  <Grid container justifyContent="space-between">
-                    <Grid item>
-                      <Link to="/" className='btn-link'>
-                        <Typography variant='h6' component='div'>
-                          Feed
-                        </Typography>
-                      </Link>
-                    </Grid>
-                    { 
-                      isAuthenticated() &&
-                      <Grid item>
-                        <Button color="inherit" onClick={handleSignOut}>
-                          Sign Out
-                        </Button>
-                      </Grid>
-                    }
-                  </Grid>
-                </Toolbar>
-              </Grid>
-            </Grid>
-          </AppBar>
-        </Box>
+      <Grid item xs={12} sm={7} md={5} lg={4} padding={2} paddingTop={1}>
+        <div className='flex items-center justify-between'>
+          <Typography>App Name</Typography>
+          <CgFeed size={23} className='btn-icon' />
+          <BsSearch size={21} className='btn-icon' />
+          <CgProfile size={23} className='btn-icon' />
+          <FiSettings size={23} className='btn-icon' />
+          <RiLogoutCircleRLine size={23} className='btn-icon' onClick={handleSignOut}/>
+        </div>
       </Grid>
     </Grid>
   );

@@ -14,15 +14,14 @@ function Auth() {
 
   return (
     <div className="App">
-      <Header />
-      <Grid container justifyContent="center" className="body">
-        <Grid item container direction="column" justifyContent="center" xs={12} md={5} lg={4}>
+      <Grid container justifyContent="center">
+        <Grid item container direction="column" justifyContent="center" xs={12} sm={7} md={5} lg={3}>
           <>
           {
             isSignIn ? 
               <SignIn>
-                <Typography position="relative">
-                  No account yet? &nbsp;
+                <Typography position="relative" className="flex">
+                  <span>No account yet? &nbsp;</span>
                   <Link component="button" underline="none" onClick={handleFormToggle}>Sign Up</Link>
                 </Typography>
               </SignIn>

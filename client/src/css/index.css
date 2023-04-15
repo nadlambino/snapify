@@ -12,6 +12,10 @@ body {
   font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif !important;
 }
 
+p, span {
+  @apply text-gray-500;
+}
+
 ::-webkit-scrollbar {
   @apply w-[7px] h-[5px];
 }
@@ -34,11 +38,15 @@ body {
 }
 
 .btn {
-  @apply min-h-[50px];
+  @apply min-h-[50px]
+}
+
+.btn-icon {
+  @apply cursor-pointer box-content p-2 rounded-full hover:bg-gray-100;
 }
 
 .App {
-  @apply h-[100vh];
+  @apply h-[100vh] relative;
 }
 
 .ellipsis {
@@ -46,8 +54,7 @@ body {
 }
 
 .bg-primary {
-  /* @apply bg-white !important; */
-  background-color: #E74646 !important;
+  @apply bg-gray-800 !important;
 }
 
 .moods-container::-webkit-scrollbar {
