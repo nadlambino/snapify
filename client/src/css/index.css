@@ -3,46 +3,41 @@
 @import 'tailwindcss/utilities';
 
 * {
-  padding: 0;
-  margin: 0;
-  box-sizing: border-box;
+  @apply p-0 m-0 box-border;
 }
 
 body {
-  padding: 0;
-  margin: 0;
+  @apply p-0 m-0;
   font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif;
 }
 
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 5px;
+  @apply w-[7px] h-[5px];
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent; 
+  @apply bg-transparent;
 }
  
 ::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 10px;
+  @apply bg-gray-400 rounded-[10px];
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  @apply bg-gray-600;
 }
 
 .btn-link, .btn-link:hover, .btn-link:visited {
-  color: #ffffff;
+  @apply text-[white];
   text-decoration: none;
 }
 
 .btn {
-  min-height: 50px;
+  @apply min-h-[50px];
 }
 
 .App {
-  height: 100vh;
+  @apply h-[100vh];
 }
 
 .ellipsis {
@@ -50,11 +45,12 @@ body {
 }
 
 .bg-primary {
-  background-color: #E74646 !important;
+  @apply bg-white !important;
+  /* background-color: #E74646 !important; */
 }
 
 .moods-container::-webkit-scrollbar {
-    display: none;
+  @apply hidden;
 }
 
 .header {
@@ -70,27 +66,18 @@ body {
 }
 
 .container {
-  display: flex;
-  flex-direction: column;
-  flex-direction: column;
-  gap: 15vh;
-  scroll-behavior: smooth;
+  @apply flex flex-col gap-[15vh] scroll-smooth;
 }
 
 .item {
-  height: 80vh;
-  width: 100%;
-  background-color: #fff;
-  position: sticky;
-  top: 15vh;
-  border-radius: 20px;
+  @apply h-[80vh] w-full bg-white sticky top-[15vh] rounded-[20px];
   box-shadow: 0px 0px 4px 0px rgba(69,69,69,0.1);
   -webkit-box-shadow: 0px 0px 4px 0px rgba(69,69,69,0.1);
   -moz-box-shadow: 0px 0px 4px 0px rgba(69,69,69,0.1);
 }
 
 .item:last-child {
-  margin-bottom: 3.9vh;
+  @apply mb-[3.9vh];
 }
 
 .post-details-container {
@@ -98,11 +85,7 @@ body {
 }
 
 .post-profile {
-  width: 60px;
-  height: 60px;
-  aspect-ratio: 1;
-  object-fit: cover;
-  border-radius: 100%;
+  @apply w-[60px] h-[60px] aspect-square object-cover rounded-full;
 }
 
 .post-image-container {
@@ -110,9 +93,5 @@ body {
 }
 
 .post-image {
-  filter: brightness(0.8);
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 20px;
+  @apply w-full h-full object-cover rounded-[20px] brightness-[0.8];
 }
