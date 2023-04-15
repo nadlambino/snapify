@@ -53,7 +53,9 @@ p, span {
 }
 
 .btn-icon {
-  @apply cursor-pointer box-content p-2 rounded-full hover:bg-gray-100;
+  @apply cursor-pointer box-content p-2 rounded-full hover:bg-gray-100 outline-0
+    text-gray-700;
+  -webkit-tap-highlight-color:  transparent;
 }
 
 .ellipsis {
