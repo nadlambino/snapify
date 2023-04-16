@@ -1,10 +1,11 @@
 import { AxiosResponse } from "axios"
 import { cookie } from "../utils/cookie"
 
-export const createPost = async (post: {content: string}) => {
+export const createPost = async (post: FormData) => {
   return await window.axios.post(`${window.apiUrl}/post`, post, {
     headers: {
-      Authorization: `Bearer ${cookie('token')}`
+      Authorization: `Bearer ${cookie('token')}`,
+      'Content-Type': 'multipart/form-data'
     }
   })
   .then((response: AxiosResponse) => response.data)

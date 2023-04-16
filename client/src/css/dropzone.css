@@ -4,3 +4,8 @@
   aspect-ratio: 1/1;
   object-fit: cover;
 }
+
+.dropzone {
+  @apply w-[100px] h-[100px] flex justify-center items-center cursor-pointer border-dashed border-2 border-gray-600
+    hover:bg-gray-100;
+}

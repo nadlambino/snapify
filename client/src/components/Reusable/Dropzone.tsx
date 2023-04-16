@@ -3,7 +3,11 @@ import './../../css/dropzone.css'
 import { MdAddPhotoAlternate } from 'react-icons/md'
 import { useEffect, useState } from 'react';
 
-export default function Dropzone() {
+interface Props {
+  setMedia: Function
+}
+
+export default function Dropzone({setMedia}: Props) {
   const onDrop = (newFiles: File[]) => {
     setFiles([...files, ...newFiles])
   }
@@ -16,6 +20,10 @@ export default function Dropzone() {
     maxFiles: 5
   });
   const [files, setFiles] = useState<File[]>(acceptedFiles)
+
+  useEffect(() => {
+    setMedia(files)
+  }, [files])
 
   return (
     <section className="flex justify-center w-full h-full gap-2">
@@ -34,9 +42,9 @@ export default function Dropzone() {
         }
         {
           files.length < 5 ?
-          <div {...getRootProps({className: 'dropzone'})} className='w-[100px] h-[100px] flex justify-center items-center border-dashed border-2 border-gray-600'>
+          <div {...getRootProps({className: 'dropzone'})}>
             <input {...getInputProps()} />
-            <MdAddPhotoAlternate className='btn-icon' size={30}/>
+            <MdAddPhotoAlternate size={30}/>
           </div>
           : ''
         }
