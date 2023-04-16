@@ -3,11 +3,16 @@ const Post = require('./../models/post.model')
 const createPost = async (req, res) => {
   try {
     const { _id: user } = req.auth
-    console.log(req.files)
+    const media = req.files.map(file => {
+      return {
+        src: file.path,
+        category: file.mimetype.includes('image') ? 'image' : 'video',
+      }
+    })
 
-    // const post = await Post.create({...req.body, user})
+    const post = await Post.create({...req.body, user, media})
 
-    // res.status(201).json(post)
+    res.status(201).json(post)
   } catch (error) {
     res.status(400).json({error: 'Failed to create a post'})
     console.log(error)
@@ -30,6 +35,7 @@ const getPosts = async (req, res) => {
             content: 1,
             comments: 1,
             reacts: 1,
+            media: 1,
             user: { $arrayElemAt: [{
               $map: {
                 input: '$user',
