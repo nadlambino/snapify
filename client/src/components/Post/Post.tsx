@@ -11,7 +11,7 @@ export default function Post({ post }: Props ) {
   const { media } = post
 
   return (
-    <Grid item className='item'>
+    <div className='item'>
       <div className='post-details-container'>
         <img src={samplePhoto} className='post-profile' alt="Profile Photo"/>
         <div className="flex flex-col">
@@ -24,6 +24,6 @@ export default function Post({ post }: Props ) {
         media.map(image => <Media media={image} key={image._id} />)
       }
       </div>
-    </Grid>
+    </div>
   )
 }

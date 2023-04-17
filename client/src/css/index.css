@@ -106,6 +106,6 @@ p, span {
   @apply relative z-0 flex flex-col justify-center items-center h-full w-full;
 }
 
-.post-image {
+.post-image-container img, .post-image-container video {
   @apply w-full h-full object-cover rounded-[20px] brightness-[0.8];
 }

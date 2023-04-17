@@ -5,12 +5,18 @@ interface Props {
 }
 
 export default function Media({ media }: Props) {
-  console.log(media)
   const src = window.apiUrl + '/' + media?.src?.replace('public\\', '')
 
   return (
     <div className='post-image-container'>
-      <img src={src} className='post-image' alt="Post Photo" />
+      {
+        media.category === 'image' ?
+        <img src={src} className='post-image' alt="Post Photo" />
+        :
+        <video muted autoPlay>
+          <source src={src} type="video/mp4"></source>
+        </video>
+      }
     </div>
   )
 }
