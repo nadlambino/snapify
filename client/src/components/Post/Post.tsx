@@ -1,8 +1,13 @@
 import { Grid } from "@mui/material"
 import samplePhoto from './../../assets/images/sample-profile.jpg'
-import samplePost from './../../assets/images/sample-post.jpg'
+import PostType from "../../types/PostType"
 
-export default function Post() {
+interface Props {
+  post: PostType
+}
+
+export default function Post({ post }: Props ) {
+  const { media } = post
 
   return (
     <Grid item className='item'>
@@ -14,7 +19,12 @@ export default function Post() {
         </div>
       </div>
       <div className='post-image-container'>
-        <img src={samplePost} className='post-image' alt="Post Photo" />
+        {
+          media.map(image => {
+            const src = window.apiUrl + '/' + image.src.replace('public\\', '')
+            return <img src={src} className='post-image' alt="Post Photo" />
+          })
+        }
       </div>
     </Grid>
   )
