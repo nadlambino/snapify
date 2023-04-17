@@ -41,7 +41,7 @@ p, span {
 }
 
 .body {
-  @apply m-auto relative z-0 p-3 top-[10vh] h-[80vh]
+  @apply m-auto relative z-0 p-3
 }
 
 .no-header {
@@ -83,14 +83,11 @@ p, span {
 }
 
 .item {
-  @apply h-[80vh] w-full bg-white sticky top-[10vh] rounded-[20px];
-  box-shadow: 0px 0px 4px 0px rgba(69,69,69,0.1);
-  -webkit-box-shadow: 0px 0px 4px 0px rgba(69,69,69,0.1);
-  -moz-box-shadow: 0px 0px 4px 0px rgba(69,69,69,0.1);
+  @apply h-[85vh] bg-white sticky top-[10vh] rounded-[20px];
 }
 
 .item:last-child {
-  @apply mb-[9.9vh];
+  @apply mb-[4.9vh];
 }
 
 .post-details-container {
@@ -99,6 +96,10 @@ p, span {
 
 .post-profile {
   @apply w-[60px] h-[60px] aspect-square object-cover rounded-full;
+}
+
+.post-image-wrapper {
+  @apply flex flex-col justify-center items-center h-full;
 }
 
 .post-image-container {

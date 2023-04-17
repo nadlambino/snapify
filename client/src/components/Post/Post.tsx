@@ -1,6 +1,7 @@
 import { Grid } from "@mui/material"
 import samplePhoto from './../../assets/images/sample-profile.jpg'
 import PostType from "../../types/PostType"
+import Media from "./Media"
 
 interface Props {
   post: PostType
@@ -18,13 +19,10 @@ export default function Post({ post }: Props ) {
           <small className="text-gray-400">9 minutes ago</small>
         </div>
       </div>
-      <div className='post-image-container'>
-        {
-          media.map(image => {
-            const src = window.apiUrl + '/' + image.src.replace('public\\', '')
-            return <img src={src} className='post-image' alt="Post Photo" />
-          })
-        }
+      <div className="flex flex-wrap overflow-auto post-image-wrapper">
+      {
+        media.map(image => <Media media={image} key={image._id} />)
+      }
       </div>
     </Grid>
   )
