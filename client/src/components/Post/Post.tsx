@@ -1,6 +1,6 @@
 import { Grid } from "@mui/material"
 import samplePhoto from './../../assets/images/sample-profile.jpg'
-import PostType from "../../types/PostType"
+import { PostType } from "../../types/PostType"
 import Media from "./Media"
 
 interface Props {

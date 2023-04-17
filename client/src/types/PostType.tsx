@@ -1,4 +1,4 @@
-export default interface PostType {
+export interface PostType {
   _id: string,
   user: UserType;
   content: string,
@@ -12,7 +12,7 @@ export default interface PostType {
   createdAt: string
 }
 
-interface MediaType {
+export interface MediaType {
   _id: string,
   src: string,
   category: string,

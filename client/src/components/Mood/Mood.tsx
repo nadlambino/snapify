@@ -1,5 +1,5 @@
 import { Grid, Button } from '@mui/material'
-import PostType from "../../types/PostType"
+import { PostType } from "../../types/PostType"
 import dayjs from "dayjs"
 import DeleteForeverIcon from '@mui/icons-material/Add'
 

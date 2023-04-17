@@ -3,7 +3,7 @@ import { getPosts } from "../../api/post"
 import { useState, useEffect, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useCookies } from "react-cookie";
-import PostType from "../../types/PostType"
+import { PostType } from "../../types/PostType"
 import Mood from "./Mood";
 import mood, { setReloadMood } from "../../store/modules/mood";
 
