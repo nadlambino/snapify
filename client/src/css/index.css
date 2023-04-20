@@ -91,11 +91,11 @@ p, span {
 }
 
 .post-details-container {
-  @apply absolute z-10 text-white p-2 flex content-center items-center gap-3
+  @apply absolute z-10 text-white p-2 flex content-center items-center gap-3 w-full
 }
 
 .post-profile {
-  @apply w-[60px] h-[60px] aspect-square object-cover rounded-full;
+  @apply w-[60px] h-[60px] aspect-square object-cover rounded-full relative top-2;
 }
 
 .post-image-wrapper {
@@ -107,5 +107,5 @@ p, span {
 }
 
 .post-image-container img, .post-image-container video {
-  @apply w-full h-full object-cover rounded-[20px] brightness-[0.8];
+  @apply w-full h-full object-cover brightness-[0.8];
 }
