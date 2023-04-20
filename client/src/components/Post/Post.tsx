@@ -31,14 +31,14 @@ export default function Post({ post }: Props ) {
   return (
     <div className='item'>
       <div className='post-details-container'>
-        <div className='overlay'></div>
+        <div className='overlay-top'></div>
         <img src={samplePhoto} className='post-profile' alt="Profile Photo"/>
         <div className="flex flex-col">
           <span className='capitalized text-gray-200 relative z-10'>{`${user.firstName} ${user.lastName}`}</span>
           <small className="text-gray-300">{timePosted}</small>
         </div>
       </div>
-      <div className='flex flex-wrap overflow-auto post-image-wrapper'>
+      <div className='flex flex-col h-full relative'>
         <div className='thumb-container flex bg-blue w-full gap-1 absolute top-0 z-10 p-2'>
         {
           media.map((data, index) => (
@@ -56,6 +56,10 @@ export default function Post({ post }: Props ) {
         {
           media.map((image, index) => <Media media={image} key={image._id} className={index === activeSlide ? 'flex': 'hidden'} />)
         }
+        </div>
+        <div className='absolute bottom-0 p-3 w-full'>
+          <div className='overlay-bottom'></div>
+          <span className='text-white'>{post.content}</span>
         </div>
       </div>
     </div>
