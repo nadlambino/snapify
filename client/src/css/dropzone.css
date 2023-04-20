@@ -9,3 +9,19 @@
   @apply w-[100px] h-[100px] flex justify-center items-center cursor-pointer border-dashed border-2 border-gray-600
     hover:bg-gray-100;
 }
+
+.delete-icon {
+  @apply cursor-pointer p-1 rounded-full text-gray-200;
+}
+
+.file-container {
+  @apply relative
+}
+
+.file-overlay {
+  @apply h-full w-full absolute bg-[#00000000] opacity-0 flex justify-center items-center;
+}
+
+.file-container:hover .file-overlay {
+  @apply bg-[#0000003b] opacity-100;
+}

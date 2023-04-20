@@ -2,7 +2,7 @@ import {useDropzone, FileWithPath} from 'react-dropzone';
 import './../../css/dropzone.css'
 import { MdAddPhotoAlternate } from 'react-icons/md'
 import { useEffect, useState } from 'react';
-
+import { AiOutlineDelete } from 'react-icons/ai'
 interface Props {
   setMedia: Function
 }
@@ -25,6 +25,10 @@ export default function Dropzone({setMedia}: Props) {
     setMedia(files)
   }, [files])
 
+  const handleRemoveFile = (index: number) => {
+    setFiles(() => files.filter((file, fileIndex) => fileIndex !== index))
+  }
+
   return (
     <div className='relative w-full'>
       <section className="flex justify-center w-full h-full gap-2">
@@ -33,7 +37,12 @@ export default function Dropzone({setMedia}: Props) {
             files && files.map((file, index) => {
               return (
                 file.type.includes('image') ?
-                <img key={index} src={URL.createObjectURL(file)} alt={file.name} />
+                <div className='file-container' key={index}>
+                  <div className='file-overlay'>
+                    <AiOutlineDelete size={35} onClick={() => handleRemoveFile(index)} className='delete-icon'/>
+                  </div>
+                  <img key={index} src={URL.createObjectURL(file)} alt={file.name} />
+                </div>
                 :
                 <video key={index} autoPlay muted>
                   <source src={URL.createObjectURL(file)} type="video/mp4"></source>
