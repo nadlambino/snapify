@@ -36,12 +36,12 @@ export default function Post({ post }: Props ) {
         <div className='overlay-top'></div>
         <Avatar alt={fullName} sx={{ bgcolor: '#2A2F4F', fontSize: '14px' }}>{initials}</Avatar>
         <div className="flex flex-col">
-          <span className='capitalized text-gray-200 relative z-10'>{fullName}</span>
-          <small className="text-gray-300">{timePosted}</small>
+          <span className='fullname'>{fullName}</span>
+          <small className="time-posted">{timePosted}</small>
         </div>
       </div>
-      <div className='flex flex-col h-full relative'>
-        <div className='thumb-container flex bg-blue w-full gap-1 absolute top-0 z-10 p-2'>
+      <div className='post-image-wrapper'>
+        <div className='thumb-container'>
         {
           media.map((data, index) => (
             <span 
@@ -56,10 +56,16 @@ export default function Post({ post }: Props ) {
         </div>
         <div className='post-image-container'>
         {
-          media.map((image, index) => <Media media={image} key={image._id} className={index === activeSlide ? 'flex': 'hidden'} />)
+          media.map((image, index) => (
+            <Media 
+              media={image} 
+              key={image._id} 
+              className={index === activeSlide ? 'flex': 'hidden'} 
+            />
+          ))
         }
         </div>
-        <div className='absolute bottom-0 p-3 py-6 w-full'>
+        <div className='post-content-container'>
           <div className='overlay-bottom'></div>
           <span className='text-white'>{post.content}</span>
         </div>
