@@ -19,6 +19,9 @@ export default function Post({ post }: Props ) {
   let timeout: number = 0
 
   const handleSlidePlay = () => {
+    if (media.length <= 1) {
+      return
+    }
     clearTimeout(timeout)
     timeout = setTimeout(() => {
       let slide = activeSlide < (media.length - 1) ? activeSlide + 1 : 0
@@ -43,7 +46,7 @@ export default function Post({ post }: Props ) {
       <div className='post-image-wrapper'>
         <div className='thumb-container'>
         {
-          media.map((data, index) => (
+          media.length > 1 && media.map((data, index) => (
             <span 
               key={data._id} 
               className={
