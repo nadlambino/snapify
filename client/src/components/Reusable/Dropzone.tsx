@@ -44,9 +44,14 @@ export default function Dropzone({setMedia}: Props) {
                   <img key={index} src={URL.createObjectURL(file)} alt={file.name} />
                 </div>
                 :
-                <video key={index} autoPlay muted>
-                  <source src={URL.createObjectURL(file)} type="video/mp4"></source>
-                </video>
+                <div className='file-container' key={index}>
+                  <div className='file-overlay'>
+                    <AiOutlineDelete size={35} onClick={() => handleRemoveFile(index)} className='delete-icon'/>
+                  </div>
+                  <video key={index} autoPlay muted>
+                    <source src={URL.createObjectURL(file)} type="video/mp4"></source>
+                  </video>
+                </div>
               )
             })
           }

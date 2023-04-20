@@ -11,7 +11,7 @@
 }
 
 .delete-icon {
-  @apply cursor-pointer p-1 rounded-full text-gray-200;
+  @apply cursor-pointer p-1 rounded-full text-gray-200 relative z-10;
 }
 
 .file-container {
