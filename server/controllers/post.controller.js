@@ -1,4 +1,5 @@
 const Post = require('./../models/post.model')
+const fs = require('fs')
 
 const createPost = async (req, res) => {
   try {
@@ -59,7 +60,24 @@ const getPosts = async (req, res) => {
         }
       ])
 
-    res.status(200).json(posts)
+    let filteredPosts = posts.map(post => {
+      const { media } = post
+
+      let filteredMedia = media.map(data => {
+        return fs.existsSync(data.src) === true ? data : null
+      })
+
+      filteredMedia = global._.filter(filteredMedia, (data) => data !== null)
+
+      return {
+        ...post,
+        media: filteredMedia
+      }
+    })
+
+    filteredPosts = global._.filter(filteredPosts, (data) => data.media.length > 0)
+
+    res.status(200).json(filteredPosts)
   } catch (error) {
     res.status(400).json({error: 'Failed to retrieve posts'})
     console.log(error)
