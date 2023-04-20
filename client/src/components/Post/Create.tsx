@@ -8,6 +8,8 @@ const Create: React.FC<FCWithProps> = (props) => {
   const [media, setMedia] = useState([])
   const [caption, setCaption] = useState('')
   const { saving } = props
+  const [error, setError] = useState('')
+  const { closeCallback } = props
 
   useEffect(() => {
     if (saving === true) {
@@ -20,20 +22,26 @@ const Create: React.FC<FCWithProps> = (props) => {
   }
 
   const handlePostSubmit = async () => {
+    setError('')
     if (media.length === 0) {
-      alert(`Can't post without an image or video content`)
+      setError(`Please select an image or video to post`)
       return
     }
 
     const formData = new FormData()
-    await media.map((file, index) => formData.append(`files`, file));
+    await media.map(file => formData.append(`files`, file));
     formData.append('content', caption)
 
-    createPost(formData)
+    createPost(formData).then(() => {
+      closeCallback()
+    }).catch(() => {
+      setError('Something went wrong. Please try again later.')
+    })
   }
 
   return (
     <Grid container gap={5} padding={2} justifyContent="space-between">
+      <span className="text-center w-full">{error}</span>
       <Dropzone setMedia={setMedia} />
       <TextField 
         multiline 
