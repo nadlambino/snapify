@@ -1,4 +1,4 @@
-import { AxiosResponse } from "axios"
+import { AxiosError, AxiosResponse } from "axios"
 import { cookie } from "../utils/cookie"
 
 export const createPost = async (post: FormData) => {
@@ -9,7 +9,7 @@ export const createPost = async (post: FormData) => {
     }
   })
   .then((response: AxiosResponse) => response.data)
-  .catch(() => null)
+  .catch((error: AxiosError) => {throw error})
 }
 
 export const getPosts = async () => {
@@ -19,5 +19,5 @@ export const getPosts = async () => {
     }
   })
   .then((response: AxiosResponse) => response.data)
-  .catch(() => null)
+  .catch((error: AxiosError) => {throw error})
 }

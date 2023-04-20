@@ -74,6 +74,10 @@ export default function Form(props: FormProps) {
     setSaving(true)
   }
 
+  const handleFailedSave = () => {
+    setSaving(false)
+  }
+
   return (
     <Dialog
       fullScreen={fullScreen}
@@ -105,7 +109,12 @@ export default function Form(props: FormProps) {
       </AppBar>
       <Grid container justifyContent="center" top={70}>
         <Grid item xs={12}>
-          <Component saving={saving} handleClose={handleClose} closeCallback={handleClose} />
+          <Component 
+            saving={saving} 
+            handleClose={handleClose} 
+            closeCallback={handleClose}
+            failedSave={handleFailedSave}  
+          />
         </Grid>
       </Grid>
     </Dialog>
