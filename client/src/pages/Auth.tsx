@@ -12,31 +12,41 @@ function Auth() {
   }
 
   return (
-    <div className="app p-3">
-      <Grid container justifyContent="center">
-        <Grid item container direction="column" justifyContent="center" xs={12} sm={7} md={5} lg={3}>
-          <>
-          {
-            isSignIn ? 
-              <SignIn>
-                <Typography position="relative" className="flex">
-                  <span>No account yet? &nbsp;</span>
-                  <Link component="button" underline="none" onClick={handleFormToggle}>Sign Up</Link>
-                </Typography>
-              </SignIn>
-            : 
-              <SignUp>
-                <Typography position="relative" className="flex">
-                  <span>Already have an account? &nbsp;</span>
-                  <Link component="button" underline="none" onClick={handleFormToggle}>Sign In</Link>
-                </Typography>
-              </SignUp>
-          }
-          </>
-        </Grid>
+    <Grid item xs={12} sm={7} md={5} lg={4} className="app">
+      <Grid container item xs={12} sm={7} md={5} lg={4} className='flex flex-col justify-center gap-10'>
+        <div className="p-3 md:p-0 pt-3 w-full flex flex-col items-center justify-center">
+        {
+          isSignIn ? 
+            <SignIn>
+              <Typography position="relative" className="flex">
+                <span>No account yet? &nbsp;</span>
+                <Link component="button" underline="none" onClick={handleFormToggle}>Sign Up</Link>
+              </Typography>
+            </SignIn>
+          : 
+            <SignUp>
+              <Typography position="relative" className="flex">
+                <span>Already have an account? &nbsp;</span>
+                <Link component="button" underline="none" onClick={handleFormToggle}>Sign In</Link>
+              </Typography>
+            </SignUp>
+        }
+        </div>
+        <div className="w-full flex flex-col gap-3 bg-primary  text-center px-3 py-5">
+            <span className="font-bold w-full block">Terms and Conditions</span>
+            <Typography>
+              Please be advised that our application is currently in a developmental stage. 
+              As part of this development process, we reserve the right to delete any posts 
+              and associated media without prior notice. 
+            </Typography>
+            <Typography>
+              By using this application, you acknowledge and agree to this policy. 
+              We appreciate your understanding and cooperation as we work towards improving our services.
+            </Typography>
+        </div>
       </Grid>
       <Footer />
-    </div>
+    </Grid>
   )
 }
 

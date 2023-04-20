@@ -40,7 +40,7 @@ export default function SignIn(props: UnstrictReactPropType) {
   }
 
   return (
-    <Grid item xs={12} sm={7} md={5} lg={4} className='body no-header'>
+    <div className='w-full flex flex-col justify-center'>
       <form onSubmit={handleSignUp}>
         <Grid container justifyContent="center" direction="column" gap={2}>
           <Grid item xs={12}>
@@ -60,6 +60,6 @@ export default function SignIn(props: UnstrictReactPropType) {
           </Grid>
         </Grid>
       </form>
-    </Grid>
+    </div>
   )
 }
