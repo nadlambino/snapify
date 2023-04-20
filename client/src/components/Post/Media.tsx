@@ -7,7 +7,6 @@ interface Props {
 
 export default function Media({ media, className }: Props) {
   const src = window.apiUrl + '/' + media?.src?.replace('public', '')
-  console.log(src)
 
   return (
     <div className={className + ' post-image-container'}>
