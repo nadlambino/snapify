@@ -1,5 +1,5 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Grid, Typography } from '@mui/material'
+import { Grid, Badge } from '@mui/material'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import { CgProfile, CgFeed } from 'react-icons/cg'
@@ -34,7 +34,10 @@ export default function Header() {
       <Grid item xs={12} sm={7} md={5} lg={4}>
         <div className='flex items-center justify-between'>
           <Link to={'/'}>
-            <Typography>App Name</Typography>
+            <div className='flex flex-col'>
+              <span className='font-bold text-gray-800'>SNAPIFY</span>
+              <small className='relative px-1 top-[-7px] w-full bg-primary text-gray-200'>dev</small>
+            </div>
           </Link>
           <CgFeed size={23} className={`btn-icon ${getMenuActiveClass('/')}`} onClick={handleFeedClick} />
           <BsSearch size={21} className={`btn-icon ${getMenuActiveClass('/search')}`} />
