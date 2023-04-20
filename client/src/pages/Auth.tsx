@@ -1,6 +1,5 @@
 import { useState } from "react"
 import Footer from "../components/Footer"
-import Header from "../components/Header"
 import { Grid, Typography, Link } from '@mui/material'
 import SignIn from "../components/Auth/SignIn"
 import SignUp from "../components/Auth/SignUp"
@@ -13,7 +12,7 @@ function Auth() {
   }
 
   return (
-    <div className="app">
+    <div className="app p-3">
       <Grid container justifyContent="center">
         <Grid item container direction="column" justifyContent="center" xs={12} sm={7} md={5} lg={3}>
           <>
