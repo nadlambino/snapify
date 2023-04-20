@@ -11,6 +11,10 @@ export default function Feed() {
   const dispatch = useDispatch()
 
   useEffect(() => {
+    dispatch(setReloadPosts(true))
+  }, [])
+
+  useEffect(() => {
     if (reloadPost === true) {
       getPosts().then(posts => {
         setPosts(posts)
