@@ -26,5 +26,3 @@ client/*.local
 
 server/.env
 server/node_modules
-server/uploads
-server/public
