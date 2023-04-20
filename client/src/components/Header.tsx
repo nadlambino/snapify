@@ -31,7 +31,7 @@ export default function Header() {
 
   return (
     <Grid container justifyContent="center" className='header'>
-      <Grid item xs={12} sm={7} md={5} lg={4} padding={2} paddingTop={1}>
+      <Grid item xs={12} sm={7} md={5} lg={4}>
         <div className='flex items-center justify-between'>
           <Link to={'/'}>
             <Typography>App Name</Typography>

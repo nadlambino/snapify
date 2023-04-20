@@ -37,7 +37,7 @@ p, span {
 }
 
 .header {
-  @apply fixed max-h-[10vh] z-10 bg-white;
+  @apply fixed max-h-[10vh] h-full z-10 bg-white flex justify-center items-center p-2;
 }
 
 .body {
