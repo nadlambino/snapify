@@ -19,7 +19,7 @@ export interface MediaType {
   duration: number
 }
 
-interface UserType {
+export interface UserType {
   _id: String,
   firstName: String,
   lastName: String,

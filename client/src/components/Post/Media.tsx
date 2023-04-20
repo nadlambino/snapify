@@ -1,14 +1,15 @@
 import { MediaType } from "../../types/PostType"
 
 interface Props {
-  media: MediaType
+  media: MediaType,
+  className: string
 }
 
-export default function Media({ media }: Props) {
+export default function Media({ media, className }: Props) {
   const src = window.apiUrl + '/' + media?.src?.replace('public\\', '')
 
   return (
-    <div className='post-image-container'>
+    <div className={className + ' post-image-container'}>
       {
         media.category === 'image' ?
         <img src={src} className='post-image' alt="Post Photo" />

@@ -83,7 +83,7 @@ p, span {
 }
 
 .item {
-  @apply h-[85vh] bg-white sticky top-[10vh] rounded-[20px];
+  @apply h-[85vh] bg-white sticky top-[10vh];
 }
 
 .item:last-child {
@@ -103,9 +103,41 @@ p, span {
 }
 
 .post-image-container {
-  @apply relative z-0 flex flex-col justify-center items-center h-full w-full;
+  @apply relative z-0 flex-col justify-center items-center h-full w-full;
 }
 
 .post-image-container img, .post-image-container video {
   @apply w-full h-full object-cover brightness-[0.8];
+}
+
+.slide-thumb-item {
+  @apply bg-gray-400 rounded h-[3px] w-full relative overflow-hidden
+}
+
+.prev-slide {
+  @apply bg-gray-500
+}
+
+.slide-thumb-item.slide-active::after {
+  @apply bg-gray-500 rounded h-[3px] w-full block;
+  animation: thumb 5s forwards linear;
+  content: '';
+  height: inherit;
+  transform: translateX(-100%);
+}
+
+@keyframes thumb {
+  to {
+      transform: initial;
+  }
+}
+
+.overlay {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to bottom, rgba(0,0,0,0.7), rgba(0,0,0,0.5) 25%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.2) 75%, rgba(0,0,0,0)); /* set gradient values */
 }
