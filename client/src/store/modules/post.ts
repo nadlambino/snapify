@@ -8,7 +8,7 @@ interface StateType {
 export const postSlice = createSlice({
   name: 'post',
   initialState: {
-    reloadPosts: false
+    reloadPosts: true
   },
   reducers: {
     setReloadPosts: (state: StateType, action) => {
