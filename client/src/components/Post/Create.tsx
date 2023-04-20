@@ -3,6 +3,8 @@ import FCWithProps from '../../types/FCWithProps'
 import { createPost } from "../../api/post"
 import Dropzone from "../Reusable/Dropzone"
 import { useState, useEffect } from 'react'
+import { useDispatch } from "react-redux"
+import { setReloadPosts } from "../../store/modules/post"
 
 const Create: React.FC<FCWithProps> = (props) => {
   const [media, setMedia] = useState([])
@@ -10,6 +12,7 @@ const Create: React.FC<FCWithProps> = (props) => {
   const { saving } = props
   const [error, setError] = useState('')
   const { closeCallback } = props
+  const dispatch = useDispatch()
 
   useEffect(() => {
     if (saving === true) {
@@ -34,6 +37,7 @@ const Create: React.FC<FCWithProps> = (props) => {
 
     createPost(formData).then(() => {
       closeCallback()
+      dispatch(setReloadPosts(true))
     }).catch(() => {
       setError('Something went wrong. Please try again later.')
     })
