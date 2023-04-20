@@ -1,7 +1,6 @@
 import samplePhoto from './../../assets/images/sample-profile.jpg'
 import { PostType, MediaType, UserType } from "../../types/PostType"
 import Media from "./Media"
-import Stories from 'react-insta-stories';
 import { useEffect, useState } from 'react'
 import dayjs from 'dayjs';
 
