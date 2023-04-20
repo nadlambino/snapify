@@ -1,4 +1,7 @@
+require('dotenv').config()
+const mongoose = require('mongoose')
 const fs = require('fs');
+const Post = require('./../models/post.model')
 
 function deleteFolderRecursive(path) {
   if (fs.existsSync(path)) {
@@ -15,3 +18,17 @@ function deleteFolderRecursive(path) {
 }
 
 deleteFolderRecursive('public/uploads');
+
+mongoose.connect(process.env.MONGO_URI)
+    .then(() => {
+      Post.deleteMany().then(() => {
+        console.log('Posts deleted')
+      }).catch((error) => {
+        console.log(error)
+      }).finally(() => {
+        mongoose.disconnect();
+      })
+    })
+    .catch(error => {
+        console.log(`Error: `, error)
+    })
