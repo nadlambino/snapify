@@ -7,7 +7,6 @@ const { mediaSchema } = require('./media.model');
 const postSchema = new Schema({
     content: {
       type: String,
-      required: true,
       maxlength: 200
     },
     media: [mediaSchema],
