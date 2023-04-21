@@ -4,14 +4,17 @@ import { Backdrop } from '@mui/material'
 import { useState, useEffect } from 'react'
 import Slide from '@mui/material/Slide';
 import CommentForm from './CommentForm';
+import { CommentType } from '../../types/PostType';
+import Comment from './Comment';
 
 interface Props {
   show: boolean, 
   setShowComment: Function,
-  postId: string
+  postId: string,
+  comments: CommentType[]
 }
 
-export default function Comments({ show, setShowComment, postId }: Props) {
+export default function Comments({ show, setShowComment, postId, comments }: Props) {
   const [open, setOpen] = useState(show);
   const [slide, setSlide] = useState(false)
   const handleClose = () => {
@@ -33,7 +36,9 @@ export default function Comments({ show, setShowComment, postId }: Props) {
       <div>
         <Slide direction="up" in={slide} mountOnEnter unmountOnExit>
           <div className='comments-container'>
-            <div className='comments-list h-[80%]'></div>
+            <div className='comments-list h-[80%] flex flex-col gap-1 overflow-scroll'>
+              { comments && comments.map((comment, index) => <Comment key={index} comment={comment} />)}
+            </div>
             <CommentForm postId={postId} />
           </div>
         </Slide>

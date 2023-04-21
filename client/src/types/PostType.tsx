@@ -34,7 +34,7 @@ interface ReactType {
   createdAt: string
 }
 
-interface CommentType {
+export interface CommentType {
   user: string,
   content: string,
   deletedAt: string | null,

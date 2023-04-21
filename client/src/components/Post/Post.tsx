@@ -92,7 +92,12 @@ export default function Post({ post }: Props ) {
           </div>
         }
       </div>
-      <Comments show={showComments} setShowComment={setShowComments} postId={post._id} />
+      <Comments 
+        show={showComments} 
+        setShowComment={setShowComments} 
+        postId={post._id}
+        comments={post.comments}
+      />
     </div>
   )
 }
