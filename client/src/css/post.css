@@ -1,10 +1,12 @@
-
+html {
+  @apply snap-y snap-mandatory;
+}
 .container {
-  @apply flex flex-col gap-[15vh] scroll-smooth;
+  @apply flex flex-col scroll-smooth;
 }
 
 .item {
-  @apply h-[90vh] bg-white sticky top-[10vh];
+  @apply h-[90vh] bg-white top-[15vh] relative snap-end;
 }
 
 .item:last-child {
