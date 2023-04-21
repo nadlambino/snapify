@@ -5,7 +5,13 @@ import { useState, useEffect } from 'react'
 import Slide from '@mui/material/Slide';
 import CommentForm from './CommentForm';
 
-export default function Comments({show, setShowComment}: { show: boolean, setShowComment: Function }) {
+interface Props {
+  show: boolean, 
+  setShowComment: Function,
+  postId: string
+}
+
+export default function Comments({ show, setShowComment, postId }: Props) {
   const [open, setOpen] = useState(show);
   const [slide, setSlide] = useState(false)
   const handleClose = () => {
@@ -28,7 +34,7 @@ export default function Comments({show, setShowComment}: { show: boolean, setSho
         <Slide direction="up" in={slide} mountOnEnter unmountOnExit>
           <div className='comments-container'>
             <div className='comments-list h-[80%]'></div>
-            <CommentForm />
+            <CommentForm postId={postId} />
           </div>
         </Slide>
       </div>
