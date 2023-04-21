@@ -26,13 +26,13 @@ export default function Footer() {
         closeCallback={handleClose}
         component={CreateMood}>
       </Form>
-      <Grid container justifyContent="center" className='footer'>
+      {/* <Grid container justifyContent="center" className='footer'>
         <Grid item xs={12} sm={7} md={5} lg={4} container justifyContent="end" alignItems="end"> 
           <Fab size='medium' className='bg-primary' aria-label="add" onClick={handleClickOpen}>
             <IoMdAdd size={25} className='text-white' />
           </Fab>
         </Grid>
-      </Grid>
+      </Grid> */}
     </>
   )
 }

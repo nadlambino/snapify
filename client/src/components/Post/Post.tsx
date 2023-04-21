@@ -4,6 +4,9 @@ import { useEffect, useState } from 'react'
 import dayjs from 'dayjs';
 import { Avatar } from '@mui/material'
 import './../../css/post.css'
+import { GoCommentDiscussion } from 'react-icons/go'
+import { VscReactions } from 'react-icons/vsc'
+import Comments from "./Comments";
 
 interface Props {
   post: PostType
@@ -17,6 +20,7 @@ export default function Post({ post }: Props ) {
   const timePosted = dayjs(post.createdAt).fromNow()
   const [activeSlide, setActiveSlide] = useState(0)
   let timeout: number = 0
+  const [showComments, setShowComments] = useState(false)
 
   const handleSlidePlay = () => {
     if (media.length <= 1) {
@@ -29,12 +33,16 @@ export default function Post({ post }: Props ) {
     }, 5000)
   }
 
+  const handleShowComments = () => {
+    setShowComments(true)
+  }
+
   useEffect(() => {
     handleSlidePlay()
   }, [activeSlide])
 
   return (
-    <div className='item'>
+    <div className="item">
       <div className='post-details-container'>
         <div className='overlay-top'></div>
         <Avatar alt={fullName} sx={{ bgcolor: '#2A2F4F', fontSize: '14px' }}>{initials}</Avatar>
@@ -68,11 +76,20 @@ export default function Post({ post }: Props ) {
           ))
         }
         </div>
+        <div className="post-buttons-container">
+          <button className="p-2">
+            <VscReactions size={39} className="text-gray-300"/>
+          </button>
+          <button className="p-2" onClick={handleShowComments}>
+            <GoCommentDiscussion size={30} className="text-gray-300"/>
+          </button>
+        </div>
         <div className='post-content-container'>
           <div className='overlay-bottom'></div>
           <span className='text-white'>{post.content}</span>
         </div>
       </div>
+      <Comments show={showComments} setShowComment={setShowComments} />
     </div>
   )
 }

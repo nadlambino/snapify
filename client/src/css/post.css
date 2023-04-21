@@ -63,6 +63,10 @@
   @apply absolute bottom-0 p-3 py-6 w-full z-10;
 }
 
+.post-buttons-container {
+  @apply h-full absolute right-0 flex flex-col justify-end items-center pb-[10vh] gap-1
+}
+
 @keyframes thumb {
   to {
       transform: initial;
