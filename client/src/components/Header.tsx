@@ -1,16 +1,29 @@
 import { Link, useLocation } from 'react-router-dom'
-import { Grid, Badge } from '@mui/material'
+import { Grid } from '@mui/material'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 import { CgProfile, CgFeed } from 'react-icons/cg'
 import { RiLogoutCircleRLine } from 'react-icons/ri'
 import { FiSettings } from 'react-icons/fi'
 import { BsSearch } from 'react-icons/bs'
+import { IoMdAdd } from 'react-icons/io'
+import { useState } from 'react'
+import Form from './Form'
+import Create from './Post/Create'
 
 export default function Header() {
   const [cookies, setCookies, removeCookie] = useCookies()
   const navigate = useNavigate()
   const location = useLocation()
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  }
 
   const getMenuActiveClass = (path: string) => {
     return location.pathname === path ? 'active' : ''
@@ -40,12 +53,19 @@ export default function Header() {
             </div>
           </Link>
           <CgFeed size={23} className={`btn-icon ${getMenuActiveClass('/')}`} onClick={handleFeedClick} />
+          <IoMdAdd size={25} className={`btn-icon`} onClick={handleClickOpen}/>
           <BsSearch size={21} className={`btn-icon ${getMenuActiveClass('/search')}`} />
           <CgProfile size={23} className={`btn-icon ${getMenuActiveClass('/profile')}`} />
           <FiSettings size={23} className={`btn-icon ${getMenuActiveClass('/settings')}`} onClick={handleSettingsClick}/>
           <RiLogoutCircleRLine size={23} className='btn-icon' onClick={handleSignOut}/>
         </div>
       </Grid>
+      <Form 
+        save="POST"
+        show={open} 
+        closeCallback={handleClose}
+        component={Create}>
+      </Form>
     </Grid>
   );
 }

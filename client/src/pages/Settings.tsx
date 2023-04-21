@@ -1,6 +1,5 @@
 import { Grid } from '@mui/material'
 import Header from './../components/Header'
-import Footer from './../components/Footer'
 import * as React from 'react';
 import { styled } from '@mui/material/styles';
 import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
@@ -100,7 +99,6 @@ export default function Settings() {
           </Accordion>
         </Grid>
       </Grid>
-      <Footer />
     </Grid>
   )
 }

@@ -1,5 +1,4 @@
 import { useState } from "react"
-import Footer from "../components/Footer"
 import { Grid, Typography, Link } from '@mui/material'
 import SignIn from "../components/Auth/SignIn"
 import SignUp from "../components/Auth/SignUp"
@@ -45,7 +44,6 @@ function Auth() {
             </Typography>
         </div>
       </Grid>
-      <Footer />
     </Grid>
   )
 }
