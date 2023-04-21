@@ -32,9 +32,41 @@ const getPosts = async (req, res) => {
           }
         },
         {
+          $lookup: {
+            from: 'users',
+            localField: 'comments.user',
+            foreignField: '_id',
+            as: 'commentOwner'
+          }
+        },
+        {
           $project: {
             content: 1,
-            comments: 1,
+            comments: {
+              $map: {
+                input: '$comments',
+                as: 'comment',
+                in: {
+                  _id: '$$comment._id',
+                  content: '$$comment.content',
+                  user: { $arrayElemAt: [{
+                    $map: {
+                      input: '$commentOwner',
+                      in: {
+                        _id: '$$this._id',
+                        firstName: '$$this.firstName',
+                        lastName: '$$this.lastName',
+                        email: '$$this.email'
+                      }
+                    }
+                  }, 0] },
+                  reacts: '$$comment.reacts',
+                  createdAt: '$$comment.createdAt',
+                  updatedAt: '$$comment.updatedAt',
+                  deletedAt: '$$comment.deletedAt'
+                }
+              }
+            },
             reacts: 1,
             media: 1,
             user: { $arrayElemAt: [{
