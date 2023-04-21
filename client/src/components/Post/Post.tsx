@@ -84,10 +84,13 @@ export default function Post({ post }: Props ) {
             <GoCommentDiscussion size={30} className="text-gray-300"/>
           </button>
         </div>
-        <div className='post-content-container'>
-          <div className='overlay-bottom'></div>
-          <span className='text-white'>{post.content}</span>
-        </div>
+        {
+          post.content && 
+          <div className='post-content-container'>
+            <div className='overlay-bottom'></div>
+            <span className='text-white'>{post.content}</span>
+          </div>
+        }
       </div>
       <Comments show={showComments} setShowComment={setShowComments} />
     </div>

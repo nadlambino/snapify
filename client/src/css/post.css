@@ -64,7 +64,7 @@
 }
 
 .post-buttons-container {
-  @apply h-full absolute right-0 flex flex-col justify-end items-center pb-[10vh] gap-1
+  @apply h-full absolute right-0 flex flex-col justify-end items-center z-10 pb-3
 }
 
 @keyframes thumb {
