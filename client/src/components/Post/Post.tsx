@@ -4,9 +4,7 @@ import { useEffect, useState } from 'react'
 import dayjs from 'dayjs';
 import { Avatar } from '@mui/material'
 import './../../css/post.css'
-import ModeCommentIcon from '@mui/icons-material/ModeComment';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import Comments from "./Comments";
+import Actions from "./Actions";
 
 interface Props {
   post: PostType
@@ -20,7 +18,6 @@ export default function Post({ post }: Props ) {
   const timePosted = dayjs(post.createdAt).fromNow()
   const [activeSlide, setActiveSlide] = useState(0)
   let timeout: number = 0
-  const [showComments, setShowComments] = useState(false)
 
   const handleSlidePlay = () => {
     if (media.length <= 1) {
@@ -31,10 +28,6 @@ export default function Post({ post }: Props ) {
       let slide = activeSlide < (media.length - 1) ? activeSlide + 1 : 0
       setActiveSlide(slide)
     }, 5000)
-  }
-
-  const handleShowComments = () => {
-    setShowComments(true)
   }
 
   useEffect(() => {
@@ -76,14 +69,7 @@ export default function Post({ post }: Props ) {
           ))
         }
         </div>
-        <div className="post-buttons-container">
-          <button className="p-2">
-            <FavoriteIcon className="text-gray-300" fontSize="large" />
-          </button>
-          <button className="p-2" onClick={handleShowComments}>
-            <ModeCommentIcon className="text-gray-300" fontSize="large" />
-          </button>
-        </div>
+        <Actions post={post} />
         {
           post.content && 
           <div className='post-content-container'>
@@ -92,12 +78,6 @@ export default function Post({ post }: Props ) {
           </div>
         }
       </div>
-      <Comments 
-        show={showComments} 
-        setShowComment={setShowComments} 
-        postId={post._id}
-        comments={post.comments}
-      />
     </div>
   )
 }
