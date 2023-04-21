@@ -3,7 +3,7 @@
 }
 
 .comments-container {
-  @apply  absolute h-[60%] bottom-0 bg-white z-10 flex flex-col w-[98%] left-[1%] rounded-t-md;
+  @apply  absolute h-[60%] bottom-0 bg-white z-30 flex flex-col w-[98%] left-[1%] rounded-t-md;
 }
 
 .comment-form {

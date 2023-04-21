@@ -4,8 +4,8 @@ import { useEffect, useState } from 'react'
 import dayjs from 'dayjs';
 import { Avatar } from '@mui/material'
 import './../../css/post.css'
-import { GoCommentDiscussion } from 'react-icons/go'
-import { VscReactions } from 'react-icons/vsc'
+import ModeCommentIcon from '@mui/icons-material/ModeComment';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 import Comments from "./Comments";
 
 interface Props {
@@ -78,10 +78,10 @@ export default function Post({ post }: Props ) {
         </div>
         <div className="post-buttons-container">
           <button className="p-2">
-            <VscReactions size={39} className="text-gray-300"/>
+            <FavoriteIcon className="text-gray-300" fontSize="large" />
           </button>
           <button className="p-2" onClick={handleShowComments}>
-            <GoCommentDiscussion size={30} className="text-gray-300"/>
+            <ModeCommentIcon className="text-gray-300" fontSize="large" />
           </button>
         </div>
         {
