@@ -6,7 +6,7 @@ html {
 }
 
 .item {
-  @apply h-[90vh] bg-white top-[15vh] relative snap-end;
+  @apply h-[90vh] bg-white relative snap-end;
 }
 
 .item:last-child {

@@ -44,6 +44,10 @@ p, span {
   @apply m-auto relative z-0 p-0
 }
 
+.has-header {
+  @apply top-[10vh]
+}
+
 .no-header {
   @apply top-0 !important;
 }
