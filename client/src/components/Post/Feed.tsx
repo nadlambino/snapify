@@ -1,27 +1,33 @@
-import { useEffect, useState } from "react"
-import { getPosts } from "../../api/post"
 import Post from "./Post"
-import PostType from "../../types/PostType"
-import { Grid } from "@mui/material"
-import { useSelector } from "react-redux"
+import { getPosts } from "../../api/post"
+import { useState, useEffect } from 'react'
+import { PostType } from './../../types/PostType'
+import { useSelector, useDispatch } from "react-redux";
+import { setReloadPosts } from "../../store/modules/post";
 
 export default function Feed() {
   const [posts, setPosts] = useState<[PostType]>()
-  const reloadFeed = useSelector((state: any) => (state.feed))
-  
+  const reloadPost = useSelector((state: any) => (state.post.reloadPosts))
+  const dispatch = useDispatch()
+
   useEffect(() => {
-    getPosts().then(posts => {
-      setPosts(posts)
-    })
-  }, [reloadFeed])
+    dispatch(setReloadPosts(true))
+  }, [])
+
+  useEffect(() => {
+    if (reloadPost === true) {
+      getPosts().then(posts => {
+        setPosts(posts)
+        dispatch(setReloadPosts(false))
+      })
+    }
+  }, [reloadPost])
 
   return (
-    <Grid item xs={12} container>
-    {
-      posts && posts.map(post => (
-        <Post post={post} key={post._id} />
-      ))
-    }
-    </Grid>
+    <div className='container'>
+      {posts && posts.map((post) => {
+        return <Post key={post._id} post={post} />
+      })}
+    </div>
   )
 }

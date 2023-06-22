@@ -1,0 +1,76 @@
+html {
+  @apply snap-y snap-mandatory;
+}
+.container {
+  @apply flex flex-col scroll-smooth;
+}
+
+.item {
+  @apply h-[90vh] bg-white relative snap-end;
+}
+
+.item:last-child {
+  @apply mb-0;
+}
+
+.post-details-container {
+  @apply absolute z-10 text-white p-2 pb-5 flex content-center items-center gap-3 w-full h-[100px]
+}
+
+.post-profile {
+  @apply w-[60px] h-[60px] aspect-square object-cover rounded-full relative top-2;
+}
+
+.fullname {
+  @apply capitalize text-gray-200 relative z-10;
+}
+
+.time-posted {
+  @apply text-gray-300 relative z-10;
+}
+
+.post-image-wrapper {
+  @apply flex flex-col justify-center items-center h-full relative;
+}
+
+.thumb-container {
+  @apply flex w-full gap-1 absolute top-0 z-10 p-2;
+}
+
+.slide-thumb-item {
+  @apply bg-gray-400 rounded h-[3px] w-full relative overflow-hidden
+}
+
+.slide-thumb-item.slide-active::after {
+  @apply bg-gray-500 rounded h-[3px] w-full block;
+  animation: thumb 5s forwards linear;
+  content: '';
+  height: inherit;
+  transform: translateX(-100%);
+}
+
+.slide-prev {
+  @apply bg-gray-500
+}
+
+.post-image-container {
+  @apply relative z-0 flex-col justify-center items-center h-full w-full bg-gray-800 overflow-hidden;
+}
+
+.post-image-container img, .post-image-container video {
+  @apply w-full;
+}
+
+.post-content-container {
+  @apply absolute bottom-0 p-3 py-6 w-full z-10;
+}
+
+.post-buttons-container {
+  @apply h-full absolute right-[5px] flex flex-col justify-end items-center z-20 pb-5 gap-2 text-gray-100;
+}
+
+@keyframes thumb {
+  to {
+      transform: initial;
+  }
+}

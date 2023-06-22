@@ -1,4 +1,5 @@
 export default interface FCWithProps {
   saving: boolean,
-  [key: string]: string | number | boolean,
+  closeCallback: Function,
+  [key: string]: string | number | boolean | Function,
 }

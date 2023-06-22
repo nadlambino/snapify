@@ -2,41 +2,68 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
+* {
+  @apply box-border;
+  font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif !important;
+}
+
 body {
-  padding: 0;
-  margin: 0;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  @apply p-0 m-0 box-border;
+  font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif !important;
+}
+
+p, span {
+  @apply text-gray-500;
 }
 
 ::-webkit-scrollbar {
-  width: 7px;
-  height: 5px;
+  @apply w-[7px] h-[5px];
 }
 
 ::-webkit-scrollbar-track {
-  background: transparent; 
+  @apply bg-transparent;
 }
  
 ::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 10px;
+  @apply bg-gray-400 rounded-[10px];
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #555;
+  @apply bg-gray-600;
 }
 
-.btn-link, .btn-link:hover, .btn-link:visited {
-  color: #ffffff;
-  text-decoration: none;
+.app {
+  @apply h-[100vh] relative flex flex-col justify-center;
+}
+
+.header {
+  @apply fixed max-h-[10vh] h-full z-10 bg-white flex justify-center items-center p-2;
+}
+
+.body {
+  @apply m-auto relative z-0 p-0
+}
+
+.has-header {
+  @apply top-[10vh]
+}
+
+.no-header {
+  @apply top-0 !important;
+}
+
+.active {
+  @apply text-gray-100 bg-gray-700 !important;
 }
 
 .btn {
-  min-height: 50px;
+  @apply min-h-[50px]
 }
 
-.App {
-  height: 100vh;
+.btn-icon {
+  @apply cursor-pointer box-content p-2 rounded-full hover:bg-gray-100 outline-0
+    text-gray-700;
+  -webkit-tap-highlight-color:  transparent;
 }
 
 .ellipsis {
@@ -44,5 +71,43 @@ body {
 }
 
 .bg-primary {
-  background-color: #E74646 !important;
+  @apply bg-gray-800 !important;
+}
+
+.moods-container::-webkit-scrollbar {
+  @apply hidden;
+}
+
+.overlay-top {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    to bottom, 
+    rgba(0,0,0,0.5), 
+    rgba(0,0,0,0.4), 
+    rgba(0,0,0,0.3), 
+    rgba(0,0,0,0.2), 
+    rgba(0,0,0,0.1), 
+    rgba(0,0,0,0));
+}
+
+.overlay-bottom {
+  position: absolute;
+  z-index: 0;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(
+    to top, 
+    rgba(0,0,0,0.5), 
+    rgba(0,0,0,0.4), 
+    rgba(0,0,0,0.3), 
+    rgba(0,0,0,0.2), 
+    rgba(0,0,0,0.1), 
+    rgba(0,0,0,0));
 }

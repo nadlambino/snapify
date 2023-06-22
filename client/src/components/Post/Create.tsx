@@ -1,73 +1,69 @@
-import { Grid, Button, Paper } from "@mui/material"
-import EmojiPicker, { EmojiClickData, EmojiStyle } from "emoji-picker-react"
-import { useState, useEffect } from "react"
-import { useDispatch } from "react-redux"
+import { Grid, TextField } from "@mui/material"
 import FCWithProps from '../../types/FCWithProps'
 import { createPost } from "../../api/post"
-import { setReloadFeed } from "../../store/modules/feed"
+import Dropzone from "../Reusable/Dropzone"
+import { useState, useEffect } from 'react'
+import { useDispatch } from "react-redux"
+import { setReloadPosts } from "../../store/modules/post"
 
 const Create: React.FC<FCWithProps> = (props) => {
-  const [mood, setMood] = useState("")
-  const characterLimit = 50
+  const [media, setMedia] = useState([])
+  const [caption, setCaption] = useState('')
+  const { saving } = props
+  const [error, setError] = useState('')
+  const { closeCallback, failedSave } = props
   const dispatch = useDispatch()
+  const limit = 200
 
   useEffect(() => {
-    if (props.saving) {
-      handleSave()
+    if (saving === true) {
+      handlePostSubmit()
     }
-  }, [props.saving])
+  }, [saving])
 
-  const handleEmojiChange = (emoji: EmojiClickData) => {
-    if ((mood.length + emoji.emoji.length) >= characterLimit) {
+  const handleCaptionChange = (value: string) => {
+    if (value.length <= limit || value.length < caption.length) {
+      setCaption(value)
+    }
+  }
+
+  const handlePostSubmit = async () => {
+    setError('')
+    if (media.length === 0) {
+      setError(`Please select an image or video to post`)
       return
     }
-    setMood((prev) => (prev + emoji.emoji))
-  }
 
-  const handleEmojiClear = () => {
-    setMood(() => (''))
-  }
+    const formData = new FormData()
+    await media.map(file => formData.append(`files`, file));
+    formData.append('content', caption)
 
-  const handleSave = () => {
-    if (mood.length > 0) {
-      createPost({content: mood}).then(() => {
-        dispatch(setReloadFeed(true))
-      })
-    }
+    createPost(formData).then(() => {
+      closeCallback()
+      dispatch(setReloadPosts(true))
+    }).catch(() => {
+      if (typeof failedSave === 'function') {
+        failedSave()
+      }
+      setError('Something went wrong. Please try again later.')
+    })
   }
 
   return (
-    <Grid container gap={2} padding={3} justifyContent="center">
-      <Grid item xs={12}>
-        <Paper 
-          elevation={0} 
-          style={{fontSize: 35, display: 'flex', justifyContent: 'center', padding: 5, letterSpacing: -5, textAlign: 'center'}}>
-          {mood}
-        </Paper>
-        {
-          mood.length ?
-          <Grid container justifyContent="flex-end" alignItems="center" gap={1}>
-            <Button onClick={handleEmojiClear}>
-              <small>
-                Clear
-              </small>
-            </Button>
-            <small style={{color: "gray", fontSize: 12}}>
-              {mood.length}/{characterLimit}
-            </small>
-          </Grid>
-          : ''
-        }
-      </Grid>
-      <Grid item xs={12}>
-        <EmojiPicker 
-          width="100%" 
-          height={450}
-          emojiStyle={EmojiStyle.APPLE} 
-          lazyLoadEmojis={true}
-          onEmojiClick={(emoji) => handleEmojiChange(emoji)} 
-        />
-      </Grid>
+    <Grid container gap={5} padding={2} justifyContent="space-between">
+      <span className="text-center w-full">{error}</span>
+      <Dropzone setMedia={setMedia} />
+      <div className="w-full">
+        <TextField 
+          value={caption}
+          multiline 
+          maxRows={4} 
+          variant="standard" 
+          label="Caption" 
+          fullWidth 
+          onChange={(e) => handleCaptionChange(e.target.value)} />
+          <small className="text-gray-500 w-full text-right block">{caption.length}/{limit}</small>
+      </div>
     </Grid>
   )
 }
