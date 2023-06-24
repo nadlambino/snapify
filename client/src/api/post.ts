@@ -1,14 +1,15 @@
-import { AxiosResponse } from "axios"
+import { AxiosError, AxiosResponse } from "axios"
 import { cookie } from "../utils/cookie"
 
-export const createPost = async (post: {content: string}) => {
+export const createPost = async (post: FormData) => {
   return await window.axios.post(`${window.apiUrl}/post`, post, {
     headers: {
-      Authorization: `Bearer ${cookie('token')}`
+      Authorization: `Bearer ${cookie('token')}`,
+      'Content-Type': 'multipart/form-data'
     }
   })
   .then((response: AxiosResponse) => response.data)
-  .catch(() => null)
+  .catch((error: AxiosError) => {throw error})
 }
 
 export const getPosts = async () => {
@@ -18,5 +19,15 @@ export const getPosts = async () => {
     }
   })
   .then((response: AxiosResponse) => response.data)
-  .catch(() => null)
+  .catch((error: AxiosError) => {throw error})
+}
+
+export const commentPost = async ({ postId, comment }: { postId: string, comment: string }) => {
+  return await window.axios.post(`${window.apiUrl}/post/${postId}/comment`, {content: comment}, {
+    headers: {
+      Authorization: `Bearer ${cookie('token')}`
+    }
+  })
+  .then((response: AxiosResponse) => response.data)
+  .catch((error: AxiosError) => {throw error})
 }

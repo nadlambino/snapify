@@ -1,49 +1,71 @@
-import { Grid, AppBar, Box, Toolbar, Typography, Button } from '@mui/material'
-import { Link } from 'react-router-dom';
-import { isAuthenticated } from './../utils/auth'
+import { Link, useLocation } from 'react-router-dom'
+import { Grid } from '@mui/material'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
+import { CgProfile, CgFeed } from 'react-icons/cg'
+import { RiLogoutCircleRLine } from 'react-icons/ri'
+import { FiSettings } from 'react-icons/fi'
+import { BsSearch } from 'react-icons/bs'
+import { IoMdAdd } from 'react-icons/io'
+import { useState } from 'react'
+import Form from './Form'
+import Create from './Post/Create'
 
 export default function Header() {
   const [cookies, setCookies, removeCookie] = useCookies()
   const navigate = useNavigate()
-  
+  const location = useLocation()
+  const [open, setOpen] = useState(false);
+
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  }
+
+  const getMenuActiveClass = (path: string) => {
+    return location.pathname === path ? 'active' : ''
+  }
+
   const handleSignOut = () => {
     removeCookie('token')
     navigate('/auth')
   }
 
+  const handleFeedClick = () => {
+    navigate('/')
+  }
+
+  const handleSettingsClick = () => {
+    navigate('/settings')
+  }
+
   return (
-    <Grid container justifyContent="center">
-      <Grid item xs={12}>
-        <Box sx={{ flexGrow: 1 }}>
-          <AppBar position="static">
-            <Grid container justifyContent="center" className='bg-primary'>
-              <Grid item xs={12} md={6}>
-                <Toolbar>
-                  <Grid container justifyContent="space-between">
-                    <Grid item>
-                      <Link to="/" className='btn-link'>
-                        <Typography variant='h6' component='div'>
-                          Feed
-                        </Typography>
-                      </Link>
-                    </Grid>
-                    { 
-                      isAuthenticated() &&
-                      <Grid item>
-                        <Button color="inherit" onClick={handleSignOut}>
-                          Sign Out
-                        </Button>
-                      </Grid>
-                    }
-                  </Grid>
-                </Toolbar>
-              </Grid>
-            </Grid>
-          </AppBar>
-        </Box>
+    <Grid container justifyContent="center" className='header'>
+      <Grid item xs={12} sm={7} md={5} lg={4}>
+        <div className='flex items-center justify-between'>
+          <Link to={'/'}>
+            <div className='flex flex-col'>
+              <span className='font-bold text-gray-800'>SNAPIFY</span>
+              <small className='relative px-1 top-[-7px] w-full bg-primary text-gray-200'>dev</small>
+            </div>
+          </Link>
+          <CgFeed size={23} className={`btn-icon ${getMenuActiveClass('/')}`} onClick={handleFeedClick} />
+          <IoMdAdd size={25} className={`btn-icon`} onClick={handleClickOpen}/>
+          <BsSearch size={21} className={`btn-icon ${getMenuActiveClass('/search')}`} />
+          <CgProfile size={23} className={`btn-icon ${getMenuActiveClass('/profile')}`} />
+          <FiSettings size={23} className={`btn-icon ${getMenuActiveClass('/settings')}`} onClick={handleSettingsClick}/>
+          <RiLogoutCircleRLine size={23} className='btn-icon' onClick={handleSignOut}/>
+        </div>
       </Grid>
+      <Form 
+        save="POST"
+        show={open} 
+        closeCallback={handleClose}
+        component={Create}>
+      </Form>
     </Grid>
   );
 }

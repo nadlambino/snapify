@@ -1,7 +1,8 @@
-export default interface PostType {
+export interface PostType {
   _id: string,
   user: UserType;
   content: string,
+  media: [MediaType],
   comments: CommentType[],
   commentsCount: number,
   reacts: ReactType[],
@@ -11,7 +12,14 @@ export default interface PostType {
   createdAt: string
 }
 
-interface UserType {
+export interface MediaType {
+  _id: string,
+  src: string,
+  category: string,
+  duration: number
+}
+
+export interface UserType {
   _id: String,
   firstName: String,
   lastName: String,
@@ -26,8 +34,8 @@ interface ReactType {
   createdAt: string
 }
 
-interface CommentType {
-  user: string,
+export interface CommentType {
+  user: UserType,
   content: string,
   deletedAt: string | null,
   updateAt: string,

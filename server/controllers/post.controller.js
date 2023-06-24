@@ -1,9 +1,17 @@
 const Post = require('./../models/post.model')
+const fs = require('fs')
 
 const createPost = async (req, res) => {
   try {
     const { _id: user } = req.auth
-    const post = await Post.create({...req.body, user})
+    const media = req.files.map(file => {
+      return {
+        src: file.path,
+        category: file.mimetype.includes('image') ? 'image' : 'video',
+      }
+    })
+
+    const post = await Post.create({...req.body, user, media})
 
     res.status(201).json(post)
   } catch (error) {
@@ -24,10 +32,43 @@ const getPosts = async (req, res) => {
           }
         },
         {
+          $lookup: {
+            from: 'users',
+            localField: 'comments.user',
+            foreignField: '_id',
+            as: 'commentOwner'
+          }
+        },
+        {
           $project: {
             content: 1,
-            comments: 1,
+            comments: {
+              $map: {
+                input: '$comments',
+                as: 'comment',
+                in: {
+                  _id: '$$comment._id',
+                  content: '$$comment.content',
+                  user: { $arrayElemAt: [{
+                    $map: {
+                      input: '$commentOwner',
+                      in: {
+                        _id: '$$this._id',
+                        firstName: '$$this.firstName',
+                        lastName: '$$this.lastName',
+                        email: '$$this.email'
+                      }
+                    }
+                  }, 0] },
+                  reacts: '$$comment.reacts',
+                  createdAt: '$$comment.createdAt',
+                  updatedAt: '$$comment.updatedAt',
+                  deletedAt: '$$comment.deletedAt'
+                }
+              }
+            },
             reacts: 1,
+            media: 1,
             user: { $arrayElemAt: [{
               $map: {
                 input: '$user',
@@ -51,7 +92,24 @@ const getPosts = async (req, res) => {
         }
       ])
 
-    res.status(200).json(posts)
+    let filteredPosts = posts.map(post => {
+      const { media } = post
+
+      let filteredMedia = media.map(data => {
+        return fs.existsSync(data.src) === true ? data : null
+      })
+
+      filteredMedia = global._.filter(filteredMedia, (data) => data !== null)
+
+      return {
+        ...post,
+        media: filteredMedia
+      }
+    })
+
+    filteredPosts = global._.filter(filteredPosts, (data) => data.media.length > 0)
+
+    res.status(200).json(filteredPosts)
   } catch (error) {
     res.status(400).json({error: 'Failed to retrieve posts'})
     console.log(error)

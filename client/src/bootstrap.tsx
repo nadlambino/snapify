@@ -27,5 +27,5 @@ if (!window.axios) {
 }
 
 if (!window.apiUrl) {
-  window.apiUrl = 'http://localhost'
+  window.apiUrl = ['localhost', '127.0.0.1'].includes(window.location.hostname) ? 'http://localhost' : 'https://test-mern-37wx.onrender.com'
 }

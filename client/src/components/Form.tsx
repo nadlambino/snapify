@@ -1,11 +1,12 @@
 import { useState, useEffect, Ref, forwardRef, ReactElement, ReactNode } from 'react'
-import { Button, Dialog, AppBar, Toolbar, Slide, Typography, IconButton, Grid } from '@mui/material'
+import { Button, Dialog, AppBar, Toolbar, Slide, Typography, IconButton, Grid, useTheme } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { TransitionProps } from '@mui/material/transitions'
 import { isAuthenticated } from '../utils/auth'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import FCWithProps from '../types/FCWithProps'
+import useMediaQuery from '@mui/material/useMediaQuery';
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -33,6 +34,8 @@ export default function Form(props: FormProps) {
   const navigate = useNavigate()
   const [cookies] = useCookies()
   const isAuth = isAuthenticated()
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
     if (!isAuth) {
@@ -59,19 +62,32 @@ export default function Form(props: FormProps) {
     }
   };
 
+  const handleCloseCallback = () => {
+    if (typeof closeCallback === 'function') {
+      return closeCallback
+    }
+
+    return () => {}
+  }
+
   const handleClickSave = () => {
     setSaving(true)
   }
 
+  const handleFailedSave = () => {
+    setSaving(false)
+  }
+
   return (
     <Dialog
+      fullScreen={fullScreen}
+      fullWidth
       open={open}
       onClose={handleClose}
       TransitionComponent={Transition}
-      maxWidth="xs"
     >
-      <AppBar sx={{ position: 'relative' }}>
-        <Grid container justifyContent="center">
+      <AppBar sx={{ position: 'relative' }} className='bg-primary'>
+        <Grid container justifyContent="center" className='bg-primary'>
           <Grid item xs={12}>
             <Toolbar>
               <IconButton
@@ -93,7 +109,12 @@ export default function Form(props: FormProps) {
       </AppBar>
       <Grid container justifyContent="center" top={70}>
         <Grid item xs={12}>
-          <Component saving={saving} />
+          <Component 
+            saving={saving} 
+            handleClose={handleClose} 
+            closeCallback={handleClose}
+            failedSave={handleFailedSave}  
+          />
         </Grid>
       </Grid>
     </Dialog>

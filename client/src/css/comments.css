@@ -1,0 +1,11 @@
+.comments-backdrop {
+  @apply absolute !important
+}
+
+.comments-container {
+  @apply  absolute h-[60%] bottom-0 bg-white z-30 flex flex-col w-[98%] left-[1%] rounded-t-md;
+}
+
+.comment-form {
+  @apply w-full h-[20%] flex items-end p-3 gap-2 justify-center border-t-2
+}
