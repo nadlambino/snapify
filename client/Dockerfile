@@ -1,0 +1,20 @@
+# Use the Node.js 17-alpine base image
+FROM node:16-alpine
+
+# Set the working directory inside the container
+WORKDIR /src/client
+
+# Copy package.json and package-lock.json to the working directory
+COPY package*.json ./
+
+# Install project dependencies
+RUN npm update
+
+# Copy the rest of the application code to the working directory
+COPY . .
+
+# Expose port 3000 for the server to listen on
+EXPOSE 5713
+
+# Run the command 'npm run dev' to start the server
+CMD ["npm", "run", "dev"]
