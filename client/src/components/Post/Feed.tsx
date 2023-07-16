@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { setReloadPosts } from "../../store/modules/post";
 
 export default function Feed() {
-  const [posts, setPosts] = useState<[PostType]>()
+  const [posts, setPosts] = useState<PostType[]>()
   const reloadPost = useSelector((state: any) => (state.post.reloadPosts))
   const dispatch = useDispatch()
 
@@ -25,8 +25,8 @@ export default function Feed() {
 
   return (
     <div className='container'>
-      {posts && posts.map((post, index) => {
-        return <Post key={index} post={post} />
+      {posts && posts.map((post) => {
+        return <Post key={post._id} post={post} />
       })}
     </div>
   )
