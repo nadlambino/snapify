@@ -130,8 +130,29 @@ const commentPost = async (req, res) => {
   }
 }
 
+const reactPost = async (req, res) => {
+  try {
+    const { _id: user } = req.auth
+    const post = await Post.findById(req.params.id)
+    const index = post.reacts.findIndex(react => react.user.toString() === user)
+
+    if (index === -1) {
+      post.reacts.push({user})
+    } else {
+      const reacts = post.reacts.filter(react => react.user.toString() !== user)
+      post.reacts = reacts
+    }
+
+    await post.save();
+    res.status(200).json(post)
+  } catch (error) {
+    console.log(error)
+  }
+}
+
 module.exports = {
   createPost,
   getPosts,
-  commentPost
+  commentPost,
+  reactPost
 }

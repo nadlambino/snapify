@@ -7,11 +7,6 @@ const reactSchema = new Schema({
       ref: 'User',
       required: true
     },
-    type: {
-      type: String,
-      required: true,
-      enum: ["happy", "neutral", "sad", "angry", "heart eyes", "scared"]
-    },
     deletedAt: {
       type: Date,
       default: null
