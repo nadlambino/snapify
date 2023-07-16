@@ -52,12 +52,11 @@ export default function Header() {
               <small className='relative px-1 top-[-7px] w-full bg-primary text-gray-200'>dev</small>
             </div>
           </Link>
-          <CgFeed size={23} className={`btn-icon ${getMenuActiveClass('/')}`} onClick={handleFeedClick} />
-          <IoMdAdd size={25} className={`btn-icon`} onClick={handleClickOpen}/>
-          <BsSearch size={21} className={`btn-icon ${getMenuActiveClass('/search')}`} />
-          <CgProfile size={23} className={`btn-icon ${getMenuActiveClass('/profile')}`} />
-          <FiSettings size={23} className={`btn-icon ${getMenuActiveClass('/settings')}`} onClick={handleSettingsClick}/>
-          <RiLogoutCircleRLine size={23} className='btn-icon' onClick={handleSignOut}/>
+          <div className='flex'>
+            <CgFeed size={23} className={`btn-icon ${getMenuActiveClass('/')}`} onClick={handleFeedClick} />
+            <IoMdAdd size={25} className={`btn-icon`} onClick={handleClickOpen}/>
+            <RiLogoutCircleRLine size={23} className='btn-icon' onClick={handleSignOut}/>
+          </div>
         </div>
       </Grid>
       <Form 
