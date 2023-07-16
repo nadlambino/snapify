@@ -33,11 +33,11 @@ p, span {
 }
 
 .app {
-  @apply h-[100vh] relative flex flex-col justify-center;
+  @apply h-[100svh] relative flex flex-col justify-center;
 }
 
 .header {
-  @apply fixed max-h-[10vh] h-full z-10 bg-white flex justify-center items-center p-2;
+  @apply fixed max-h-[10svh] h-full z-10 bg-white flex justify-center items-center p-2;
 }
 
 .body {
@@ -45,7 +45,7 @@ p, span {
 }
 
 .has-header {
-  @apply top-[10vh]
+  @apply top-[10svh]
 }
 
 .no-header {

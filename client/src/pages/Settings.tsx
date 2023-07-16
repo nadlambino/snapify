@@ -56,7 +56,7 @@ export default function Settings() {
   return (
     <Grid item xs={12} sm={7} md={5} lg={4} className="app">
       <Header />
-      <Grid item container xs={12} sm={7} md={5} lg={4} className='body top-[10vh]'>
+      <Grid item container xs={12} sm={7} md={5} lg={4} className='body top-[10svh]'>
         <Grid item>
           <Accordion expanded={expanded === 'profile-info'} onChange={handleChange('profile-info')}>
             <AccordionSummary aria-controls="profile-info-content" id="profile-info-header">
