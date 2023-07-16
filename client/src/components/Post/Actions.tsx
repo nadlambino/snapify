@@ -6,9 +6,14 @@ import { PostType } from '../../types/PostType';
 
 export default function Actions({ post }: { post: PostType }) {
   const [showComments, setShowComments] = useState(false)
+  const [commentsCount, setCommentsCount] = useState(post.commentsCount)
 
   const handleShowComments = () => {
     setShowComments(true)
+  }
+
+  const handleCommentCountUpdate = (count: number) => {
+    setCommentsCount(count)
   }
 
   return (
@@ -20,7 +25,7 @@ export default function Actions({ post }: { post: PostType }) {
         </button>
         <button className="p-2" onClick={handleShowComments}>
           <ModeCommentIcon fontSize="large" />
-          <small>{post.commentsCount}</small>
+          <small>{commentsCount}</small>
         </button>
       </div>
       <Comments 
@@ -28,6 +33,7 @@ export default function Actions({ post }: { post: PostType }) {
         setShowComment={setShowComments} 
         postId={post._id}
         comments={post.comments}
+        updateCommentsCount={handleCommentCountUpdate}
       />
     </>
   )

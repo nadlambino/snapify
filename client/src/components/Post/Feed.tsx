@@ -25,8 +25,8 @@ export default function Feed() {
 
   return (
     <div className='container'>
-      {posts && posts.map((post) => {
-        return <Post key={post._id} post={post} />
+      {posts && posts.map((post, index) => {
+        return <Post key={index} post={post} />
       })}
     </div>
   )

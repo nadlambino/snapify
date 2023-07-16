@@ -17,7 +17,7 @@ export default function Post({ post }: Props ) {
   const initials = `${user.firstName[0]}${user.lastName[0]}`
   const timePosted = dayjs(post.createdAt).fromNow()
   const [activeSlide, setActiveSlide] = useState(0)
-  let timeout: number = 0
+  let timeout: any = 0
 
   const handleSlidePlay = () => {
     if (media.length <= 1) {
