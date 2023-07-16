@@ -1,12 +1,15 @@
 html {
-  @apply snap-y snap-mandatory;
+  @apply snap-y snap-mandatory scroll-smooth;
 }
 .container {
-  @apply flex flex-col scroll-smooth;
+  @apply flex flex-col h-max;
 }
 
 .item {
-  @apply h-[90vh] bg-white relative snap-end;
+  @apply h-[calc(100vh-70px)] bg-white relative snap-start;
+
+  scroll-snap-stop: always;
+  scroll-margin-top: 70px;
 }
 
 .item:last-child {
