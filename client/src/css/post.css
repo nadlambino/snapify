@@ -69,7 +69,11 @@ html {
 }
 
 .post-buttons-container {
-  @apply h-full absolute right-[5px] flex flex-col justify-end items-center z-20 pb-5 gap-2 text-gray-100;
+  @apply h-full absolute right-[5px] flex flex-col justify-end items-center z-20 pb-5 gap-0 text-gray-100;
+}
+
+.post-buttons-container button {
+  @apply flex flex-col items-center;
 }
 
 @keyframes thumb {

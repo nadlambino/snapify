@@ -16,9 +16,11 @@ export default function Actions({ post }: { post: PostType }) {
       <div className="post-buttons-container">
         <button className="p-2">
           <FavoriteIcon fontSize="large" />
+          <small>{post.reactsCount}</small>
         </button>
         <button className="p-2" onClick={handleShowComments}>
           <ModeCommentIcon fontSize="large" />
+          <small>{post.commentsCount}</small>
         </button>
       </div>
       <Comments 
