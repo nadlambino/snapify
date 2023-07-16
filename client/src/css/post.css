@@ -6,7 +6,7 @@ html {
 }
 
 .item {
-  @apply h-[calc(100svh-70px)] bg-white relative snap-start;
+  @apply h-[calc(100dvh-70px)] bg-white relative snap-start;
 
   scroll-snap-stop: always;
   scroll-margin-top: 70px;
