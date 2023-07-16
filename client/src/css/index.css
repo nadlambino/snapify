@@ -4,6 +4,8 @@
 
 * {
   @apply box-border;
+  -webkit-tap-highlight-color: transparent;
+  tap-highlight-color: transparent;
   font-family: "Segoe UI", "Roboto", "Helvetica Neue", Arial, sans-serif !important;
 }
 

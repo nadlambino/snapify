@@ -3,9 +3,9 @@ import { TextField } from '@mui/material'
 import { AiOutlineSend } from 'react-icons/ai'
 import { commentPost } from '../../api/post'
 import { useState } from 'react'
-import { CommentType, UserType } from '../../types/PostType'
+import { UserType } from '../../types/PostType'
 import dayjs from 'dayjs'
-import { useEffect } from 'react'
+import { useEffect, FormEvent } from 'react'
 import { getAuthUser } from '../../utils/auth'
 
 interface Props {
@@ -25,36 +25,41 @@ export default function CommentForm({ postId, newCommentCB }: Props) {
     setUser(getAuthUser())
   }, [])
 
-  const handleCommentSend = () => {
-    newCommentCB({
-      content: comment,
-      createdAt: dayjs().format('YYYY-MM-DDTHH:mm:ss.sssZ'),
-      updateAt: dayjs().format('YYYY-MM-DDTHH:mm:ss.sssZ'),
-      deletedAt: null,
-      user: {
-        _id: user?._id || '',
-        firstName: user?.firstName || 'Someone',
-        lastName: user?.lastName || '',
-        email: user?.email || ''
-      }
-    })
-    commentPost({ postId, comment }).then(() => {
-      setComment('')
-    });
+  const handleCommentSend = (e: FormEvent<HTMLFormElement | HTMLButtonElement>) => {
+    e.preventDefault()
+    if (comment.length) {
+      newCommentCB({
+        content: comment,
+        createdAt: dayjs().format('YYYY-MM-DDTHH:mm:ss.sssZ'),
+        updateAt: dayjs().format('YYYY-MM-DDTHH:mm:ss.sssZ'),
+        deletedAt: null,
+        user: {
+          _id: user?._id || '',
+          firstName: user?.firstName || 'Someone',
+          lastName: user?.lastName || '',
+          email: user?.email || ''
+        }
+      })
+      commentPost({ postId, comment }).then(() => {
+        setComment('')
+      });
+    }
   }
 
   return (
     <div className='comment-form'>
-      <TextField 
-        value={comment}
-        onChange={(e) => handleCommentChange(e.target.value)}
-        placeholder='Say something...'
-        multiline
-        rows={2}
-        fullWidth
-        variant="standard"
-      />
-      <AiOutlineSend size={30} className="text-gray-800" onClick={handleCommentSend}/>
+      <form onSubmit={handleCommentSend}>
+        <TextField 
+          value={comment}
+          onChange={(e) => handleCommentChange(e.target.value)}
+          placeholder='Say something...'
+          fullWidth
+          variant="outlined"
+        />
+        <button onSubmit={handleCommentSend}>
+          <AiOutlineSend size={30} className="text-gray-400" />
+        </button>
+      </form>
     </div>
   )
 }
