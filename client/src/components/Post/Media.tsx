@@ -1,33 +1,44 @@
 import { MediaType } from "../../types/PostType"
-import { useRef, useEffect } from 'react'
+import { useRef, useEffect, useState } from 'react'
+import { GrVolumeMute } from 'react-icons/gr'
 
 interface Props {
   media: MediaType,
-  className: string
+  className: string,
+  active: Boolean,
+  pauseCallback: Function
 }
 
-export default function Media({ media, className }: Props) {
+export default function Media({ media, className, active, pauseCallback }: Props) {
   const src = window.apiUrl + '/' + media?.src?.replace('public', '')
   const videoRef = useRef<HTMLVideoElement>(null);
+  const [paused, setPaused] = useState(false)
 
   useEffect(() => {
     const video = videoRef.current;
-    video?.addEventListener("loadedmetadata", function() {
-      this.currentTime = 0;
-      this.play();
-    });
-  }, []);
+    if (paused) {
+      video?.pause()
+    } else {
+      video?.play()
+    }
+    pauseCallback(paused)
+  }, [paused])
 
+  const handlePlayState = () => {
+    setPaused(!paused)
+  }
 
   return (
-    <div className={className + ' post-image-container'}>
+    <div className={className + ' post-image-container'} onClick={handlePlayState}>
       {
         media.category === 'image' ?
         <img src={src} className='post-image' alt={src} />
         :
-        <video muted autoPlay loop ref={videoRef}>
-          <source src={src} type="video/mp4"></source>
-        </video>
+        <>
+          <video muted loop ref={videoRef}>
+            <source src={src} type="video/mp4"></source>
+          </video>
+        </>
       }
     </div>
   )
