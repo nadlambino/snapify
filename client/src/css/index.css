@@ -39,7 +39,9 @@ p, span {
 }
 
 .header {
-  @apply fixed max-h-[10dvh] h-full z-10 bg-white flex justify-center items-center p-2;
+  @apply fixed max-h-[8dvh] h-full z-10 bg-white flex justify-center items-center px-2;
+
+  @apply md:px-0
 }
 
 .body {
