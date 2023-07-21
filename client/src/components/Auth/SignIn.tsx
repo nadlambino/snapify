@@ -7,12 +7,17 @@ import UnstrictReactPropType from '../../types/UnstrictReactPropType'
 import { signIn } from '../../api/auth'
 import { useNavigate } from 'react-router-dom'
 
+type Form = {
+  email: string | null, 
+  password: string | null
+}
+
 export default function SignIn(props: UnstrictReactPropType) {
   const navigate = useNavigate()
   const [cookies, setCookie] = useCookies()
   const [error, setError] = useState<String>()
 
-  const [form, setForm] = useState<{email: string | null, password: string | null}>({
+  const [form, setForm] = useState<Form>({
     email: null,
     password: null
   })
@@ -26,16 +31,14 @@ export default function SignIn(props: UnstrictReactPropType) {
   const handleSignUp = async (e: FormEvent) => {
     e.preventDefault()
     setError('')
-    signInUser()
+    signInUser(form)
   }
 
   const handleSignInDemo = () => {
-    handleFormChange('email', 'johndoe@test.com')
-    handleFormChange('password', 'password')
-    signInUser()
+    signInUser({ email: 'johndoe@test.com', password: 'password'})
   }
 
-  const signInUser = async () => {
+  const signInUser = async (form : Form) => {
     const user = await signIn(form)
 
     if (!user) {
