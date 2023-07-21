@@ -26,6 +26,16 @@ export default function SignIn(props: UnstrictReactPropType) {
   const handleSignUp = async (e: FormEvent) => {
     e.preventDefault()
     setError('')
+    signInUser()
+  }
+
+  const handleSignInDemo = () => {
+    handleFormChange('email', 'johndoe@test.com')
+    handleFormChange('password', 'password')
+    signInUser()
+  }
+
+  const signInUser = async () => {
     const user = await signIn(form)
 
     if (!user) {
@@ -54,6 +64,9 @@ export default function SignIn(props: UnstrictReactPropType) {
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" fullWidth className="btn bg-primary" type="submit">Sign In</Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant="contained" fullWidth className="btn bg-secondary" type="button" onClick={handleSignInDemo}>Sign In as Demo</Button>
           </Grid>
           <Grid item xs={12}>
             {props.children && props.children}

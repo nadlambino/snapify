@@ -14,8 +14,6 @@ function Auth() {
     <Grid item xs={12} sm={7} md={5} lg={4} className="app">
       <Grid container item xs={12} sm={7} md={5} lg={4} className='flex flex-col justify-center gap-10'>
         <div className="p-3 md:p-0 pt-3 w-full flex flex-col items-center justify-center">
-          <span>Test Email: <b>johndoe@test.com</b></span>
-          <span>Test Password: <b>password</b></span>
         {
           isSignIn ? 
             <SignIn>
