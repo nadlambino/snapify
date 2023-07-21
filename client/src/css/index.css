@@ -55,7 +55,7 @@ p, span {
 }
 
 .active {
-  @apply text-gray-100 bg-gray-700 !important;
+  @apply border-b-4 border-gray-800
 }
 
 .btn {
@@ -63,9 +63,17 @@ p, span {
 }
 
 .btn-icon {
-  @apply cursor-pointer box-content p-2 rounded-full hover:bg-gray-100 outline-0
+  @apply cursor-pointer box-content p-2 hover:bg-gray-100 outline-0
     text-gray-700;
   -webkit-tap-highlight-color:  transparent;
+}
+
+.header-btn {
+  @apply w-8;
+  
+  &:not(.active) {
+    @apply hover:border-b-4 hover:border-gray-100
+  }
 }
 
 .ellipsis {

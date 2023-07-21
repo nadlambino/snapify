@@ -2,11 +2,7 @@ import { Link, useLocation } from 'react-router-dom'
 import { Grid } from '@mui/material'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
-import { CgProfile, CgFeed } from 'react-icons/cg'
-import { RiLogoutCircleRLine } from 'react-icons/ri'
-import { FiSettings } from 'react-icons/fi'
-import { BsSearch } from 'react-icons/bs'
-import { IoMdAdd } from 'react-icons/io'
+import { MdLogout, MdOutlineLibraryAdd, MdOutlineDynamicFeed } from 'react-icons/md'
 import { useState } from 'react'
 import Form from './Form'
 import Create from './Post/Create'
@@ -38,10 +34,6 @@ export default function Header() {
     navigate('/')
   }
 
-  const handleSettingsClick = () => {
-    navigate('/settings')
-  }
-
   return (
     <Grid container justifyContent="center" className='header'>
       <Grid item xs={12} sm={7} md={5} lg={4}>
@@ -53,9 +45,9 @@ export default function Header() {
             </div>
           </Link>
           <div className='flex'>
-            <CgFeed size={23} className={`btn-icon ${getMenuActiveClass('/')}`} onClick={handleFeedClick} />
-            <IoMdAdd size={25} className={`btn-icon`} onClick={handleClickOpen}/>
-            <RiLogoutCircleRLine size={23} className='btn-icon' onClick={handleSignOut}/>
+            <MdOutlineDynamicFeed size={25} className={`btn-icon header-btn ${getMenuActiveClass('/')}`} onClick={handleFeedClick} />
+            <MdOutlineLibraryAdd size={25} className={`btn-icon header-btn `} onClick={handleClickOpen}/>
+            <MdLogout size={25} className='btn-icon header-btn' onClick={handleSignOut}/>
           </div>
         </div>
       </Grid>
