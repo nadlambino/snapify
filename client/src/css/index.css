@@ -18,6 +18,10 @@ p, span {
   @apply text-gray-500;
 }
 
+button {
+  @apply hover:!bg-transparent
+}
+
 ::-webkit-scrollbar {
   @apply w-[7px] h-[5px];
 }

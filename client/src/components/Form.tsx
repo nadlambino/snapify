@@ -20,6 +20,7 @@ const Transition = forwardRef(function Transition(
 interface FormProps {
   title?: String,
   save?: String,
+  saveIcon?: ReactElement,
   show: boolean,
   closeCallback?: Function,
   children?: ReactNode,
@@ -27,7 +28,7 @@ interface FormProps {
 }
 
 export default function Form(props: FormProps) {
-  const { title, show, closeCallback, save } = props
+  const { title, show, closeCallback, save, saveIcon } = props
   const Component = props.component
   const [open, setOpen] = useState(show)
   const [saving, setSaving] = useState(false)
@@ -100,8 +101,9 @@ export default function Form(props: FormProps) {
               <Typography sx={{ ml: 2, flex: 1, fontSize: 16 }} variant="h6" component="div">
                 {title && title}
               </Typography>
-              <Button autoFocus color="inherit" onClick={handleClickSave}>
+              <Button autoFocus color="inherit" onClick={handleClickSave} className='flex gap-2 !p-0'>
                 {save || 'SAVE'}
+                {saveIcon}
               </Button>
             </Toolbar>
           </Grid>
