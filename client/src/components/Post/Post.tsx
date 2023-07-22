@@ -63,7 +63,7 @@ export default function Post({ post }: Props ) {
           media.map((image, index) => (
             <Media 
               media={image} 
-              key={image._id} 
+              key={index} 
               index={index}
               active={index === activeSlide}
               className={index === activeSlide ? 'flex': 'hidden'} 

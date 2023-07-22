@@ -1,5 +1,6 @@
 import { MediaType } from "../../types/PostType"
-import { useRef, useEffect, useState } from 'react'
+import useObserver from './../../hooks/observer'
+import { useRef, useEffect, useState, useCallback } from 'react'
 
 interface Props {
   media: MediaType,
@@ -14,16 +15,35 @@ interface Props {
 export default function Media({ media, className, index, active, playCallback, pauseCallback, endedCallback }: Props) {
   const src = window.apiUrl + '/' + media?.src?.replace('public', '')
   const videoRef = useRef<HTMLVideoElement>(null);
-  const [paused, setPaused] = useState(false)
+  const [paused, setPaused] = useState(true)
+  const { isVisible } = useObserver(`.media-container-${media._id}`, {threshold: 0.7})
+  const loadedMetaDataCallback = useCallback(() => {
+    if (videoRef.current) {
+      playCallback(videoRef.current.duration * 1000)
+    }
+  }, [videoRef])
+
+  useEffect(() => {
+    setPaused(!(isVisible && active))
+
+    return () => {
+      const video = videoRef.current
+      if (video) {
+        video.currentTime = 0
+      }
+    }
+  }, [isVisible, active])
 
   useEffect(() => {
     const video = videoRef.current
     if (video) {
-      video.addEventListener('loadedmetadata', () => {
-        playCallback(video.duration * 1000)
-      });
+      video.addEventListener('loadedmetadata', loadedMetaDataCallback);
     }
-  }, [videoRef])
+
+    return () => {
+      video?.removeEventListener('loadedmetadata', loadedMetaDataCallback)
+    }
+  }, [videoRef, isVisible])
 
   useEffect(() => {
     const video = videoRef.current;
@@ -34,12 +54,6 @@ export default function Media({ media, className, index, active, playCallback, p
     }
     pauseCallback(paused)
   }, [paused, videoRef])
-
-  useEffect(() => {
-    if (active) {
-      setPaused(false)
-    }
-  }, [active])
 
   const handlePlayState = () => {
     setPaused(!paused)
@@ -52,7 +66,7 @@ export default function Media({ media, className, index, active, playCallback, p
 
   return (
     <>
-      <div className={className + ' post-image-container'} onClick={handlePlayState}>
+      <div className={className + ` post-image-container media-container-${media._id} `} onClick={handlePlayState}>
         {
           media.category === 'image' ?
           <img src={src} className='post-image' alt={src} />
