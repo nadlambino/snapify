@@ -20,24 +20,27 @@ export default function Media({ media, className, index, active, playCallback, p
 
   useEffect(() => {
     setPaused(!(isVisible && active))
-    const video = videoRef.current
+    if (isVisible && active) {
+      const video = videoRef.current
 
-    // Handles intial load of video to get duration on metadata load
-    if (video) {
-      video.onloadedmetadata = () => playCallback(video.duration * 1000, media._id)
-    }
-    
-    // Handles the next videos to simply get the video duration
-    if (video && video?.duration) {
-      playCallback(video.duration * 1000, media._id)
-    }
+      // Handles the next videos to simply get the video duration
+      if (video && video?.duration) {
+        return playCallback(Math.round(video.duration) * 1000, media._id)
+      }
 
-    // Triggers the playCallback with default duration when video is not existing means the media is image
-    if (!video) {
-      playCallback(5000, media._id)
+      // Handles intial load of video to get duration on metadata load
+      if (video) {
+        return video.onloadedmetadata = () => playCallback(Math.round(video.duration) * 1000, media._id)
+      }
+
+      // Triggers the playCallback with default duration when video is not existing means the media is image
+      if (!video) {
+        return playCallback(5000, media._id)
+      }
     }
 
     return () => {
+      const video = videoRef.current
       if (video) {
         video.currentTime = 0
       }
