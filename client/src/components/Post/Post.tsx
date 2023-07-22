@@ -5,7 +5,8 @@ import dayjs from 'dayjs';
 import { Avatar } from '@mui/material'
 import './../../css/post.css'
 import Actions from "./Actions";
-import useSwipe from "../../hooks/swipe";
+import useSwipe, { SwipeDirection } from "../../hooks/swipe";
+import useClickOutside from "../../hooks/click";
 
 interface Props {
   post: PostType
@@ -21,15 +22,31 @@ export default function Post({ post }: Props ) {
   const containerRef = useRef<HTMLDivElement>(null)
   const thumbRef = useRef<HTMLSpanElement>(null)
   const { swipeDirection } = useSwipe()
+  const clickPosition = useClickOutside('.container')
   let timeout: any = 0
 
   useEffect(() => {
-    if (swipeDirection === 'left' && activeSlide < (media.length - 1)) {
+    handleSlideChange(swipeDirection)
+  }, [swipeDirection])
+
+  useEffect(() => {
+    let position : SwipeDirection = null
+    if (clickPosition === 'left') {
+      position = 'right'
+    } else if (clickPosition === 'right') {
+      position = 'left'
+    }
+
+    handleSlideChange(position)
+  }, [clickPosition])
+
+  const handleSlideChange = (position: SwipeDirection) => {
+    if (position === 'left' && activeSlide < (media.length - 1)) {
       setActiveSlide(activeSlide + 1)
-    } else if (swipeDirection === 'right' && activeSlide > 0) {
+    } else if (position === 'right' && activeSlide > 0) {
       setActiveSlide(activeSlide - 1)
     }
-  }, [swipeDirection])
+  }
 
   const playCallback = (duration: number, mediaId: string) => {
     const thumbElement = document.getElementById(`slide-${mediaId}`)
