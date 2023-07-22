@@ -1,10 +1,11 @@
 import { PostType, MediaType, UserType } from "../../types/PostType"
 import Media from "./Media"
-import { useState, useRef } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import dayjs from 'dayjs';
 import { Avatar } from '@mui/material'
 import './../../css/post.css'
 import Actions from "./Actions";
+import useSwipe from "../../hooks/swipe";
 
 interface Props {
   post: PostType
@@ -19,7 +20,16 @@ export default function Post({ post }: Props ) {
   const [activeSlide, setActiveSlide] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
   const thumbRef = useRef<HTMLSpanElement>(null)
+  const { swipeDirection } = useSwipe()
   let timeout: any = 0
+
+  useEffect(() => {
+    if (swipeDirection === 'left' && activeSlide < (media.length - 1)) {
+      setActiveSlide(activeSlide + 1)
+    } else if (swipeDirection === 'right' && activeSlide > 0) {
+      setActiveSlide(activeSlide - 1)
+    }
+  }, [swipeDirection])
 
   const playCallback = (duration: number, mediaId: string) => {
     const thumbElement = document.getElementById(`slide-${mediaId}`)
