@@ -17,6 +17,7 @@ export default function Media({ media, className, index, active, playCallback, p
   const videoRef = useRef<HTMLVideoElement>(null);
   const [paused, setPaused] = useState(true)
   const { isVisible } = useObserver(`.media-container-${media._id}`, {threshold: 0.7})
+  let timeout: any = 0
 
   useEffect(() => {
     setPaused(!(isVisible && active))
@@ -35,6 +36,8 @@ export default function Media({ media, className, index, active, playCallback, p
 
       // Triggers the playCallback with default duration when video is not existing means the media is image
       if (!video) {
+        clearTimeout(timeout)
+        timeout = setTimeout(handleEndedState, 5500)
         return playCallback(5000, media._id)
       }
     }
