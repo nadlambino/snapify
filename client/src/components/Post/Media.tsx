@@ -43,6 +43,7 @@ export default function Media({ media, className, index, active, playCallback, p
     }
 
     return () => {
+      clearTimeout(timeout)
       const video = videoRef.current
       if (video) {
         video.currentTime = 0
