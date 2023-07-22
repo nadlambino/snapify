@@ -46,7 +46,7 @@ html {
 }
 
 .slide-thumb-item.slide-active .slide-animation {
-  @apply bg-gray-500 !rounded h-[3px] w-full block;
+  @apply bg-gray-300 !rounded h-[3px] w-full block;
   animation: thumb forwards linear;
   content: '';
   height: inherit;
@@ -54,7 +54,7 @@ html {
 }
 
 .slide-prev {
-  @apply bg-gray-500
+  @apply bg-gray-300
 }
 
 .post-image-container {
