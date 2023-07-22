@@ -1,28 +1,26 @@
 import { MediaType } from "../../types/PostType"
-import { useRef, useEffect, useState, useMemo } from 'react'
+import { useRef, useEffect, useState } from 'react'
 
 interface Props {
   media: MediaType,
   className: string,
   index: number,
   active: boolean,
-  totalMedia: number,
+  playCallback: Function,
   pauseCallback: Function,
   endedCallback: Function
 }
 
-export default function Media({ media, className, index, active, totalMedia, pauseCallback, endedCallback }: Props) {
+export default function Media({ media, className, index, active, playCallback, pauseCallback, endedCallback }: Props) {
   const src = window.apiUrl + '/' + media?.src?.replace('public', '')
   const videoRef = useRef<HTMLVideoElement>(null);
   const [paused, setPaused] = useState(false)
-  const thumbLength = useMemo(() => 100 / totalMedia, [totalMedia])
 
   useEffect(() => {
     const video = videoRef.current
     if (video) {
       video.addEventListener('loadedmetadata', () => {
-        const videoDuration = video.duration;
-        console.log('Video Duration: ', videoDuration); // Duration is in seconds
+        playCallback(video.duration * 1000)
       });
     }
   }, [videoRef])

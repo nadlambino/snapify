@@ -1,6 +1,6 @@
 import { PostType, MediaType, UserType } from "../../types/PostType"
 import Media from "./Media"
-import { useEffect, useState, useRef } from 'react'
+import { useState, useRef } from 'react'
 import dayjs from 'dayjs';
 import { Avatar } from '@mui/material'
 import './../../css/post.css'
@@ -17,29 +17,14 @@ export default function Post({ post }: Props ) {
   const initials = `${user.firstName[0]}${user.lastName[0]}`
   const timePosted = dayjs(post.createdAt).fromNow()
   const [activeSlide, setActiveSlide] = useState(0)
-  let timeout: any = 0
-  const animationThumbRef = useRef<HTMLSpanElement>(null)
   const containerRef = useRef<HTMLDivElement>(null)
 
-  const handleSlidePlay = () => {
-    clearTimeout(timeout)
-    if (media.length <= 1) {
-      return
-    }
-    // timeout = setTimeout(() => {
-    //   let slide = activeSlide < (media.length - 1) ? activeSlide + 1 : 0
-    //   setActiveSlide(slide)
-    // }, 5000)
+  const playCallback = (duration: number) => {
+    
   }
 
   const pauseCallback = (paused: Boolean) => {
-    if (animationThumbRef.current) {
-      if (paused) {
-        animationThumbRef.current.style.animationPlayState = 'paused'
-      } else {
-        animationThumbRef.current.style.animationPlayState = 'running'
-      }
-    }
+
   }
 
   const endedCallback = (index: number) => {
@@ -50,10 +35,6 @@ export default function Post({ post }: Props ) {
     const slideIndex = (media.length - 1) === index ? 0 : index + 1
     setActiveSlide(slideIndex)
   }
-
-  useEffect(() => {
-    handleSlidePlay()
-  }, [activeSlide])
 
   return (
     <div className="item">
@@ -68,16 +49,13 @@ export default function Post({ post }: Props ) {
       <div className='post-image-wrapper' ref={containerRef}>
         <div className='thumb-container'>
         {
-          media.length > 1 && media.map((data, index) => (
-            <span 
-              key={data._id} 
-              className={
-              'slide-thumb-item ' + 
-              (index === activeSlide ? 'slide-active ' : '') +
-              (index < activeSlide ? 'slide-prev' : '')}>
-                <span ref={animationThumbRef} className={"slide-animation"} ></span>
-            </span>)
-          )
+          media.length > 0 && media.map((data, index) => (
+              <span 
+                key={data._id} 
+                className={`slide-thumb-item ${index === activeSlide ? 'slide-active' : ''} ${index < activeSlide ? 'slide-prev' : ''}`}>
+                  <span className={"slide-animation"} ></span>
+              </span>
+          ))
         }
         </div>
         <div className='post-image-container'>
@@ -88,8 +66,8 @@ export default function Post({ post }: Props ) {
               key={image._id} 
               index={index}
               active={index === activeSlide}
-              totalMedia={media.length}
               className={index === activeSlide ? 'flex': 'hidden'} 
+              playCallback={playCallback}
               pauseCallback={pauseCallback}
               endedCallback={endedCallback}
             />

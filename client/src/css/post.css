@@ -47,7 +47,7 @@ html {
 
 .slide-thumb-item.slide-active .slide-animation {
   @apply bg-gray-500 !rounded h-[3px] w-full block;
-  animation: thumb 5s forwards linear;
+  animation: thumb forwards linear;
   content: '';
   height: inherit;
   transform: translateX(-100%);
