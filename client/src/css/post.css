@@ -42,11 +42,11 @@ html {
 }
 
 .slide-thumb-item {
-  @apply bg-gray-400 rounded h-[3px] w-full relative overflow-hidden
+  @apply bg-gray-400 rounded h-[3px] w-full relative overflow-hidden inline-block
 }
 
 .slide-thumb-item.slide-active .slide-animation {
-  @apply bg-gray-500 rounded h-[3px] w-full block;
+  @apply bg-gray-500 !rounded h-[3px] w-full block;
   animation: thumb 5s forwards linear;
   content: '';
   height: inherit;

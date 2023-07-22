@@ -26,10 +26,10 @@ export default function Post({ post }: Props ) {
     if (media.length <= 1) {
       return
     }
-    timeout = setTimeout(() => {
-      let slide = activeSlide < (media.length - 1) ? activeSlide + 1 : 0
-      setActiveSlide(slide)
-    }, 5000)
+    // timeout = setTimeout(() => {
+    //   let slide = activeSlide < (media.length - 1) ? activeSlide + 1 : 0
+    //   setActiveSlide(slide)
+    // }, 5000)
   }
 
   const pauseCallback = (paused: Boolean) => {
@@ -40,6 +40,15 @@ export default function Post({ post }: Props ) {
         animationThumbRef.current.style.animationPlayState = 'running'
       }
     }
+  }
+
+  const endedCallback = (index: number) => {
+    if (media.length === 1) {
+      return
+    }
+
+    const slideIndex = (media.length - 1) === index ? 0 : index + 1
+    setActiveSlide(slideIndex)
   }
 
   useEffect(() => {
@@ -66,7 +75,7 @@ export default function Post({ post }: Props ) {
               'slide-thumb-item ' + 
               (index === activeSlide ? 'slide-active ' : '') +
               (index < activeSlide ? 'slide-prev' : '')}>
-                <span ref={animationThumbRef} className={"slide-animation " + (index === activeSlide ? 'active ' : '')} ></span>
+                <span ref={animationThumbRef} className={"slide-animation"} ></span>
             </span>)
           )
         }
@@ -77,9 +86,12 @@ export default function Post({ post }: Props ) {
             <Media 
               media={image} 
               key={image._id} 
+              index={index}
               active={index === activeSlide}
+              totalMedia={media.length}
               className={index === activeSlide ? 'flex': 'hidden'} 
               pauseCallback={pauseCallback}
+              endedCallback={endedCallback}
             />
           ))
         }
