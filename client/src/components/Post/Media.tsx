@@ -1,6 +1,6 @@
 import { MediaType } from "../../types/PostType"
 import useObserver from './../../hooks/observer'
-import { useRef, useEffect, useState, useCallback } from 'react'
+import { useRef, useEffect, useState } from 'react'
 
 interface Props {
   media: MediaType,
@@ -17,33 +17,32 @@ export default function Media({ media, className, index, active, playCallback, p
   const videoRef = useRef<HTMLVideoElement>(null);
   const [paused, setPaused] = useState(true)
   const { isVisible } = useObserver(`.media-container-${media._id}`, {threshold: 0.7})
-  const loadedMetaDataCallback = useCallback(() => {
-    if (videoRef.current) {
-      playCallback(videoRef.current.duration * 1000)
-    }
-  }, [videoRef])
 
   useEffect(() => {
     setPaused(!(isVisible && active))
+    const video = videoRef.current
+
+    // Handles intial load of video to get duration on metadata load
+    if (video) {
+      video.onloadedmetadata = () => playCallback(video.duration * 1000, media._id)
+    }
+    
+    // Handles the next videos to simply get the video duration
+    if (video && video?.duration) {
+      playCallback(video.duration * 1000, media._id)
+    }
+
+    // Triggers the playCallback with default duration when video is not existing means the media is image
+    if (!video) {
+      playCallback(5000, media._id)
+    }
 
     return () => {
-      const video = videoRef.current
       if (video) {
         video.currentTime = 0
       }
     }
   }, [isVisible, active])
-
-  useEffect(() => {
-    const video = videoRef.current
-    if (video) {
-      video.addEventListener('loadedmetadata', loadedMetaDataCallback);
-    }
-
-    return () => {
-      video?.removeEventListener('loadedmetadata', loadedMetaDataCallback)
-    }
-  }, [videoRef, isVisible])
 
   useEffect(() => {
     const video = videoRef.current;
@@ -52,7 +51,7 @@ export default function Media({ media, className, index, active, playCallback, p
     } else {
       video?.play()
     }
-    pauseCallback(paused)
+    pauseCallback(paused, media._id)
   }, [paused, videoRef])
 
   const handlePlayState = () => {

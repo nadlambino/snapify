@@ -18,13 +18,27 @@ export default function Post({ post }: Props ) {
   const timePosted = dayjs(post.createdAt).fromNow()
   const [activeSlide, setActiveSlide] = useState(0)
   const containerRef = useRef<HTMLDivElement>(null)
+  const thumbRef = useRef<HTMLSpanElement>(null)
+  let timeout: any = 0
 
-  const playCallback = (duration: number) => {
-    
+  const playCallback = (duration: number, mediaId: string) => {
+    const thumbElement = document.getElementById(`slide-${mediaId}`)
+    if (thumbElement) {
+      thumbElement.classList.remove('slide-animation')
+      clearTimeout(timeout)
+      timeout = setTimeout(() => {
+        thumbElement.classList.add('slide-animation')
+        thumbElement.style.animationPlayState = 'running'
+        thumbElement.style.animationDuration = `${duration}ms`
+      }, 200)
+    }
   }
 
-  const pauseCallback = (paused: Boolean) => {
-
+  const pauseCallback = (paused: Boolean, mediaId: string) => {
+    const thumbElement = document.getElementById(`slide-${mediaId}`)
+    if (thumbElement) {
+      thumbElement.style.animationPlayState = paused ? 'paused' : 'running'
+    }
   }
 
   const endedCallback = (index: number) => {
@@ -53,7 +67,7 @@ export default function Post({ post }: Props ) {
               <span 
                 key={data._id} 
                 className={`slide-thumb-item ${index === activeSlide ? 'slide-active' : ''} ${index < activeSlide ? 'slide-prev' : ''}`}>
-                  <span className={"slide-animation"} ></span>
+                  <span ref={thumbRef} className={`slide-animation`} id={`slide-${data._id}`} ></span>
               </span>
           ))
         }
