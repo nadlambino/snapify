@@ -1,6 +1,11 @@
 import { AxiosResponse } from "axios"
 
-export const signIn = async (user: object) => {
+export type SignInData = {
+  email: string | null, 
+  password: string | null
+}
+
+export const signIn = async (user: SignInData) => {
   return await window.axios.post(`${window.apiUrl}/signin`, user)
     .then((response: AxiosResponse) => response.data)
     .catch(() => null)
