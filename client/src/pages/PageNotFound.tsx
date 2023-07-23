@@ -1,4 +1,3 @@
-import Header from '../components/Header'
 import { Grid, Typography } from '@mui/material'
 
 export default function PageNotFound() {
