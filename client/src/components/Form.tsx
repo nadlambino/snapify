@@ -2,11 +2,11 @@ import { useState, useEffect, Ref, forwardRef, ReactElement, ReactNode } from 'r
 import { Button, Dialog, AppBar, Toolbar, Slide, Typography, IconButton, Grid, useTheme } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { TransitionProps } from '@mui/material/transitions'
-import { isAuthenticated } from '../utils/auth'
 import { useNavigate } from 'react-router-dom'
 import { useCookies } from 'react-cookie'
 import FCWithProps from '../types/FCWithProps'
 import useMediaQuery from '@mui/material/useMediaQuery';
+import useAuth from '../hooks/auth'
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -28,18 +28,18 @@ interface FormProps {
 }
 
 export default function Form(props: FormProps) {
+  const { isAuthenticated } = useAuth()
   const { title, show, closeCallback, save, saveIcon } = props
   const Component = props.component
   const [open, setOpen] = useState(show)
   const [saving, setSaving] = useState(false)
   const navigate = useNavigate()
   const [cookies] = useCookies()
-  const isAuth = isAuthenticated()
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
-    if (!isAuth) {
+    if (!isAuthenticated) {
       return navigate('/auth')
     }
 
