@@ -2,7 +2,7 @@ import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import { useState } from 'react'
 import Comments from "./Comments";
-import { PostType } from '../../types/PostType';
+import { PostType } from '../../types/app';
 import { reactPost } from '../../api/post';
 import useAuth from '../../hooks/auth';
 

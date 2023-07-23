@@ -1,7 +1,7 @@
 import { useState, useEffect, useMemo } from 'react'
 import { useCookies } from 'react-cookie'
 import jwtDecode from 'jwt-decode'
-import { UserType } from './../types/PostType'
+import { UserType } from './../types/app'
 
 const useAuth = () => {
   const [cookies] = useCookies()
