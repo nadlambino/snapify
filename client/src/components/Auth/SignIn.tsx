@@ -3,11 +3,11 @@ import { useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { setAuth } from './../../store/modules/auth'
 import { Grid, TextField, Button, Typography } from '@mui/material'
-import UnstrictReactPropType from '../../types/UnstrictReactPropType'
 import { SignInData, signIn } from '../../api/auth'
 import { useNavigate } from 'react-router-dom'
+import { Any } from '../../types/app'
 
-export default function SignIn(props: UnstrictReactPropType) {
+export default function SignIn(props: React.PropsWithChildren<Any>) {
   const navigate = useNavigate()
   const [_, setCookie] = useCookies()
   const [error, setError] = useState<String>()
