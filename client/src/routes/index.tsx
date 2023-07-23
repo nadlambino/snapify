@@ -1,13 +1,13 @@
-import withAuth from '../middlewares/withAuth'
-import withoutAuth from '../middlewares/withoutAuth'
+import authComponent from '../middlewares/auth'
+import guessComponent from '../middlewares/guess'
 import App from '../pages/App'
 import Auth from '../pages/Auth'
 import Settings from '../pages/Settings'
 import PageNotFound from './../pages/PageNotFound'
 
-const AppPage = withAuth(App)
-const AuthPage = withoutAuth(Auth)
-const SettingsPage = withAuth(Settings)
+const AppPage = authComponent(App)
+const AuthPage = guessComponent(Auth)
+const SettingsPage = authComponent(Settings)
 
 export default [
   {

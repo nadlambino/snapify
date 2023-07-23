@@ -1,14 +1,13 @@
 import { Navigate } from 'react-router-dom';
-import UnstrictReactPropType from '../types/UnstrictReactPropType';
 import { isAuthenticated } from '../utils/auth';
+import { AnyType } from '../types/app';
 
-const withAuth = (Component: any) => {
-  return function WrappedComponent(props: UnstrictReactPropType) {
-
+const authComponent = <P extends AnyType>(Component: React.ComponentType<P>) => {
+  return function WrappedComponent(props: P) {
     return (
       isAuthenticated() ? <Component {...props} /> : <Navigate to="/auth" replace={true} />
     )
   };
 }
 
-export default withAuth;
+export default authComponent;
