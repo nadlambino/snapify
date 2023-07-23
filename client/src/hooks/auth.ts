@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useMemo } from 'react'
 import { useCookies } from 'react-cookie'
 import jwtDecode from 'jwt-decode'
 import { UserType } from './../types/PostType'
@@ -7,19 +7,18 @@ const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false)
   const [user, setUser] = useState<UserType | null>()
   const [cookies] = useCookies()
+  const token = useMemo(() => cookies.token, [cookies])
 
   useEffect(() => {
-    setIsAuthenticated(() => cookies.token)
+    setIsAuthenticated(() => token ? true : false)
     setUser(() => {
-      const token = cookies.token
       try {
         return token ? jwtDecode<UserType>(token) : null
       } catch (error) {
         return null
       }
-
     })
-  }, [cookies])
+  }, [])
 
   return {
     isAuthenticated,
