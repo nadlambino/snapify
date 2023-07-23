@@ -3,21 +3,16 @@ import { useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { setAuth } from './../../store/modules/auth'
 import { Grid, TextField, Button, Typography } from '@mui/material'
-import UnstrictReactPropType from '../../types/UnstrictReactPropType'
-import { signIn } from '../../api/auth'
+import { SignInData, signIn } from '../../api/auth'
 import { useNavigate } from 'react-router-dom'
+import { Any } from '../../types'
 
-type Form = {
-  email: string | null, 
-  password: string | null
-}
-
-export default function SignIn(props: UnstrictReactPropType) {
+export default function SignIn(props: React.PropsWithChildren<Any>) {
   const navigate = useNavigate()
-  const [cookies, setCookie] = useCookies()
+  const [_, setCookie] = useCookies()
   const [error, setError] = useState<String>()
 
-  const [form, setForm] = useState<Form>({
+  const [form, setForm] = useState<SignInData>({
     email: null,
     password: null
   })
@@ -38,7 +33,7 @@ export default function SignIn(props: UnstrictReactPropType) {
     signInUser({ email: 'johndoe@test.com', password: 'password'})
   }
 
-  const signInUser = async (form : Form) => {
+  const signInUser = async (form : SignInData) => {
     const user = await signIn(form)
 
     if (!user) {

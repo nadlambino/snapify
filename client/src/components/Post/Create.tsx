@@ -1,12 +1,12 @@
 import { Grid, TextField } from "@mui/material"
-import FCWithProps from '../../types/FCWithProps'
 import { createPost } from "../../api/post"
 import Dropzone from "../Reusable/Dropzone"
 import { useState, useEffect } from 'react'
 import { useDispatch } from "react-redux"
 import { setReloadPosts } from "../../store/modules/post"
+import { FormComponent } from "../../types"
 
-const Create: React.FC<FCWithProps> = (props) => {
+const Create: React.FC<FormComponent> = (props) => {
   const [media, setMedia] = useState([])
   const [caption, setCaption] = useState('')
   const { saving } = props

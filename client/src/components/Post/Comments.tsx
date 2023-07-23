@@ -4,7 +4,7 @@ import { Backdrop } from '@mui/material'
 import { useState, useEffect } from 'react'
 import Slide from '@mui/material/Slide';
 import CommentForm from './CommentForm';
-import { CommentType } from '../../types/PostType';
+import { CommentType } from '../../types';
 import Comment from './Comment';
 
 interface Props {

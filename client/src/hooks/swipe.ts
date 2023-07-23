@@ -1,7 +1,5 @@
 import { useState, useEffect } from 'react';
 
-const SWIPE_THRESHOLD = 50; // Minimum swipe distance required to trigger a swipe
-
 export type SwipeDirection = 'left' | 'right' | 'up' | 'down' | null
 
 const useSwipe = () => {

@@ -1,5 +1,4 @@
 import { Grid } from '@mui/material'
-import Moods from './Mood/Moods'
 import Feed from './Post/Feed'
 
 export default function Body() {
