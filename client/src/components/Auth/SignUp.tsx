@@ -1,23 +1,15 @@
 import { Grid, TextField, Button, RadioGroup, Radio, FormControl, FormLabel, FormControlLabel, Typography } from '@mui/material'
 import UnstrictReactPropType from '../../types/UnstrictReactPropType'
 import { FormEvent, useState } from 'react'
-import { signUp } from '../../api/auth'
+import { SignUpData, signUp } from '../../api/auth'
 import { useDispatch } from 'react-redux'
 import { setAuth } from './../../store/modules/auth'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
 
-interface IUserForm {
-  firstName: string | null,
-  lastName: string | null,
-  gender: 'male' | 'female' | 'other' | null,
-  email: string | null,
-  password: string | null,
-  confirm: string | null
-}
 
 export default function SignUp(props: UnstrictReactPropType) {
-  const [form, setForm] = useState<IUserForm>({
+  const [form, setForm] = useState<SignUpData>({
     firstName: null,
     lastName: null,
     gender: null,
@@ -29,7 +21,7 @@ export default function SignUp(props: UnstrictReactPropType) {
   const [error, setError] = useState<String>()
 
   const dispatch = useDispatch()
-  const [cookies, setCookie] = useCookies()
+  const [_, setCookie] = useCookies()
   const navigate = useNavigate()
 
   const handleFormChange = (key: string, value: string | null) => {
