@@ -1,8 +1,8 @@
 import { Navigate } from 'react-router-dom';
-import { AnyType } from '../types/app';
+import { Any } from '../types/app';
 import useAuth from '../hooks/auth';
 
-const guessComponent = <P extends AnyType>(Component: React.ComponentType<P>) => {
+const guessComponent = <P extends Any>(Component: React.ComponentType<P>) => {
   return function WrappedComponent(props: P) {
     const { isAuthenticated } = useAuth()
 

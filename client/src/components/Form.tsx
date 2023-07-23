@@ -2,8 +2,8 @@ import { useState, useEffect, Ref, forwardRef, ReactElement, ReactNode } from 'r
 import { Button, Dialog, AppBar, Toolbar, Slide, Typography, IconButton, Grid, useTheme } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { TransitionProps } from '@mui/material/transitions'
-import FCWithProps from '../types/FCWithProps'
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { FormComponent } from '../types/app';
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -21,7 +21,7 @@ interface FormProps {
   show: boolean,
   closeCallback?: Function,
   children?: ReactNode,
-  component: React.FC<FCWithProps>
+  component: React.FC<FormComponent>
 }
 
 export default function Form(props: FormProps) {
