@@ -1,4 +1,4 @@
-import { MediaType } from "../../types/app"
+import { MediaType } from "../../types"
 import useObserver from './../../hooks/observer'
 import { useRef, useEffect, useState } from 'react'
 

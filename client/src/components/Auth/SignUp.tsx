@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import { setAuth } from './../../store/modules/auth'
 import { useCookies } from 'react-cookie'
 import { useNavigate } from 'react-router-dom'
-import { Any } from '../../types/app'
+import { Any } from '../../types'
 
 
 export default function SignUp(props: React.PropsWithChildren<Any>) {

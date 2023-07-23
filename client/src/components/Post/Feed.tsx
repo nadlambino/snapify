@@ -1,7 +1,7 @@
 import Post from "./Post"
 import { getPosts } from "../../api/post"
 import { useState, useEffect } from 'react'
-import { PostType } from './../../types/app'
+import { PostType } from '../../types'
 import { useSelector, useDispatch } from "react-redux";
 import { setReloadPosts } from "../../store/modules/post";
 

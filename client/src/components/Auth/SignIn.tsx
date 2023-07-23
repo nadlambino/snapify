@@ -5,7 +5,7 @@ import { setAuth } from './../../store/modules/auth'
 import { Grid, TextField, Button, Typography } from '@mui/material'
 import { SignInData, signIn } from '../../api/auth'
 import { useNavigate } from 'react-router-dom'
-import { Any } from '../../types/app'
+import { Any } from '../../types'
 
 export default function SignIn(props: React.PropsWithChildren<Any>) {
   const navigate = useNavigate()

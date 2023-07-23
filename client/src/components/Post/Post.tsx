@@ -1,4 +1,4 @@
-import { PostType, MediaType, UserType } from "../../types/app"
+import { PostType, MediaType, UserType } from "../../types"
 import Media from "./Media"
 import { useState, useRef, useEffect } from 'react'
 import dayjs from 'dayjs';

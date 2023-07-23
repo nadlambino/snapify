@@ -4,7 +4,7 @@ import Dropzone from "../Reusable/Dropzone"
 import { useState, useEffect } from 'react'
 import { useDispatch } from "react-redux"
 import { setReloadPosts } from "../../store/modules/post"
-import { FormComponent } from "../../types/app"
+import { FormComponent } from "../../types"
 
 const Create: React.FC<FormComponent> = (props) => {
   const [media, setMedia] = useState([])

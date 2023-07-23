@@ -3,7 +3,7 @@ import { Button, Dialog, AppBar, Toolbar, Slide, Typography, IconButton, Grid, u
 import CloseIcon from '@mui/icons-material/Close'
 import { TransitionProps } from '@mui/material/transitions'
 import useMediaQuery from '@mui/material/useMediaQuery';
-import { FormComponent } from '../types/app';
+import { FormComponent } from '../types';
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {

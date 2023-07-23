@@ -1,5 +1,5 @@
 import { Navigate } from 'react-router-dom';
-import { Any } from '../types/app';
+import { Any } from '../types';
 import useAuth from '../hooks/auth';
 
 const guessComponent = <P extends Any>(Component: React.ComponentType<P>) => {
