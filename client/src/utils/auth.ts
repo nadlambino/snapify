@@ -3,7 +3,7 @@ import jwt_decode from 'jwt-decode'
 import { cookie } from './cookie'
 import { UserType } from '../types/PostType'
 
-export const isAuthenticated = () => {
+export const isAuthenticated = () : boolean => {
   const [cookies] = useCookies()
 
   return cookies.token ? true : false
