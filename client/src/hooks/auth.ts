@@ -4,21 +4,16 @@ import jwtDecode from 'jwt-decode'
 import { UserType } from './../types/PostType'
 
 const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false)
-  const [user, setUser] = useState<UserType | null>()
   const [cookies] = useCookies()
   const token = useMemo(() => cookies.token, [cookies])
-
-  useEffect(() => {
-    setIsAuthenticated(() => token ? true : false)
-    setUser(() => {
-      try {
-        return token ? jwtDecode<UserType>(token) : null
-      } catch (error) {
-        return null
-      }
-    })
-  }, [])
+  const isAuthenticated = useMemo(() => token ? true : false, [token])
+  const user = useMemo(() => {
+    try {
+      return token ? jwtDecode<UserType>(token) : null
+    } catch (error) {
+      return null
+    }
+  }, [isAuthenticated, token])
 
   return {
     isAuthenticated,
