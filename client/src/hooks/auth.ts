@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useMemo } from 'react'
 import { useCookies } from 'react-cookie'
 import jwtDecode from 'jwt-decode'
 import { UserType } from './../types/app'
