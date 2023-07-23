@@ -86,10 +86,6 @@ p, span {
   @apply bg-gray-800 !important;
 }
 
-.moods-container::-webkit-scrollbar {
-  @apply hidden;
-}
-
 .overlay-top {
   position: absolute;
   z-index: 0;
