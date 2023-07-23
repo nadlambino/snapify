@@ -1,14 +1,14 @@
 import ModeCommentIcon from '@mui/icons-material/ModeComment';
 import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import Comments from "./Comments";
-import { PostType, UserType } from '../../types/PostType';
+import { PostType } from '../../types/PostType';
 import { reactPost } from '../../api/post';
-import { getAuthUser } from '../../utils/auth';
+import useAuth from '../../hooks/auth';
 
 export default function Actions({ post }: { post: PostType }) {
   const [showComments, setShowComments] = useState(false)
-  const [user, setUser] = useState<UserType | null>(getAuthUser())
+  const { user } = useAuth()
   const [commentsCount, setCommentsCount] = useState(post.commentsCount)
   const [reactsCount, setReactsCount] = useState(post.reactsCount)
   const [reacted, setReacted] = useState(post.reacts.findIndex(react => react.user == user?._id) !== -1)

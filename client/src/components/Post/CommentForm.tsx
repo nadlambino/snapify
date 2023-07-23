@@ -3,10 +3,9 @@ import { TextField } from '@mui/material'
 import { AiOutlineSend } from 'react-icons/ai'
 import { commentPost } from '../../api/post'
 import { useState } from 'react'
-import { UserType } from '../../types/PostType'
 import dayjs from 'dayjs'
-import { useEffect, FormEvent } from 'react'
-import { getAuthUser } from '../../utils/auth'
+import { FormEvent } from 'react'
+import useAuth from '../../hooks/auth'
 
 interface Props {
   postId: string,
@@ -15,15 +14,11 @@ interface Props {
 
 export default function CommentForm({ postId, newCommentCB }: Props) {
   const [comment, setComment] = useState('')
-  const [user, setUser] = useState<UserType | null>(null)
+  const { user } = useAuth()
 
   const handleCommentChange = (value: string) => {
     setComment(value)
   }
-
-  useEffect(() => {
-    setUser(getAuthUser())
-  }, [])
 
   const handleCommentSend = (e: FormEvent<HTMLFormElement | HTMLButtonElement>) => {
     e.preventDefault()
