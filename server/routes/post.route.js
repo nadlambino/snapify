@@ -10,5 +10,6 @@ router.post('/', authMiddleware, uploadMiddleware.multiple(5), PostController.cr
 router.get('/feed', authMiddleware, PostController.getPosts)
 router.post('/:id/comment', authMiddleware, PostController.commentPost)
 router.post('/:id/react', authMiddleware, PostController.reactPost)
+router.delete('/:id', authMiddleware, PostController.deletePost)
 
 module.exports = router

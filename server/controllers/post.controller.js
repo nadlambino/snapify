@@ -20,6 +20,24 @@ const createPost = async (req, res) => {
   }
 }
 
+const deletePost = async (req, res) => {
+  try {
+    const { _id: user } = req.auth
+    const postId = req.params.id
+    const post = await Post.findById(postId)
+
+    if (post && user === post.user.toString()) {
+      await Post.findByIdAndDelete(postId)
+      res.status(200).json({message: 'Post deleted'})
+    } else {
+      res.status(404).json({error: 'No post found'})
+    }
+  } catch (error) {
+    res.status(404).json({error: 'No post found'})
+    console.log(error)
+  }
+}
+
 const getPosts = async (req, res) => {
   try {
     const posts = await Post.aggregate([
@@ -154,5 +172,6 @@ module.exports = {
   createPost,
   getPosts,
   commentPost,
-  reactPost
+  reactPost,
+  deletePost
 }

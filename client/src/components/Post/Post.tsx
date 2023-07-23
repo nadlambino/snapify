@@ -14,6 +14,7 @@ interface Props {
 
 export default function Post({ post }: Props ) {
   const media: [MediaType] = post.media
+  const [isDeleted, setIsDeleted] = useState(false)
   const user: UserType = post.user
   const fullName = `${user.firstName} ${user.lastName}`
   const initials = `${user.firstName[0]}${user.lastName[0]}`
@@ -77,7 +78,12 @@ export default function Post({ post }: Props ) {
     setActiveSlide(slideIndex)
   }
 
+  const deleteCallback = () => {
+    setIsDeleted(() => true)
+  }
+
   return (
+    !isDeleted && 
     <div className="item">
       <div className='post-details-container'>
         <div className='overlay-top'></div>
@@ -115,7 +121,7 @@ export default function Post({ post }: Props ) {
           ))
         }
         </div>
-        <Actions post={post} />
+        <Actions post={post} deleteCallback={deleteCallback} />
         {
           post.content && 
           <div className='post-content-container'>

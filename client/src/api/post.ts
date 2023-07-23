@@ -12,6 +12,16 @@ export const createPost = async (post: FormData) => {
   .catch((error: AxiosError) => {throw error})
 }
 
+export const deletePost = async  (postId: string) => {
+  return await window.axios.delete(`${window.apiUrl}/post/${postId}`, {
+    headers: {
+      Authorization: `Bearer ${cookie('token')}`
+    }
+  })
+  .then((response: AxiosResponse) => response.data)
+  .catch((error: AxiosError) => {throw error})
+}
+
 export const getPosts = async () => {
   return await window.axios.get(`${window.apiUrl}/post/feed`, {
     headers: {
