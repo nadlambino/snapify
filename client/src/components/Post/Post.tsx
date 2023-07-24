@@ -83,7 +83,7 @@ export default function Post({ post }: Props ) {
   }
 
   return (
-    !isDeleted && 
+    isDeleted ? <></> :
     <div className="item">
       <div className='post-details-container'>
         <div className='overlay-top'></div>
