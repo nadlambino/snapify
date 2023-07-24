@@ -7,9 +7,9 @@ const cors = require('cors')
 const parser = require('body-parser')
 const path = require('path')
 
-const userRouter = require('./routes/user.route')
-const authRouter = require('./routes/auth.route')
-const postRouter = require('./routes/post.route')
+const userRouter = require('./routes/user.route.js')
+const authRouter = require('./routes/auth.route.js')
+const postRouter = require('./routes/post.route.js')
 
 app.use(cors())
 app.use(express.json())
