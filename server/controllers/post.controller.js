@@ -50,7 +50,7 @@ const getPosts = async (req, res) => {
   try {
     const lastPostId = req.query.q;
     const pipeline = [
-      { $sort: { createdAt: -1 } },
+      { $sort: { _id: -1 } },
       { $limit: POST_PER_REQUEST },
       {
         $lookup: {
@@ -171,7 +171,7 @@ const getPosts = async (req, res) => {
     if (lastPostId && isValidObjectId(lastPostId)) {
       pipeline.unshift({
         $match: {
-          _id: { $gt: new mongoose.Types.ObjectId(lastPostId) },
+          _id: { $lt: new mongoose.Types.ObjectId(lastPostId) },
         },
       });
     }
