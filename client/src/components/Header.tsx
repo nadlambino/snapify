@@ -38,7 +38,6 @@ export default function Header() {
       <Link to={'/'} className='header-logo'>
         <div className='flex flex-col'>
           <span className='font-bold text-gray-800'>SNAPIFY</span>
-          <small className='relative px-1 top-[-7px] w-full bg-primary text-gray-200'>dev</small>
         </div>
       </Link>
       <div className='header-menu'>
