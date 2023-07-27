@@ -1,10 +1,10 @@
 const { isValidObjectId, default: mongoose } = require('mongoose');
 const {
-  getMinRelevanceDate,
-  RELEVANCE_POINTS,
-  POPULARITY_MULTIPLIER,
   COMMENT_PER_REQUEST,
   POST_PER_REQUEST,
+  ENGAGEMENT_WEIGHT,
+  RECENCY_WEIGHT,
+  MILLISECONDS_IN_HOUR,
 } = require('../services/post.service');
 const Post = require('./../models/post.model');
 const fs = require('fs');
@@ -48,9 +48,9 @@ const deletePost = async (req, res) => {
 
 const getPosts = async (req, res) => {
   try {
-    const relevanceDate = getMinRelevanceDate();
     const lastPostId = req.query.q;
     const pipeline = [
+      { $sort: { createdAt: -1 } },
       { $limit: POST_PER_REQUEST },
       {
         $lookup: {
@@ -131,47 +131,39 @@ const getPosts = async (req, res) => {
       },
       {
         $addFields: {
-          popularity: {
+          engagement: {
             $add: ['$commentsCount', '$reactsCount'],
           },
         },
       },
       {
         $addFields: {
-          relevance: {
-            $cond: {
-              if: { $gte: ['$createdAt', relevanceDate] },
-              then: {
-                $add: [
-                  RELEVANCE_POINTS,
-                  { $multiply: ['$popularity', POPULARITY_MULTIPLIER] },
-                ],
-              },
-              else: '$popularity',
-            },
+          recency: {
+            $divide: [
+              { $subtract: [new Date(), '$createdAt'] },
+              MILLISECONDS_IN_HOUR,
+            ],
           },
         },
       },
       {
         $addFields: {
-          popularityAndRelevance: { $add: ['$popularity', '$relevance'] },
+          totalScore: {
+            $add: [
+              { $multiply: ['$engagement', ENGAGEMENT_WEIGHT] },
+              { $multiply: ['$recency', -RECENCY_WEIGHT] },
+            ],
+          },
         },
       },
       {
         $sort: {
-          popularityAndRelevance: -1,
-          relevance: -1,
-          popularity: -1,
+          totalScore: -1,
+          recency: -1,
+          engagement: -1,
           commentsCount: -1,
           reactsCount: -1,
           createdAt: -1,
-        },
-      },
-      {
-        $project: {
-          popularityAndRelevance: 0,
-          relevance: 0,
-          popularity: 0,
         },
       },
     ];
