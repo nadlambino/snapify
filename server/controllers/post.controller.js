@@ -1,3 +1,4 @@
+const { isValidObjectId, default: mongoose } = require('mongoose');
 const {
   getMinRelevanceDate,
   RELEVANCE_POINTS,
@@ -48,8 +49,8 @@ const deletePost = async (req, res) => {
 const getPosts = async (req, res) => {
   try {
     const relevanceDate = getMinRelevanceDate();
-
-    const posts = await Post.aggregate([
+    const lastPostId = req.query.q;
+    const pipeline = [
       { $limit: POST_PER_REQUEST },
       {
         $lookup: {
@@ -173,7 +174,17 @@ const getPosts = async (req, res) => {
           popularity: 0,
         },
       },
-    ]);
+    ];
+
+    if (lastPostId && isValidObjectId(lastPostId)) {
+      pipeline.unshift({
+        $match: {
+          _id: { $gt: new mongoose.Types.ObjectId(lastPostId) },
+        },
+      });
+    }
+
+    const posts = await Post.aggregate(pipeline);
 
     let filteredPosts = posts.map((post) => {
       const { media } = post;

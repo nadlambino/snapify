@@ -8,16 +8,20 @@ import {
   createBrowserRouter,
   RouterProvider,
 } from "react-router-dom";
+import { QueryClient, QueryClientProvider } from 'react-query'
 import routes from './routes'
 import './css/index.css'
 
 const router = createBrowserRouter(routes)
+const queryClient = new QueryClient()
 
 ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
   <React.StrictMode>
     <CookiesProvider>
       <Provider store={store}>
-        <RouterProvider router={router} />
+        <QueryClientProvider client={queryClient}>
+          <RouterProvider router={router} />
+        </QueryClientProvider>
       </Provider>
     </CookiesProvider>
   </React.StrictMode>,
