@@ -39,7 +39,7 @@ span {
 }
 
 .header {
-  @apply flex gap-5 fixed w-full bg-white z-20 top-0 justify-between items-center px-2 h-[8dvh];
+  @apply flex gap-5 fixed w-full bg-white z-30 top-0 justify-between items-center px-2 h-[8dvh];
 
   @apply lg:flex-col lg:relative lg:w-auto lg:items-start;
 }
