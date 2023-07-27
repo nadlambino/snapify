@@ -35,7 +35,7 @@ span {
 }
 
 .app {
-  @apply h-[100dvh] relative flex flex-col justify-center;
+  @apply h-[100lvh] relative flex flex-col justify-center;
 }
 
 .wrapper {
@@ -45,7 +45,7 @@ span {
 }
 
 .header {
-  @apply flex gap-5 fixed w-full bg-white z-30 top-0 justify-between items-center px-2 h-[8dvh];
+  @apply flex gap-5 fixed w-full bg-white z-30 top-0 justify-between items-center px-2 h-[8lvh];
 
   @apply lg:flex-col lg:relative lg:w-auto lg:items-start;
 }
@@ -61,7 +61,7 @@ span {
 }
 
 .body {
-  @apply w-full top-[8dvh];
+  @apply w-full top-[8lvh];
 
   @apply lg:w-1/3 lg:top-0;
 }

@@ -13,8 +13,8 @@ html {
 
   scroll-snap-stop: always;
   @media screen and (max-width: 1023px) {
-    scroll-margin-top: 8dvh;
-    height: calc(92dvh);
+    scroll-margin-top: 8lvh;
+    height: calc(92lvh);
   }
 }
 
