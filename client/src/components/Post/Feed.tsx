@@ -5,7 +5,6 @@ import { PostType } from '../../types';
 import { useSelector, useDispatch } from 'react-redux';
 import { setReloadPosts } from '../../store/modules/post';
 import { useQuery } from 'react-query';
-import useObserver from './../../hooks/observer';
 
 export default function Feed() {
   const [posts, setPosts] = useState<PostType[]>([]);
@@ -14,7 +13,6 @@ export default function Feed() {
   const { isSuccess, data, refetch } = useQuery('posts', () => getPosts(), {
     enabled: false,
   });
-  const { isVisible } = useObserver('.last-post', { threshold: 1 });
 
   useEffect(() => {
     if (reloadPost) {
@@ -43,7 +41,6 @@ export default function Feed() {
         posts.map((post, i) => {
           return (
             <Post
-              isLastPostAndVisible={isVisible}
               className={i === posts.length - 1 ? 'last-post' : ''}
               getNewPostCb={handleGetNewPost}
               key={post._id}

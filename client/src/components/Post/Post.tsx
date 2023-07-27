@@ -12,16 +12,10 @@ import useObserver from '../../hooks/observer';
 interface Props {
   post: PostType;
   className: string;
-  isLastPostAndVisible: boolean;
   getNewPostCb: Function;
 }
 
-export default function Post({
-  post,
-  className,
-  isLastPostAndVisible,
-  getNewPostCb,
-}: Props) {
+export default function Post({ post, className, getNewPostCb }: Props) {
   const media: [MediaType] = post.media;
   const [isDeleted, setIsDeleted] = useState(false);
   const user: UserType = post.user;
