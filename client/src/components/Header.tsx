@@ -39,7 +39,6 @@ export default function Header() {
   const handleFeedClick = () => {
     navigate('/');
     dispatch(setReloadPosts(true));
-    window.scrollTo({ top: 0 });
   };
 
   return (

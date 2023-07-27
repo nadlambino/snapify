@@ -6,6 +6,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setReloadPosts } from '../../store/modules/post';
 import { useQuery } from 'react-query';
 
+let scrollTimeout: NodeJS.Timeout;
+
 export default function Feed() {
   const [posts, setPosts] = useState<PostType[]>([]);
   const reloadPost = useSelector((state: any) => state.post.reloadPosts);
@@ -16,7 +18,12 @@ export default function Feed() {
 
   useEffect(() => {
     if (reloadPost) {
-      refetch();
+      refetch().then(() => {
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+          window.scrollTo({ top: 0 });
+        }, 500);
+      });
     }
 
     setPosts(data);
