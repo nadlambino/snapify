@@ -23,7 +23,7 @@ export default function Post({ post }: Props ) {
   const containerRef = useRef<HTMLDivElement>(null)
   const thumbRef = useRef<HTMLSpanElement>(null)
   const { swipeDirection } = useSwipe()
-  const clickPosition = useClickOutside('.container')
+  const clickPosition = useClickOutside('.feed-container')
   let timeout: any = 0
 
   useEffect(() => {

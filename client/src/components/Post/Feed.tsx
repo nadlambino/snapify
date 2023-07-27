@@ -24,7 +24,7 @@ export default function Feed() {
   }, [reloadPost])
 
   return (
-    <div className='container'>
+    <div className='feed-container'>
       {posts && posts.map((post) => {
         return <Post key={post._id} post={post} />
       })}
