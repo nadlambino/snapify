@@ -2,16 +2,19 @@ html {
   @apply snap-y snap-mandatory scroll-smooth;
 }
 
-.container {
-  @apply flex flex-col h-max w-full;
+.feed-container {
+  @apply mt-[8vh];
+
+  @apply lg:mt-0;
 }
 
 .item {
-  @apply h-[calc(100dvh)] bg-white relative snap-start;
+  @apply h-screen bg-white relative snap-start;
 
   scroll-snap-stop: always;
   @media screen and (max-width: 1023px) {
     scroll-margin-top: 8dvh;
+    height: calc(92dvh);
   }
 }
 
