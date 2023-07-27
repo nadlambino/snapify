@@ -7,11 +7,11 @@ html {
 }
 
 .item {
-  @apply h-[calc(100vh-8vh)] bg-white relative snap-start;
+  @apply h-[calc(100dvh)] bg-white relative snap-start;
 
   scroll-snap-stop: always;
   @media screen and (max-width: 1023px) {
-    scroll-margin-top: 8vh;
+    scroll-margin-top: 8dvh;
   }
 }
 
