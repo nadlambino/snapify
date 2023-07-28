@@ -135,3 +135,7 @@ span {
     rgba(0, 0, 0, 0)
   );
 }
+
+:disabled {
+  @apply opacity-60 cursor-not-allowed;
+}

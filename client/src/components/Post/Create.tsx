@@ -46,6 +46,7 @@ const Create: React.FC<FormComponent> = (props) => {
 
   const handlePostSubmit = async () => {
     setError('');
+    if (isLoading) return;
     if (media.length === 0) {
       setError(`Please select an image or video to post`);
       failedSave();

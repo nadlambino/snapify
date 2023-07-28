@@ -12,7 +12,7 @@ export default function SignIn(props: React.PropsWithChildren<Any>) {
   const navigate = useNavigate();
   const [_, setCookie] = useCookies();
   const dispatch = useDispatch();
-  const { mutate, isLoading, isError, isSuccess, data, error } = useMutation({
+  const { mutate, isLoading, isError, isSuccess, data } = useMutation({
     mutationFn: (form: SignInData) => signIn(form),
   });
 
@@ -40,10 +40,12 @@ export default function SignIn(props: React.PropsWithChildren<Any>) {
 
   const handleSignUp = async (e: FormEvent) => {
     e.preventDefault();
+    if (isLoading) return;
     mutate(form);
   };
 
   const handleSignInDemo = () => {
+    if (isLoading) return;
     mutate({ email: 'johndoe@test.com', password: 'password' });
   };
 
@@ -99,6 +101,7 @@ export default function SignIn(props: React.PropsWithChildren<Any>) {
               fullWidth
               className="btn bg-primary"
               type="submit"
+              disabled={isLoading}
             >
               Sign In
             </Button>
@@ -113,6 +116,7 @@ export default function SignIn(props: React.PropsWithChildren<Any>) {
               className="btn bg-secondary"
               type="button"
               onClick={handleSignInDemo}
+              disabled={isLoading}
             >
               Sign In as Demo
             </Button>
