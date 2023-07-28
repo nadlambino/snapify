@@ -67,10 +67,13 @@ export default function Actions({
       <div className="post-buttons-container">
         {isOwner && (
           <button
-            className="p-2"
+            className="p-2 absolute top-5"
             onClick={handleDelete}
           >
-            <MdDelete size={32} />
+            <MdDelete
+              size={25}
+              className="text-slate-300"
+            />
           </button>
         )}
         <button
