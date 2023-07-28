@@ -28,7 +28,10 @@ export default function Post({ post, className, getNewPostCb }: Props) {
   const { swipeDirection } = useSwipe();
   const clickPosition = useClickOutside('.feed-container');
   let timeout: any = 0;
-  const { isVisible } = useObserver('.last-post');
+  const { isVisible } = useObserver('.last-post', { threshold: 0.5 });
+  const { isVisible: isPostVisible } = useObserver(`.post-${post._id}`, {
+    threshold: 0.5,
+  });
 
   useEffect(() => {
     if (isVisible && className === 'last-post') {
@@ -95,7 +98,7 @@ export default function Post({ post, className, getNewPostCb }: Props) {
   return isDeleted ? (
     <></>
   ) : (
-    <div className={'item' + ' ' + className}>
+    <div className={'item' + ' ' + className + ' post-' + post._id}>
       <div className="post-details-container">
         <div className="overlay-top"></div>
         <Avatar
@@ -145,6 +148,7 @@ export default function Post({ post, className, getNewPostCb }: Props) {
           ))}
         </div>
         <Actions
+          isHideComment={!isPostVisible}
           post={post}
           deleteCallback={deleteCallback}
         />
