@@ -28,7 +28,7 @@ export const deletePost = async (postId: string) => {
     });
 };
 
-export const getPosts = async (lastPostId?: string) => {
+export const getPosts = async (lastPostId?: string | null | undefined) => {
   const queryString = lastPostId ? `q=${lastPostId}` : '';
   return await window.axios
     .get(`${window.apiUrl}/post/feed?${queryString}`, {

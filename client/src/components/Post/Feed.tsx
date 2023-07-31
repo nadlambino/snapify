@@ -1,45 +1,49 @@
 import Post from './Post';
 import { getPosts } from '../../api/post';
-import { useState, useEffect } from 'react';
-import { PostType } from '../../types';
+import { useState, useEffect, useMemo } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setReloadPosts } from '../../store/modules/post';
-import { useQuery } from 'react-query';
+import { useInfiniteQuery } from 'react-query';
+import { useTimeout } from '@mantine/hooks';
+import { PostType } from '../../types';
 
 let scrollTimeout: NodeJS.Timeout;
 
 export default function Feed() {
-  const [posts, setPosts] = useState<PostType[]>([]);
   const reloadPost = useSelector((state: any) => state.post.reloadPosts);
   const dispatch = useDispatch();
-  const { isSuccess, data, refetch } = useQuery('posts', () => getPosts(), {
-    enabled: false,
-  });
+  const { data, fetchNextPage } = useInfiniteQuery(
+    'post',
+    ({ pageParam }) => {
+      return getPosts(pageParam);
+    },
+    { enabled: false }
+  );
+  // TODO: Refactor posts collection to filter out duplicate posts
+  const posts = useMemo(() => {
+    return (data?.pages ? data.pages.flat() : []) as PostType[];
+  }, [data]);
+  const { start, clear } = useTimeout(([id]) => {
+    fetchNextPage({
+      pageParam: id,
+    });
+    clear();
+  }, 500);
+
+  useEffect(() => {
+    fetchNextPage();
+  }, []);
 
   useEffect(() => {
     if (reloadPost) {
-      refetch().then(() => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          window.scrollTo({ top: 0 });
-        }, 500);
-      });
+      clearTimeout(scrollTimeout);
+      scrollTimeout = setTimeout(() => {
+        window.scrollTo({ top: 0 });
+      }, 500);
     }
-
-    setPosts(data);
-    dispatch(setReloadPosts(false));
-  }, [isSuccess, reloadPost, data]);
+  }, [reloadPost]);
 
   const handleGetNewPost = async (id: string) => {
-    getPosts(id).then((data: PostType[]) => {
-      const filteredData = data.filter((d) => {
-        const index = posts.findIndex((p) => p._id === d._id);
-
-        return index < 0 ? true : false;
-      });
-
-      setPosts((prev) => prev.concat(filteredData));
-    });
+    start(id);
   };
 
   return (
