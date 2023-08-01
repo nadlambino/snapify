@@ -1,6 +1,6 @@
 import Post from './Post';
 import { MAX_POST_PER_REQUEST, getPosts } from '../../api/post';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useTimeout } from '@mantine/hooks';
 import { PostType } from '../../types';
