@@ -1,6 +1,8 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { cookie } from '../utils/cookie';
 
+export const MAX_POST_PER_REQUEST = 20;
+
 export const createPost = async (post: FormData) => {
   return await window.axios
     .post(`${window.apiUrl}/post`, post, {
@@ -31,11 +33,14 @@ export const deletePost = async (postId: string) => {
 export const getPosts = async (lastPostId?: string | null | undefined) => {
   const queryString = lastPostId ? `q=${lastPostId}` : '';
   return await window.axios
-    .get(`${window.apiUrl}/post/feed?${queryString}`, {
-      headers: {
-        Authorization: `Bearer ${cookie('token')}`,
-      },
-    })
+    .get(
+      `${window.apiUrl}/post/feed?limit=${MAX_POST_PER_REQUEST}&${queryString}`,
+      {
+        headers: {
+          Authorization: `Bearer ${cookie('token')}`,
+        },
+      }
+    )
     .then((response: AxiosResponse) => response.data)
     .catch((error: AxiosError) => {
       throw error;

@@ -1,7 +1,7 @@
 const fs = require('fs');
 
 const COMMENT_PER_REQUEST = 20;
-const POST_PER_REQUEST = 2;
+const POST_PER_REQUEST = 20;
 const ENGAGEMENT_WEIGHT = 0.45;
 const RECENCY_WEIGHT = 0.05;
 const RELEVANCE_WEIGHT = 0.5;

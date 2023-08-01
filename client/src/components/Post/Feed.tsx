@@ -1,16 +1,11 @@
 import Post from './Post';
-import { getPosts } from '../../api/post';
-import { useState, useEffect, useMemo } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { MAX_POST_PER_REQUEST, getPosts } from '../../api/post';
+import { useEffect, useMemo } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useTimeout } from '@mantine/hooks';
 import { PostType } from '../../types';
 
-let scrollTimeout: NodeJS.Timeout;
-
 export default function Feed() {
-  const reloadPost = useSelector((state: any) => state.post.reloadPosts);
-  const dispatch = useDispatch();
   const { data, fetchNextPage } = useInfiniteQuery(
     'post',
     ({ pageParam }) => {
@@ -33,16 +28,14 @@ export default function Feed() {
     fetchNextPage();
   }, []);
 
-  useEffect(() => {
-    if (reloadPost) {
-      clearTimeout(scrollTimeout);
-      scrollTimeout = setTimeout(() => {
-        window.scrollTo({ top: 0 });
-      }, 500);
-    }
-  }, [reloadPost]);
-
   const handleGetNewPost = async (id: string) => {
+    const pages = data?.pages || [];
+    if (
+      pages.length > 1 &&
+      pages[pages.length - 1].length < MAX_POST_PER_REQUEST
+    ) {
+      return;
+    }
     start(id);
   };
 
