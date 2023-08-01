@@ -1,40 +1,63 @@
 import Post from './Post';
 import { MAX_POST_PER_REQUEST, getPosts } from '../../api/post';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { useInfiniteQuery } from 'react-query';
 import { useTimeout } from '@mantine/hooks';
 import { PostType } from '../../types';
+import { FeedContext } from '../../contexts/FeedContext';
 
 export default function Feed() {
   const [posts, setPosts] = useState<PostType[]>([]);
-  const { data, fetchNextPage } = useInfiniteQuery(
+  const { reload, setReload } = useContext(FeedContext);
+  const { data, fetchNextPage, refetch, isRefetching } = useInfiniteQuery(
     'post',
     ({ pageParam }) => {
       return getPosts(pageParam);
     },
     { enabled: false }
   );
-  const { start, clear } = useTimeout(([id]) => {
-    fetchNextPage({
-      pageParam: id,
-    });
-    clear();
+  const { start: startGetPost, clear: clearGetPostTimeout } = useTimeout(
+    ([id]) => {
+      fetchNextPage({
+        pageParam: id,
+      });
+      clearGetPostTimeout();
+    },
+    500
+  );
+  const { start: startScroll, clear: clearScroll } = useTimeout(() => {
+    window.scrollTo({ top: 0 });
+    setReload(false);
+    clearScroll();
   }, 500);
 
   useEffect(() => {
-    fetchNextPage();
+    refetch();
   }, []);
 
   useEffect(() => {
-    let p: PostType[] = data?.pages ? data.pages[data.pages.length - 1] : [];
-    const allPosts = posts
-      .concat(p)
-      .filter(
-        (obj, index, self) => index === self.findIndex((t) => t._id === obj._id)
-      );
+    if (reload) {
+      setPosts(data?.pages[0] as PostType[]);
+      startScroll();
+    }
 
-    setPosts(allPosts);
-  }, [data]);
+    if (!reload) {
+      let p: PostType[] = data?.pages ? data.pages[data.pages.length - 1] : [];
+      const allPosts = posts
+        .concat(p)
+        .filter(
+          (obj, index, self) =>
+            index === self.findIndex((t) => t._id === obj._id)
+        );
+      setPosts(allPosts);
+    }
+  }, [data, reload]);
+
+  useEffect(() => {
+    if (reload) {
+      refetch();
+    }
+  }, [reload]);
 
   const handleGetNewPost = async (id: string) => {
     const pages = data?.pages || [];
@@ -44,7 +67,7 @@ export default function Feed() {
     ) {
       return;
     }
-    start(id);
+    startGetPost(id);
   };
 
   return (

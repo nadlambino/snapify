@@ -8,6 +8,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { QueryClient, QueryClientProvider } from 'react-query';
 import routes from './routes';
 import './css/index.css';
+import { FeedProvider } from './contexts/FeedContext';
 
 const router = createBrowserRouter(routes);
 const queryClient = new QueryClient();
@@ -17,7 +18,9 @@ ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
     <CookiesProvider>
       <Provider store={store}>
         <QueryClientProvider client={queryClient}>
-          <RouterProvider router={router} />
+          <FeedProvider>
+            <RouterProvider router={router} />
+          </FeedProvider>
         </QueryClientProvider>
       </Provider>
     </CookiesProvider>
