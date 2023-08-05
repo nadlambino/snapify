@@ -14,7 +14,7 @@ RUN npm install
 COPY . .
 
 # Expose port for the server to listen on
-EXPOSE 81
+EXPOSE 80
 
 # Run the command 'npm run dev' to start the server
 
