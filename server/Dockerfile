@@ -13,8 +13,8 @@ RUN npm install
 # Copy the rest of the application code to the working directory
 COPY . .
 
-# Expose port 3000 for the server to listen on
-EXPOSE 80
+# Expose port for the server to listen on
+EXPOSE 81
 
 # Run the command 'npm run dev' to start the server
 

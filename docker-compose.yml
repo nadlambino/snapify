@@ -16,7 +16,7 @@ services:
       context: ./server
       dockerfile: Dockerfile
     ports:
-      - '80:80'
+      - '81:81'
     volumes:
       - ./server:/src/server
       - /src/server/node_modules
