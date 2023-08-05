@@ -16,6 +16,5 @@ COPY . .
 # Expose port for the server to listen on
 EXPOSE 80
 
-# Run the command 'npm run dev' to start the server
-
-CMD ["npm", "run", "dev"]
+# Set the entrypoint script
+ENTRYPOINT ["./entrypoint.sh"]
