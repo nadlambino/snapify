@@ -1,107 +1,205 @@
-import { Grid, TextField, Button, RadioGroup, Radio, FormControl, FormLabel, FormControlLabel, Typography } from '@mui/material'
-import UnstrictReactPropType from '../../types/UnstrictReactPropType'
-import { FormEvent, useState } from 'react'
-import { signUp } from '../../api/auth'
-import { useDispatch } from 'react-redux'
-import { setAuth } from './../../store/modules/auth'
-import { useCookies } from 'react-cookie'
-import { useNavigate } from 'react-router-dom'
+import {
+  Grid,
+  TextField,
+  Button,
+  RadioGroup,
+  Radio,
+  FormControl,
+  FormLabel,
+  FormControlLabel,
+  Alert,
+} from '@mui/material';
+import { FormEvent, useState, useEffect } from 'react';
+import { SignUpData, signUp } from '../../api/auth';
+import { useDispatch } from 'react-redux';
+import { setAuth } from './../../store/modules/auth';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
+import { Any } from '../../types';
+import { useMutation } from 'react-query';
 
-interface IUserForm {
-  firstName: string | null,
-  lastName: string | null,
-  gender: 'male' | 'female' | 'other' | null,
-  email: string | null,
-  password: string | null,
-  confirm: string | null
-}
-
-export default function SignUp(props: UnstrictReactPropType) {
-  const [form, setForm] = useState<IUserForm>({
+export default function SignUp(props: React.PropsWithChildren<Any>) {
+  const [form, setForm] = useState<SignUpData>({
     firstName: null,
     lastName: null,
     gender: null,
     email: null,
     password: null,
-    confirm: null
-  })
+    confirm: null,
+  });
+  const [errorMessage, setErrorMessage] = useState<string>();
+  const dispatch = useDispatch();
+  const [_, setCookie] = useCookies();
+  const navigate = useNavigate();
+  const { mutate, isLoading, isSuccess, isError, data, error } = useMutation({
+    mutationFn: (form: SignUpData) => {
+      return signUp(form);
+    },
+  });
 
-  const [error, setError] = useState<String>()
-
-  const dispatch = useDispatch()
-  const [cookies, setCookie] = useCookies()
-  const navigate = useNavigate()
+  useEffect(() => {
+    if (!isLoading && isError && error) {
+      setErrorMessage('Failed to sign up. Please try again later');
+    }
+    if (data && isSuccess && !isLoading) {
+      dispatch(setAuth(data));
+      setCookie('token', data.access.token, {
+        expires: new Date(data.access.expiration),
+      });
+      setCookie('user', data.user, {
+        expires: new Date(data.access.expiration),
+      });
+      navigate('/');
+    }
+  }, [data, isSuccess, isLoading]);
 
   const handleFormChange = (key: string, value: string | null) => {
-    setForm((prevState) => ({...prevState, [key]: value}))
-  }
+    setForm((prevState) => ({ ...prevState, [key]: value }));
+  };
 
   const handleSignUp = async (e: FormEvent) => {
-    e.preventDefault()
-    setError('')
+    e.preventDefault();
+    setErrorMessage('');
 
     if (form.password !== form.confirm) {
-      setError('Password do not match')
-      return
+      setErrorMessage('Password do not match');
+      return;
     }
 
-    const user = await signUp(form)
-
-    if (!user) {
-      setError('Something went wrong. Please try again.')
-      return
-    }
-
-    dispatch(setAuth(user))
-    setCookie('token', user.access.token, {expires: new Date(user.access.expiration)})
-    setCookie('user', user.user, {expires: new Date(user.access.expiration)})
-    navigate('/')
-  }
+    mutate(form);
+  };
 
   return (
-    <div className="w-full flex flex-col justify-center">
+    <div className="w-full flex flex-col justify-center py-2">
       <form onSubmit={handleSignUp}>
-        <Grid container justifyContent="center" direction="column" gap={2}>
-          <Grid item xs={12}>
-            <Typography textAlign="center" className="text-gray-500">{error}</Typography>
+        <Grid
+          container
+          justifyContent="center"
+          direction="column"
+          gap={2}
+        >
+          {errorMessage && (
+            <Grid
+              item
+              xs={12}
+            >
+              <Alert severity="error">{errorMessage}</Alert>
+            </Grid>
+          )}
+          <Grid
+            item
+            xs={12}
+          >
+            <TextField
+              required
+              variant="outlined"
+              label="First Name"
+              fullWidth
+              onChange={(e) => handleFormChange('firstName', e.target.value)}
+            />
           </Grid>
-          <Grid item xs={12}>
-            <TextField required variant="outlined" label="First Name" fullWidth onChange={(e) => handleFormChange('firstName', e.target.value)} />
+          <Grid
+            item
+            xs={12}
+          >
+            <TextField
+              required
+              variant="outlined"
+              label="Last Name"
+              fullWidth
+              onChange={(e) => handleFormChange('lastName', e.target.value)}
+            />
           </Grid>
-          <Grid item xs={12}>
-            <TextField required variant="outlined" label="Last Name" fullWidth onChange={(e) => handleFormChange('lastName', e.target.value)} />
+          <Grid
+            item
+            xs={12}
+          >
+            <FormControl required>
+              <FormLabel id="gender">Gender</FormLabel>
+              <RadioGroup
+                onChange={(e) => handleFormChange('gender', e.target.value)}
+                row
+                aria-labelledby="gender"
+                name="gender-group"
+              >
+                <FormControlLabel
+                  value="male"
+                  control={<Radio />}
+                  label="Male"
+                />
+                <FormControlLabel
+                  value="female"
+                  control={<Radio />}
+                  label="Female"
+                />
+                <FormControlLabel
+                  value="other"
+                  control={<Radio />}
+                  label="Other"
+                />
+              </RadioGroup>
+            </FormControl>
           </Grid>
-          <Grid item xs={12}>
-          <FormControl required>
-            <FormLabel id="gender">Gender</FormLabel>
-            <RadioGroup
-              onChange={(e) => handleFormChange('gender', e.target.value)}
-              row
-              aria-labelledby="gender"
-              name="gender-group">
-              <FormControlLabel value="male" control={<Radio />} label="Male" />
-              <FormControlLabel value="female" control={<Radio />} label="Female" />
-              <FormControlLabel value="other" control={<Radio />} label="Other" />
-            </RadioGroup>
-          </FormControl>
+          <Grid
+            item
+            xs={12}
+          >
+            <TextField
+              required
+              variant="outlined"
+              label="Email"
+              type="email"
+              fullWidth
+              onChange={(e) => handleFormChange('email', e.target.value)}
+            />
           </Grid>
-          <Grid item xs={12}>
-            <TextField required variant="outlined" label="Email" type="email" fullWidth onChange={(e) => handleFormChange('email', e.target.value)} />
+          <Grid
+            item
+            xs={12}
+          >
+            <TextField
+              required
+              variant="outlined"
+              label="Password"
+              type="password"
+              fullWidth
+              onChange={(e) => handleFormChange('password', e.target.value)}
+            />
           </Grid>
-          <Grid item xs={12}>
-            <TextField required variant="outlined" label="Password" type="password" fullWidth onChange={(e) => handleFormChange('password', e.target.value)}/>
+          <Grid
+            item
+            xs={12}
+          >
+            <TextField
+              required
+              variant="outlined"
+              label="Confirm Password"
+              type="password"
+              fullWidth
+              onChange={(e) => handleFormChange('confirm', e.target.value)}
+            />
           </Grid>
-          <Grid item xs={12}>
-            <TextField required variant="outlined" label="Confirm Password" type="password" fullWidth onChange={(e) => handleFormChange('confirm', e.target.value)} />
+          <Grid
+            item
+            xs={12}
+          >
+            <Button
+              variant="contained"
+              fullWidth
+              className="btn bg-primary"
+              type="submit"
+            >
+              Sign Up
+            </Button>
           </Grid>
-          <Grid item xs={12}>
-            <Button variant="contained" fullWidth className="btn bg-primary" type="submit" >Sign Up</Button>
-          </Grid>
-          <Grid item xs={12}>
+          <Grid
+            item
+            xs={12}
+          >
             {props.children && props.children}
           </Grid>
         </Grid>
       </form>
     </div>
-  )
+  );
 }

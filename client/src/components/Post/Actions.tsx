@@ -1,32 +1,106 @@
-import ModeCommentIcon from '@mui/icons-material/ModeComment';
-import FavoriteIcon from '@mui/icons-material/Favorite';
-import { useState } from 'react'
-import Comments from "./Comments";
-import { PostType } from '../../types/PostType';
+import { useState, useEffect } from 'react';
+import Comments from './Comments';
+import { PostType } from '../../types';
+import { deletePost, reactPost } from '../../api/post';
+import useAuth from '../../hooks/auth';
+import { MdDelete, MdModeComment } from 'react-icons/md';
+import { IoIosHeart } from 'react-icons/io';
 
-export default function Actions({ post }: { post: PostType }) {
-  const [showComments, setShowComments] = useState(false)
+export default function Actions({
+  post,
+  deleteCallback,
+  isHideComment,
+}: {
+  post: PostType;
+  deleteCallback: Function;
+  isHideComment: boolean;
+}) {
+  const [showComments, setShowComments] = useState(isHideComment);
+  const { user } = useAuth();
+  const [commentsCount, setCommentsCount] = useState(post.commentsCount);
+  const [reactsCount, setReactsCount] = useState(post.reactsCount);
+  const [reacted, setReacted] = useState(
+    post.reacts.findIndex((react) => react.user == user?._id) !== -1
+  );
+  const isOwner = post.user._id === user?._id;
+
+  useEffect(() => {
+    if (isHideComment) {
+      setShowComments(false);
+    }
+  }, [isHideComment]);
 
   const handleShowComments = () => {
-    setShowComments(true)
-  }
+    setShowComments(true);
+  };
+
+  const handleCommentCountUpdate = (count: number) => {
+    setCommentsCount(count);
+  };
+
+  const handleReact = () => {
+    const postId = post._id;
+    let count = reactsCount;
+    if (reacted) {
+      count -= 1;
+    } else {
+      count += 1;
+    }
+
+    setReacted(!reacted);
+    setReactsCount(count);
+    reactPost({ postId });
+  };
+
+  const handleDelete = () => {
+    if (!isOwner) {
+      return;
+    }
+
+    deletePost(post._id).then(() => {
+      deleteCallback();
+    });
+  };
 
   return (
     <>
       <div className="post-buttons-container">
-        <button className="p-2">
-          <FavoriteIcon fontSize="large" />
+        {isOwner && (
+          <button
+            className="p-2 absolute top-5"
+            onClick={handleDelete}
+          >
+            <MdDelete
+              size={25}
+              className="text-slate-300"
+            />
+          </button>
+        )}
+        <button
+          className="p-2"
+          onClick={handleReact}
+        >
+          <IoIosHeart
+            size={28}
+            className={reacted ? 'text-red-500' : ''}
+          />
+          <small>{reactsCount}</small>
         </button>
-        <button className="p-2" onClick={handleShowComments}>
-          <ModeCommentIcon fontSize="large" />
+        <button
+          className="p-2"
+          onClick={handleShowComments}
+        >
+          <MdModeComment size={25} />
+          <small>{commentsCount}</small>
         </button>
       </div>
-      <Comments 
-        show={showComments} 
-        setShowComment={setShowComments} 
+      <Comments
+        show={showComments}
+        setShowComment={setShowComments}
         postId={post._id}
         comments={post.comments}
+        updateCommentsCount={handleCommentCountUpdate}
       />
     </>
-  )
+  );
 }

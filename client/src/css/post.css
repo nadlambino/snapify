@@ -1,12 +1,21 @@
 html {
-  @apply snap-y snap-mandatory;
+  @apply snap-y snap-mandatory scroll-smooth;
 }
-.container {
-  @apply flex flex-col scroll-smooth;
+
+.feed-container {
+  @apply mt-[8vh];
+
+  @apply lg:mt-0;
 }
 
 .item {
-  @apply h-[90vh] bg-white relative snap-end;
+  @apply h-screen bg-white relative snap-start;
+
+  scroll-snap-stop: always;
+  @media screen and (max-width: 1023px) {
+    scroll-margin-top: 8lvh;
+    height: calc(92lvh);
+  }
 }
 
 .item:last-child {
@@ -14,7 +23,7 @@ html {
 }
 
 .post-details-container {
-  @apply absolute z-10 text-white p-2 pb-5 flex content-center items-center gap-3 w-full h-[100px]
+  @apply absolute z-10 text-white p-2 pb-5 flex content-center items-center gap-3 w-full h-[100px];
 }
 
 .post-profile {
@@ -38,26 +47,27 @@ html {
 }
 
 .slide-thumb-item {
-  @apply bg-gray-400 rounded h-[3px] w-full relative overflow-hidden
+  @apply bg-gray-400 rounded h-[3px] w-full relative overflow-hidden inline-block;
 }
 
-.slide-thumb-item.slide-active::after {
-  @apply bg-gray-500 rounded h-[3px] w-full block;
-  animation: thumb 5s forwards linear;
+.slide-thumb-item.slide-active .slide-animation {
+  @apply bg-gray-300 !rounded h-[3px] w-full block;
+  animation: thumb forwards linear;
   content: '';
   height: inherit;
   transform: translateX(-100%);
 }
 
 .slide-prev {
-  @apply bg-gray-500
+  @apply bg-gray-300;
 }
 
 .post-image-container {
   @apply relative z-0 flex-col justify-center items-center h-full w-full bg-gray-800 overflow-hidden;
 }
 
-.post-image-container img, .post-image-container video {
+.post-image-container img,
+.post-image-container video {
   @apply w-full;
 }
 
@@ -66,11 +76,15 @@ html {
 }
 
 .post-buttons-container {
-  @apply h-full absolute right-[5px] flex flex-col justify-end items-center z-20 pb-5 gap-2 text-gray-100;
+  @apply h-full absolute right-[5px] flex flex-col justify-end items-center z-20 pb-5 gap-0 text-gray-100;
+}
+
+.post-buttons-container button {
+  @apply flex flex-col items-center;
 }
 
 @keyframes thumb {
   to {
-      transform: initial;
+    transform: initial;
   }
 }

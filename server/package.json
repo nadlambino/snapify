@@ -5,7 +5,8 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon -L server.js",
+    "dev": "nodemon -L index.js",
+    "build": "node index.js",
     "secret:generate": "node scripts/secret.script.js"
   },
   "keywords": [],
