@@ -1,5 +1,5 @@
 # Use the Node.js 17-alpine base image
-FROM node:16-alpine
+FROM node:18-alpine
 
 # Set the working directory inside the container
 WORKDIR /src/server
