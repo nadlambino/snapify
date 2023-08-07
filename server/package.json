@@ -5,10 +5,9 @@
   "main": "server.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon index.js",
+    "dev": "nodemon -L index.js",
     "build": "node index.js",
-    "secret:generate": "node scripts/secret.scripts.js",
-    "uploads:delete": "node scripts/delete-uploads.scripts.js"
+    "secret:generate": "node scripts/secret.script.js"
   },
   "keywords": [],
   "author": "",
