@@ -62,8 +62,9 @@ export default function Feed() {
   const handleGetNewPost = async (id: string) => {
     const pages = data?.pages || [];
     if (
-      pages.length > 1 &&
-      pages[pages.length - 1].length < MAX_POST_PER_REQUEST
+      (pages.length > 1 &&
+        pages[pages.length - 1].length < MAX_POST_PER_REQUEST) ||
+      posts.length < MAX_POST_PER_REQUEST
     ) {
       return;
     }
