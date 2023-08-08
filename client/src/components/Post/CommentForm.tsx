@@ -2,7 +2,7 @@ import './../../css/comments.css';
 import { TextField } from '@mui/material';
 import { AiOutlineSend } from 'react-icons/ai';
 import { commentPost } from '../../api/post';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { FormEvent } from 'react';
 import useAuth from '../../hooks/auth';
@@ -15,6 +15,7 @@ interface Props {
 
 export default function CommentForm({ postId, newCommentCB }: Props) {
   const [comment, setComment] = useState('');
+  const inputRef = useRef<HTMLInputElement>(null);
   const { user } = useAuth();
   const { mutate, isLoading } = useMutation({
     mutationFn: () => {
@@ -48,18 +49,19 @@ export default function CommentForm({ postId, newCommentCB }: Props) {
       setComment('');
       mutate();
     }
+    inputRef.current?.focus();
   };
 
   return (
     <div className="comment-form">
       <form onSubmit={handleCommentSend}>
         <TextField
+          inputRef={inputRef}
           value={comment}
           onChange={(e) => handleCommentChange(e.target.value)}
           placeholder="Say something..."
           fullWidth
           variant="outlined"
-          disabled={isLoading}
         />
         <button
           onSubmit={handleCommentSend}

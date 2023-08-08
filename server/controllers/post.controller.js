@@ -49,9 +49,11 @@ const deletePost = async (req, res) => {
 const getPosts = async (req, res) => {
   try {
     const lastPostId = req.query.q;
+    let limit = req.query.limit || POST_PER_REQUEST;
+    limit = limit > POST_PER_REQUEST ? POST_PER_REQUEST : limit;
+
     const pipeline = [
       { $sort: { _id: -1 } },
-      { $limit: POST_PER_REQUEST },
       {
         $lookup: {
           from: 'users',
@@ -166,6 +168,7 @@ const getPosts = async (req, res) => {
           createdAt: -1,
         },
       },
+      { $limit: parseInt(limit, 10) },
     ];
 
     if (lastPostId && isValidObjectId(lastPostId)) {

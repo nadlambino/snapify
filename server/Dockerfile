@@ -16,5 +16,7 @@ COPY . .
 # Expose port for the server to listen on
 EXPOSE 80
 
+RUN chmod +x entrypoint.sh
+
 # Set the entrypoint script
 ENTRYPOINT ["./entrypoint.sh"]

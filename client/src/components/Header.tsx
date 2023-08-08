@@ -6,18 +6,17 @@ import {
   MdOutlineLibraryAdd,
   MdOutlineDynamicFeed,
 } from 'react-icons/md';
-import { useState } from 'react';
+import { useContext, useState } from 'react';
 import Form from './Form';
 import Create from './Post/Create';
-import { useDispatch } from 'react-redux';
-import { setReloadPosts } from '../store/modules/post';
+import { FeedContext } from '../contexts/FeedContext';
 
 export default function Header() {
-  const [cookies, setCookies, removeCookie] = useCookies();
+  const [_cookies, _setCookies, removeCookie] = useCookies();
   const navigate = useNavigate();
   const location = useLocation();
   const [open, setOpen] = useState(false);
-  const dispatch = useDispatch();
+  const { setReload } = useContext(FeedContext);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -38,7 +37,7 @@ export default function Header() {
 
   const handleFeedClick = () => {
     navigate('/');
-    dispatch(setReloadPosts(true));
+    setReload(true);
   };
 
   return (

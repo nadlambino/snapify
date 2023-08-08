@@ -1,45 +1,73 @@
 import Post from './Post';
-import { getPosts } from '../../api/post';
-import { useState, useEffect } from 'react';
+import { MAX_POST_PER_REQUEST, getPosts } from '../../api/post';
+import { useContext, useEffect, useState } from 'react';
+import { useInfiniteQuery } from 'react-query';
+import { useTimeout } from '@mantine/hooks';
 import { PostType } from '../../types';
-import { useSelector, useDispatch } from 'react-redux';
-import { setReloadPosts } from '../../store/modules/post';
-import { useQuery } from 'react-query';
-
-let scrollTimeout: NodeJS.Timeout;
+import { FeedContext } from '../../contexts/FeedContext';
 
 export default function Feed() {
   const [posts, setPosts] = useState<PostType[]>([]);
-  const reloadPost = useSelector((state: any) => state.post.reloadPosts);
-  const dispatch = useDispatch();
-  const { isSuccess, data, refetch } = useQuery('posts', () => getPosts(), {
-    enabled: false,
-  });
+  const { reload, setReload } = useContext(FeedContext);
+  const { data, fetchNextPage, refetch } = useInfiniteQuery(
+    'post',
+    ({ pageParam }) => {
+      return getPosts(pageParam);
+    },
+    { enabled: false }
+  );
+  const { start: startGetPost, clear: clearGetPostTimeout } = useTimeout(
+    ([id]) => {
+      fetchNextPage({
+        pageParam: id,
+      });
+      clearGetPostTimeout();
+    },
+    500
+  );
+  const { start: startScroll, clear: clearScroll } = useTimeout(() => {
+    window.scrollTo({ top: 0 });
+    setReload(false);
+    clearScroll();
+  }, 500);
 
   useEffect(() => {
-    if (reloadPost) {
-      refetch().then(() => {
-        clearTimeout(scrollTimeout);
-        scrollTimeout = setTimeout(() => {
-          window.scrollTo({ top: 0 });
-        }, 500);
-      });
+    refetch();
+  }, []);
+
+  useEffect(() => {
+    if (reload) {
+      setPosts(data?.pages[0] as PostType[]);
+      startScroll();
     }
 
-    setPosts(data);
-    dispatch(setReloadPosts(false));
-  }, [isSuccess, reloadPost, data]);
+    if (!reload) {
+      let p: PostType[] = data?.pages ? data.pages[data.pages.length - 1] : [];
+      const allPosts = posts
+        .concat(p)
+        .filter(
+          (obj, index, self) =>
+            index === self.findIndex((t) => t._id === obj._id)
+        );
+      setPosts(allPosts);
+    }
+  }, [data, reload]);
+
+  useEffect(() => {
+    if (reload) {
+      refetch();
+    }
+  }, [reload]);
 
   const handleGetNewPost = async (id: string) => {
-    getPosts(id).then((data: PostType[]) => {
-      const filteredData = data.filter((d) => {
-        const index = posts.findIndex((p) => p._id === d._id);
-
-        return index < 0 ? true : false;
-      });
-
-      setPosts((prev) => prev.concat(filteredData));
-    });
+    const pages = data?.pages || [];
+    if (
+      pages.length > 1 &&
+      pages[pages.length - 1].length < MAX_POST_PER_REQUEST
+    ) {
+      return;
+    }
+    startGetPost(id);
   };
 
   return (

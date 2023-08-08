@@ -15,7 +15,7 @@ export default function Actions({
   deleteCallback: Function;
   isHideComment: boolean;
 }) {
-  const [showComments, setShowComments] = useState(isHideComment);
+  const [showComments, setShowComments] = useState(false);
   const { user } = useAuth();
   const [commentsCount, setCommentsCount] = useState(post.commentsCount);
   const [reactsCount, setReactsCount] = useState(post.reactsCount);
