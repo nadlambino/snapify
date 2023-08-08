@@ -9,7 +9,7 @@ import { FeedContext } from '../../contexts/FeedContext';
 export default function Feed() {
   const [posts, setPosts] = useState<PostType[]>([]);
   const { reload, setReload } = useContext(FeedContext);
-  const { data, fetchNextPage, refetch, isRefetching } = useInfiniteQuery(
+  const { data, fetchNextPage, refetch } = useInfiniteQuery(
     'post',
     ({ pageParam }) => {
       return getPosts(pageParam);

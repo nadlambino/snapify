@@ -1,11 +1,11 @@
 import { Grid, TextField, Alert } from '@mui/material';
-import { createPost } from '../../api/post';
+import { createPost, getPosts } from '../../api/post';
 import Dropzone from '../Reusable/Dropzone';
 import { useState, useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { setReloadPosts } from '../../store/modules/post';
 import { FormComponent } from '../../types';
-import { useMutation } from 'react-query';
+import { useInfiniteQuery, useMutation } from 'react-query';
 
 const Create: React.FC<FormComponent> = (props) => {
   const [media, setMedia] = useState([]);
@@ -20,6 +20,13 @@ const Create: React.FC<FormComponent> = (props) => {
       return createPost(formData);
     },
   });
+  const { refetch } = useInfiniteQuery(
+    'post',
+    () => {
+      return getPosts();
+    },
+    { enabled: false }
+  );
 
   useEffect(() => {
     if (!isLoading && isError) {
@@ -28,6 +35,7 @@ const Create: React.FC<FormComponent> = (props) => {
     }
     if (data && isSuccess && !isLoading) {
       closeCallback();
+      refetch();
       dispatch(setReloadPosts(true));
     }
   }, [isLoading, isSuccess, isError, data]);
