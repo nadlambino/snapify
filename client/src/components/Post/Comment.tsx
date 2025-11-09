@@ -1,4 +1,4 @@
-import { CommentType } from '../../types/PostType'
+import { CommentType } from '../../types'
 import dayjs from 'dayjs'
 import { Avatar } from '@mui/material'
 

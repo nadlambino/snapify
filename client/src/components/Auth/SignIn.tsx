@@ -3,16 +3,16 @@ import { useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { setAuth } from './../../store/modules/auth'
 import { Grid, TextField, Button, Typography } from '@mui/material'
-import UnstrictReactPropType from '../../types/UnstrictReactPropType'
-import { signIn } from '../../api/auth'
+import { SignInData, signIn } from '../../api/auth'
 import { useNavigate } from 'react-router-dom'
+import { Any } from '../../types'
 
-export default function SignIn(props: UnstrictReactPropType) {
+export default function SignIn(props: React.PropsWithChildren<Any>) {
   const navigate = useNavigate()
-  const [cookies, setCookie] = useCookies()
+  const [_, setCookie] = useCookies()
   const [error, setError] = useState<String>()
 
-  const [form, setForm] = useState<{email: string | null, password: string | null}>({
+  const [form, setForm] = useState<SignInData>({
     email: null,
     password: null
   })
@@ -26,6 +26,14 @@ export default function SignIn(props: UnstrictReactPropType) {
   const handleSignUp = async (e: FormEvent) => {
     e.preventDefault()
     setError('')
+    signInUser(form)
+  }
+
+  const handleSignInDemo = () => {
+    signInUser({ email: 'johndoe@test.com', password: 'password'})
+  }
+
+  const signInUser = async (form : SignInData) => {
     const user = await signIn(form)
 
     if (!user) {
@@ -54,6 +62,9 @@ export default function SignIn(props: UnstrictReactPropType) {
           </Grid>
           <Grid item xs={12}>
             <Button variant="contained" fullWidth className="btn bg-primary" type="submit">Sign In</Button>
+          </Grid>
+          <Grid item xs={12}>
+            <Button variant="contained" fullWidth className="btn bg-secondary" type="button" onClick={handleSignInDemo}>Sign In as Demo</Button>
           </Grid>
           <Grid item xs={12}>
             {props.children && props.children}
