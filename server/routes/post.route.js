@@ -9,5 +9,6 @@ const uploadMiddleware = require('./../middlewares/upload.middleware')
 router.post('/', authMiddleware, uploadMiddleware.multiple(5), PostController.createPost)
 router.get('/feed', authMiddleware, PostController.getPosts)
 router.post('/:id/comment', authMiddleware, PostController.commentPost)
+router.post('/:id/react', authMiddleware, PostController.reactPost)
 
 module.exports = router
