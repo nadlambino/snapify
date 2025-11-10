@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios, { AxiosError, AxiosResponse } from 'axios'
 import dayjs from 'dayjs'
 import utc from 'dayjs/plugin/utc'
 import relativeTime from 'dayjs/plugin/relativeTime'
@@ -17,12 +17,9 @@ declare global {
 if (!window.axios) {
   window.axios = axios
 
-  axios.interceptors.response.use(
-    response => response,
-    error => {
-      console.log('An error occurred:', error.message);
-      return Promise.reject(error);
-    }
+  window.axios.interceptors.response.use(
+    (response: AxiosResponse) => response,
+    (error: AxiosError) => {throw error}
   );
 }
 

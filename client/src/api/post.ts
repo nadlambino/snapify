@@ -31,3 +31,13 @@ export const commentPost = async ({ postId, comment }: { postId: string, comment
   .then((response: AxiosResponse) => response.data)
   .catch((error: AxiosError) => {throw error})
 }
+
+export const reactPost = async ({ postId }: { postId: string }) => {
+  return await window.axios.post(`${window.apiUrl}/post/${postId}/react`, {}, {
+    headers: {
+      Authorization: `Bearer ${cookie('token')}`
+    }
+  })
+  .then((response: AxiosResponse) => response.data)
+  .catch((error: AxiosError) => {throw error})
+}
