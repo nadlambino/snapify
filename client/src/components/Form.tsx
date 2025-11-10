@@ -2,11 +2,8 @@ import { useState, useEffect, Ref, forwardRef, ReactElement, ReactNode } from 'r
 import { Button, Dialog, AppBar, Toolbar, Slide, Typography, IconButton, Grid, useTheme } from '@mui/material'
 import CloseIcon from '@mui/icons-material/Close'
 import { TransitionProps } from '@mui/material/transitions'
-import { isAuthenticated } from '../utils/auth'
-import { useNavigate } from 'react-router-dom'
-import { useCookies } from 'react-cookie'
-import FCWithProps from '../types/FCWithProps'
 import useMediaQuery from '@mui/material/useMediaQuery';
+import { FormComponent } from '../types';
 
 const Transition = forwardRef(function Transition(
   props: TransitionProps & {
@@ -20,36 +17,30 @@ const Transition = forwardRef(function Transition(
 interface FormProps {
   title?: String,
   save?: String,
+  saveIcon?: ReactElement,
   show: boolean,
   closeCallback?: Function,
   children?: ReactNode,
-  component: React.FC<FCWithProps>
+  component: React.FC<FormComponent>
 }
 
 export default function Form(props: FormProps) {
-  const { title, show, closeCallback, save } = props
+  const { title, show, closeCallback, save, saveIcon } = props
   const Component = props.component
   const [open, setOpen] = useState(show)
   const [saving, setSaving] = useState(false)
-  const navigate = useNavigate()
-  const [cookies] = useCookies()
-  const isAuth = isAuthenticated()
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'));
 
   useEffect(() => {
-    if (!isAuth) {
-      return navigate('/auth')
-    }
-
-    if (show) {    
+    if (show) { 
       handleClickOpen()
     }
 
     return () => {
       setSaving(false)
     }
-  }, [show, cookies])
+  }, [show])
 
   const handleClickOpen = () => {
     setOpen(true)
@@ -61,14 +52,6 @@ export default function Form(props: FormProps) {
       closeCallback()
     }
   };
-
-  const handleCloseCallback = () => {
-    if (typeof closeCallback === 'function') {
-      return closeCallback
-    }
-
-    return () => {}
-  }
 
   const handleClickSave = () => {
     setSaving(true)
@@ -100,8 +83,9 @@ export default function Form(props: FormProps) {
               <Typography sx={{ ml: 2, flex: 1, fontSize: 16 }} variant="h6" component="div">
                 {title && title}
               </Typography>
-              <Button autoFocus color="inherit" onClick={handleClickSave}>
+              <Button autoFocus color="inherit" onClick={handleClickSave} className='flex gap-2 !p-0'>
                 {save || 'SAVE'}
+                {saveIcon}
               </Button>
             </Toolbar>
           </Grid>

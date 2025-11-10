@@ -1,12 +1,12 @@
 import Post from "./Post"
 import { getPosts } from "../../api/post"
 import { useState, useEffect } from 'react'
-import { PostType } from './../../types/PostType'
+import { PostType } from '../../types'
 import { useSelector, useDispatch } from "react-redux";
 import { setReloadPosts } from "../../store/modules/post";
 
 export default function Feed() {
-  const [posts, setPosts] = useState<[PostType]>()
+  const [posts, setPosts] = useState<PostType[]>()
   const reloadPost = useSelector((state: any) => (state.post.reloadPosts))
   const dispatch = useDispatch()
 
